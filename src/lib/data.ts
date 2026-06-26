@@ -36,6 +36,14 @@ export type Testimonial = {
 
 export const categories: Category[] = [
   {
+    slug: "medicina-estetica",
+    name: "Medicina estética inyectable",
+    shortName: "Medicina estética",
+    description:
+      "Toxina botulínica, bioestimuladores y rellenos de ácido hialurónico de Merz Aesthetics: Xeomin, Radiesse y Belotero.",
+    icon: "drop",
+  },
+  {
     slug: "aparatologia",
     name: "Aparatología estética",
     shortName: "Aparatología",
@@ -70,6 +78,7 @@ export const categories: Category[] = [
 ];
 
 export const brands: Brand[] = [
+  { name: "Merz Aesthetics", origin: "Alemania" },
   { name: "Dermalux", origin: "España" },
   { name: "AestheticPro", origin: "Estados Unidos" },
   { name: "SkinLab", origin: "Corea" },
@@ -81,6 +90,69 @@ export const brands: Brand[] = [
 ];
 
 export const products: Product[] = [
+  {
+    slug: "xeomin",
+    name: "Xeomin (Toxina Botulínica Tipo A)",
+    sku: "MZ-XEO-100",
+    category: "medicina-estetica",
+    brand: "Merz Aesthetics",
+    shortDescription:
+      "Toxina botulínica purificada (incobotulinumtoxinA) para suavizar líneas de expresión.",
+    description:
+      "Xeomin es una toxina botulínica tipo A de Merz Aesthetics, purificada y libre de proteínas complejantes (incobotulinumtoxinA). Relaja de forma controlada la musculatura responsable de las líneas dinámicas de la frente, el entrecejo y las patas de gallo, logrando un resultado natural y predecible. Presentación de 100 U para uso médico profesional.",
+    features: [
+      "Fórmula libre de proteínas complejantes",
+      "Resultados naturales en líneas de expresión",
+      "Presentación de 100 unidades",
+      "Producto original Merz Aesthetics",
+    ],
+    priceLps: 7900,
+    priceUsd: 318,
+    badge: "Más vendido",
+    tone: "plum",
+  },
+  {
+    slug: "radiesse",
+    name: "Radiesse (Bioestimulador de Colágeno)",
+    sku: "MZ-RAD-15",
+    category: "medicina-estetica",
+    brand: "Merz Aesthetics",
+    shortDescription:
+      "Hidroxiapatita cálcica que restaura volumen y estimula colágeno propio.",
+    description:
+      "Radiesse es un inyectable de hidroxiapatita cálcica (CaHA) que actúa en dos fases: aporta volumen inmediato y estimula la producción natural de colágeno y elastina para resultados progresivos y duraderos. Ideal para contorno mandibular, pómulos, manos y mejora de la calidad de la piel. Jeringa de 1.5 ml.",
+    features: [
+      "Doble acción: volumen inmediato + colágeno",
+      "Resultados de larga duración",
+      "Ideal para contorno y pómulos",
+      "Jeringa de 1.5 ml",
+    ],
+    priceLps: 9500,
+    priceUsd: 382,
+    badge: "Destacado",
+    tone: "gold",
+  },
+  {
+    slug: "belotero",
+    name: "Belotero (Relleno de Ácido Hialurónico)",
+    sku: "MZ-BEL-1",
+    category: "medicina-estetica",
+    brand: "Merz Aesthetics",
+    shortDescription:
+      "Ácido hialurónico de integración natural para labios, surcos e hidratación.",
+    description:
+      "Belotero es una gama de rellenos de ácido hialurónico con tecnología de integración uniforme que se adapta de forma natural a los tejidos. Perfecto para definir y dar volumen a labios, corregir surcos nasogenianos y líneas finas, e hidratar en profundidad con un acabado suave y sin irregularidades. Jeringa de 1 ml.",
+    features: [
+      "Integración natural en el tejido",
+      "Para labios, surcos y líneas finas",
+      "Acabado suave y uniforme",
+      "Jeringa de 1 ml",
+    ],
+    priceLps: 6800,
+    priceUsd: 274,
+    badge: "Nuevo",
+    tone: "blush",
+  },
   {
     slug: "equipo-radiofrecuencia-multipolar",
     name: "Equipo de Radiofrecuencia Multipolar Pro",
@@ -263,6 +335,44 @@ export const products: Product[] = [
     priceLps: 1750,
     priceUsd: 70,
     tone: "blush",
+  },
+];
+
+export type Injectable = {
+  slug: string;
+  product: string;
+  zone: string;
+  label: string;
+  // Posición de la caja sobre el retrato, en porcentaje
+  x: number;
+  y: number;
+};
+
+// Zonas de tratamiento que se resaltan sobre el rostro del hero.
+export const injectables: Injectable[] = [
+  {
+    slug: "xeomin",
+    product: "Xeomin",
+    zone: "Frente y entrecejo",
+    label: "Líneas de expresión",
+    x: 60,
+    y: 22,
+  },
+  {
+    slug: "radiesse",
+    product: "Radiesse",
+    zone: "Pómulos y contorno",
+    label: "Volumen y colágeno",
+    x: 47,
+    y: 45,
+  },
+  {
+    slug: "belotero",
+    product: "Belotero",
+    zone: "Labios y surcos",
+    label: "Hidratación y relleno",
+    x: 57,
+    y: 62,
   },
 ];
 
