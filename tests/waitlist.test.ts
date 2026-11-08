@@ -4,6 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { DatabaseSync } from "node:sqlite";
+import { resolveWaitlistBackend } from "../src/lib/waitlist-backend.ts";
 import { saveWaitlistEntry } from "../src/lib/waitlist-store.ts";
 import { resetWaitlistRateLimit, submitWaitlist } from "../src/lib/waitlist-request.ts";
 import { validateWaitlist } from "../src/lib/waitlist-validation.ts";
@@ -67,18 +68,19 @@ test("sin ruta de almacén no guarda y lo dice", async () => {
   assert.equal(saved.ok, false);
   if (!saved.ok) {
     assert.equal(saved.code, "not_configured");
-    assert.match(saved.setup, /WAITLIST_SQLITE_PATH/);
+    assert.match(saved.message, /No pudimos anotarte/);
     assert.doesNotMatch(saved.message, /localStorage/i);
-    assert.doesNotMatch(saved.message, /Postgres|Vercel/);
+    assert.doesNotMatch(saved.message, /Postgres|Vercel|sqlite/i);
   }
 });
 
 test("con SQLite local persiste y no duplica el correo", async () => {
   const file = path.join(os.tmpdir(), `dermica-waitlist-${process.pid}-${Date.now()}.sqlite`);
   try {
-    const created = await saveWaitlistEntry(entry("primera@example.com"), file);
+    const sqlite = { kind: "sqlite" as const, path: file };
+    const created = await saveWaitlistEntry(entry("primera@example.com"), sqlite);
     assert.deepEqual(created, { ok: true, status: "created" });
-    const duplicate = await saveWaitlistEntry(entry("primera@example.com"), file);
+    const duplicate = await saveWaitlistEntry(entry("primera@example.com"), sqlite);
     assert.deepEqual(duplicate, { ok: true, status: "duplicate" });
 
     const database = new DatabaseSync(file);
@@ -107,8 +109,8 @@ test("el envío sin almacén responde 503 y no afirma éxito", async () => {
     assert.equal(result.body.ok, false);
     assert.equal(result.body.code, "not_configured");
     assert.match(String(result.body.message), /No pudimos anotarte/);
-    assert.doesNotMatch(String(result.body.message), /WAITLIST_SQLITE_PATH|Postgres|Vercel/);
-    assert.match(String(result.body.setup), /WAITLIST_SQLITE_PATH/);
+    assert.equal("setup" in result.body, false);
+    assert.doesNotMatch(JSON.stringify(result.body), /WAITLIST_SQLITE_PATH|Postgres|Vercel|DATABASE_URL/);
   } finally {
     if (previous === undefined) delete process.env.WAITLIST_SQLITE_PATH;
     else process.env.WAITLIST_SQLITE_PATH = previous;
@@ -147,6 +149,44 @@ test("el envío configurado crea, evita el duplicado y rechaza prisa o casilla v
     else process.env.WAITLIST_SQLITE_PATH = previous;
     fs.rmSync(file, { force: true });
   }
+});
+
+test("en Vercel no usa SQLite aunque haya una ruta, y una URL inválida no se filtra", async () => {
+  const file = path.join(os.tmpdir(), `dermica-no-vercel-${process.pid}.sqlite`);
+  const hosted = resolveWaitlistBackend({
+    databaseUrl: null,
+    sqlitePath: file,
+    vercel: "1",
+    vercelEnv: "preview",
+  });
+  assert.equal(hosted.kind, "unavailable");
+  const ignored = await saveWaitlistEntry(entry("vercel@example.com"), hosted);
+  assert.equal(ignored.ok, false);
+  assert.equal(fs.existsSync(file), false);
+
+  const secret = "secret-token-should-not-leak";
+  const invalid = resolveWaitlistBackend({
+    databaseUrl: `https://user:${secret}@db.example.test/hidden`,
+    sqlitePath: file,
+    vercel: null,
+    vercelEnv: null,
+  });
+  assert.equal(invalid.kind, "unavailable");
+  const rejected = await saveWaitlistEntry(entry("bad-url@example.com"), invalid);
+  assert.equal(rejected.ok, false);
+  if (!rejected.ok) assert.doesNotMatch(rejected.message, new RegExp(secret));
+  assert.equal(fs.existsSync(file), false);
+
+  const postgresWins = resolveWaitlistBackend({
+    databaseUrl: "postgresql://localhost/dermica",
+    sqlitePath: file,
+    vercel: "1",
+    vercelEnv: null,
+  });
+  assert.deepEqual(postgresWins, {
+    kind: "postgres",
+    connectionString: "postgresql://localhost/dermica",
+  });
 });
 
 test("limita intentos repetidos desde la misma dirección", async () => {

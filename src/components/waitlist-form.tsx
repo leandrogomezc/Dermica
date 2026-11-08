@@ -10,7 +10,6 @@ import {
 type StoreStatus = {
   configured: boolean;
   storageNote: string;
-  setup: string | null;
 };
 
 type FieldErrors = Partial<Record<WaitlistField, string>>;
@@ -59,8 +58,7 @@ export function WaitlistForm() {
         setStore({
           configured: false,
           storageNote:
-            "No pudimos confirmar si el almacén está activo. Si envías el formulario y no ves una confirmación de guardado, asume que no quedó registrado.",
-          setup: null,
+            "No pudimos confirmar si la lista puede guardar registros. Si envías el formulario y no ves una confirmación, el correo no quedó anotado.",
         });
       });
     return () => controller.abort();

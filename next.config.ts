@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  serverExternalPackages: ["node:sqlite"],
+  serverExternalPackages: ["pg", "node:sqlite"],
+  outputFileTracingIncludes: {
+    "/api/lista-espera": ["./db/migrations/001_dermica_waitlist.sql"],
+  },
   async redirects() {
     return [
       { source: "/envios", destination: "/apertura", permanent: false },

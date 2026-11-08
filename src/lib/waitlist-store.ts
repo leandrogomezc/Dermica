@@ -1,29 +1,29 @@
 import fs from "node:fs";
 import path from "node:path";
+import { resolveWaitlistBackend, type WaitlistBackend } from "./waitlist-backend";
+import { saveWaitlistToPostgres, WAITLIST_CONSENT_VERSION, WAITLIST_STORE_ERROR } from "./waitlist-postgres";
 import type { NormalizedWaitlist } from "./waitlist-validation";
 
 export const WAITLIST_PUBLIC_UNAVAILABLE =
   "No pudimos anotarte. Esta página todavía no tiene dónde guardar la lista, así que tu correo no quedó registrado. Cuando la lista esté activa, el mismo formulario lo va a decir antes de que envíes.";
 
-export const WAITLIST_SETUP_MESSAGE =
-  "Falta configurar un almacén durable. Define la variable de entorno WAITLIST_SQLITE_PATH con la ruta absoluta de un archivo SQLite en un disco que sí persista. No uses /tmp en un hosting de disco efímero: el registro se perdería. Este repositorio no tiene Postgres, Neon, Supabase, Blob ni variables en el proyecto de Vercel, y esta tarea no crea ninguno. Sin esa variable el formulario responde error y no guarda los datos, tampoco en el navegador.";
+const SQLITE_NOTE =
+  "En este entorno el registro se guarda en un archivo SQLite del servidor. No se guarda en tu navegador y no genera un correo ni un WhatsApp automático.";
 
-const CONSENT_VERSION = "apertura-nicaragua-v1";
+const POSTGRES_NOTE =
+  "El registro se guarda en la base de datos de este sitio. No se guarda en tu navegador y no genera un correo ni un WhatsApp automático.";
+
+const UNAVAILABLE_NOTE =
+  "Esta página todavía no puede guardar la lista. Si envías el formulario, tu correo no queda registrado.";
 
 export type WaitlistStoreInfo = {
   configured: boolean;
   storageNote: string;
-  setup: string | null;
 };
 
 export type WaitlistSaveResult =
   | { ok: true; status: "created" | "duplicate" }
-  | {
-      ok: false;
-      code: "not_configured" | "store_error";
-      message: string;
-      setup: string;
-    };
+  | { ok: false; code: "not_configured" | "store_error"; message: string };
 
 type SqliteDatabase = {
   exec(sql: string): void;
@@ -33,61 +33,30 @@ type SqliteDatabase = {
   close(): void;
 };
 
-export function readSqlitePathFromEnv(): string | undefined {
-  const value = process.env["WAITLIST_SQLITE_PATH"];
-  const trimmed = value?.trim();
-  return trimmed ? trimmed : undefined;
-}
-
-export function describeWaitlistStore(sqlitePath = readSqlitePathFromEnv()): WaitlistStoreInfo {
-  if (!sqlitePath) {
-    return {
-      configured: false,
-      storageNote:
-        "Esta página todavía no puede guardar la lista. Si envías el formulario, tu correo no queda registrado.",
-      setup: WAITLIST_SETUP_MESSAGE,
-    };
-  }
-
-  if (sqlitePath.includes("://")) {
-    return {
-      configured: false,
-      storageNote:
-        "La variable de almacén no apunta a un archivo. No guardaremos el formulario.",
-      setup:
-        "WAITLIST_SQLITE_PATH debe ser una ruta de archivo SQLite, no una URL. Este proyecto no incluye un cliente de base de datos.",
-    };
-  }
-
-  return {
-    configured: true,
-    storageNote:
-      "En este entorno el registro se guarda en un archivo SQLite del servidor. No se guarda en tu navegador y no genera un correo ni un WhatsApp automático.",
-    setup: null,
-  };
+export function describeWaitlistStore(backend: WaitlistBackend = resolveWaitlistBackend()): WaitlistStoreInfo {
+  if (backend.kind === "postgres") return { configured: true, storageNote: POSTGRES_NOTE };
+  if (backend.kind === "sqlite") return { configured: true, storageNote: SQLITE_NOTE };
+  return { configured: false, storageNote: UNAVAILABLE_NOTE };
 }
 
 export async function saveWaitlistEntry(
   entry: NormalizedWaitlist,
-  sqlitePath?: string | null,
+  backend?: WaitlistBackend | null,
 ): Promise<WaitlistSaveResult> {
-  const resolved =
-    sqlitePath === undefined ? readSqlitePathFromEnv() : sqlitePath?.trim() || undefined;
-  const info = describeWaitlistStore(resolved);
-  if (!info.configured || !resolved) {
-    return {
-      ok: false,
-      code: "not_configured",
-      message: WAITLIST_PUBLIC_UNAVAILABLE,
-      setup: info.setup ?? WAITLIST_SETUP_MESSAGE,
-    };
+  const resolved = backend === undefined ? resolveWaitlistBackend() : backend;
+  if (resolved === null || resolved.kind === "unavailable") {
+    return { ok: false, code: "not_configured", message: WAITLIST_PUBLIC_UNAVAILABLE };
   }
+  if (resolved.kind === "sqlite") return saveSqlite(entry, resolved.path);
+  return saveWaitlistToPostgres(entry, resolved.connectionString);
+}
 
+async function saveSqlite(entry: NormalizedWaitlist, sqlitePath: string): Promise<WaitlistSaveResult> {
   let database: SqliteDatabase | undefined;
   try {
-    fs.mkdirSync(path.dirname(resolved), { recursive: true });
+    fs.mkdirSync(path.dirname(sqlitePath), { recursive: true });
     const { DatabaseSync } = await import("node:sqlite");
-    database = new DatabaseSync(resolved);
+    database = new DatabaseSync(sqlitePath);
     database.exec(`
       CREATE TABLE IF NOT EXISTS waitlist (
         email TEXT PRIMARY KEY,
@@ -108,27 +77,16 @@ export async function saveWaitlistEntry(
       entry.specialty,
       entry.city,
       entry.phone,
-      CONSENT_VERSION,
+      WAITLIST_CONSENT_VERSION,
       new Date().toISOString(),
     );
     return { ok: true, status: "created" };
   } catch (error) {
-    if (isUniqueConstraint(error)) {
+    if (error instanceof Error && /UNIQUE/i.test(error.message)) {
       return { ok: true, status: "duplicate" };
     }
-    return {
-      ok: false,
-      code: "store_error",
-      message:
-        "No guardamos tu registro. El almacén configurado no pudo escribir el dato y no lo conservamos en el navegador.",
-      setup:
-        "Revisa que WAITLIST_SQLITE_PATH sea un archivo escribible en un disco persistente. No se muestra la ruta ni el detalle interno.",
-    };
+    return { ok: false, code: "store_error", message: WAITLIST_STORE_ERROR };
   } finally {
     database?.close();
   }
-}
-
-function isUniqueConstraint(error: unknown): boolean {
-  return error instanceof Error && /UNIQUE/i.test(error.message);
 }

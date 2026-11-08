@@ -106,7 +106,6 @@ export async function submitWaitlist(
         ok: false,
         code: saved.code,
         message: saved.message,
-        setup: saved.setup,
       },
     };
   }
