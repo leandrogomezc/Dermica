@@ -92,7 +92,7 @@ export async function submitWaitlist(
       body: {
         ok: false,
         code: "validation",
-        message: "Revisa los campos marcados. No guardamos el registro.",
+        message: "Revisá los campos marcados. No guardamos el registro.",
         fieldErrors: validated.fieldErrors,
       },
     };
@@ -128,7 +128,7 @@ export async function submitWaitlist(
       ok: true,
       code: "created",
       message:
-        "Guardamos tu registro para avisarte de la apertura en Nicaragua. Esta lista no envía otros correos ni WhatsApp.",
+        "Listo, ya estás en la lista. Cuando abramos en Nicaragua te escribimos al correo que nos dejaste.",
     },
   };
 }

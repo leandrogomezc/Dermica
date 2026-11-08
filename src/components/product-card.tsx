@@ -42,7 +42,7 @@ export function OfferingCard({ category }: { category: Category }) {
           className="aspect-[4/3] w-full"
         />
         <span className="absolute left-3 top-3 rounded-full bg-cream px-3 py-1 text-xs font-semibold text-plum shadow-sm">
-          Próximamente
+          En preparación
         </span>
       </Link>
 

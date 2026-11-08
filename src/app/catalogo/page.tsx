@@ -4,12 +4,12 @@ import { Container, ButtonLink } from "@/components/ui";
 import { OfferingCard } from "@/components/product-card";
 import { CatalogFilters } from "@/components/catalog-filters";
 import { categories, getCategory } from "@/lib/data";
-import { prelaunchNote, waitlistHref } from "@/lib/site";
+import { waitlistHref } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Categorías previstas para profesionales médicos",
+  title: "Categorías para profesionales médicos",
   description:
-    "Categorías que Dérmica prevé ofrecer en Nicaragua: rellenos dérmicos de ácido hialurónico, revitalización inyectable y dermocosmética profesional.",
+    "Tres categorías que estamos preparando para la práctica médica en Nicaragua: rellenos de ácido hialurónico, polirrevitalización inyectable y dermocosmética profesional.",
 };
 
 type SearchParams = Promise<{
@@ -50,14 +50,13 @@ export default async function CatalogPage({
             Categorías
           </p>
           <h1 className="font-display mt-3 text-3xl font-medium text-plum sm:text-4xl">
-            {activeCategory ? activeCategory.name : "Categorías que prevemos ofrecer"}
+            {activeCategory ? activeCategory.name : "Categorías para profesionales médicos"}
           </h1>
           <p className="mt-3 max-w-2xl text-muted">
             {activeCategory
               ? activeCategory.description
-              : "Tres categorías para profesionales médicos, en castellano llano."}
+              : "Tres categorías que estamos preparando para la práctica médica en Nicaragua."}
           </p>
-          <p className="mt-3 text-sm text-ink">{prelaunchNote}</p>
         </Container>
       </section>
 
@@ -83,13 +82,13 @@ export default async function CatalogPage({
             ) : (
               <div className="rounded-2xl border border-dashed border-line bg-white p-12 text-center">
                 <h2 className="font-display text-xl text-plum">
-                  No hay una categoría con ese texto
+                  No encontramos una categoría con ese texto
                 </h2>
                 <p className="mt-2 text-sm text-muted">
-                  Si quieres saber cuándo abramos, puedes dejar tu correo en la lista de espera.
+                  Si querés enterarte cuando abramos, dejanos tu correo.
                 </p>
                 <div className="mt-6 flex justify-center">
-                  <ButtonLink href={waitlistHref}>Enterarme de la apertura</ButtonLink>
+                  <ButtonLink href={waitlistHref}>Avisame cuando abran</ButtonLink>
                 </div>
               </div>
             )}

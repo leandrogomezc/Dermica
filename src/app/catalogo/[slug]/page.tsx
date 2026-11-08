@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Container, ButtonLink } from "@/components/ui";
 import { ProductPlaceholder } from "@/components/product-card";
 import { categories, getCategory } from "@/lib/data";
-import { prelaunchNote, waitlistHref } from "@/lib/site";
+import { waitlistHref } from "@/lib/site";
 import { CheckIcon, ArrowRightIcon } from "@/components/icons";
 
 type Params = Promise<{ slug: string }>;
@@ -60,7 +60,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
 
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-              Categoría prevista · Nicaragua
+              En preparación · Nicaragua
             </p>
             <h1 className="font-display mt-3 text-3xl font-medium leading-tight text-plum sm:text-4xl">
               {category.name}
@@ -68,7 +68,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
             <p className="mt-5 text-base leading-relaxed text-ink">{category.detail}</p>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href={waitlistHref}>Unirme a la lista de espera</ButtonLink>
+              <ButtonLink href={waitlistHref}>Avisame cuando abran</ButtonLink>
               <ButtonLink href="/catalogo" variant="outline">
                 Volver a categorías
               </ButtonLink>
@@ -82,7 +82,6 @@ export default async function CategoryPage({ params }: { params: Params }) {
                 </li>
               ))}
             </ul>
-            <p className="mt-4 text-sm text-ink">{prelaunchNote}</p>
           </div>
         </div>
       </Container>

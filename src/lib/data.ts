@@ -15,13 +15,13 @@ export const categories: Category[] = [
     name: "Rellenos dérmicos de ácido hialurónico",
     shortName: "Ácido hialurónico",
     description:
-      "Geles de ácido hialurónico para el profesional médico que ya trabaja este procedimiento en su consulta.",
+      "Geles de ácido hialurónico de uso profesional para médicos que ya trabajan este procedimiento.",
     detail:
-      "Esta categoría reúne rellenos dérmicos de ácido hialurónico de uso profesional. La pensamos para médicos que ya realizan este tipo de procedimientos en su consulta. La aplicación sigue en esa consulta.",
+      "Estamos preparando esta categoría para médicos que realizan rellenos con ácido hialurónico en su consulta. El criterio de indicación y aplicación es siempre del profesional.",
     points: [
-      "Geles de ácido hialurónico para uso del profesional médico.",
-      "Pensados para quien ya realiza estos procedimientos.",
-      "La aplicación queda en la consulta de quien trata a su paciente.",
+      "Uso profesional en consulta médica.",
+      "Para quienes ya realizan este procedimiento.",
+      "Indicación y técnica a cargo del médico.",
     ],
     icon: "drop",
     tone: "plum",
@@ -31,13 +31,13 @@ export const categories: Category[] = [
     name: "Revitalización inyectable",
     shortName: "Polirrevitalización",
     description:
-      "Soluciones inyectables de polirrevitalización para protocolos de calidad de la piel, a cargo del médico.",
+      "Soluciones inyectables para protocolos de calidad de la piel definidos por el médico.",
     detail:
-      "La revitalización inyectable, también descrita como polirrevitalización, está orientada a la calidad de la piel. El criterio de fórmula, zona y paciente corresponde a quien ejerce. Dérmica prepara la categoría para esa consulta.",
+      "También llamada polirrevitalización, esta categoría se orienta a la calidad de la piel. La fórmula, la zona y el paciente los decide quien ejerce; nosotros preparamos la categoría para esa consulta.",
     points: [
       "Soluciones inyectables de polirrevitalización.",
-      "Orientadas a la calidad de la piel en la consulta médica.",
-      "El protocolo lo define el profesional que atiende.",
+      "Orientadas a la calidad de la piel.",
+      "Protocolo definido por el profesional.",
     ],
     icon: "sparkle",
     tone: "blush",
@@ -47,13 +47,13 @@ export const categories: Category[] = [
     name: "Dermocosmética profesional",
     shortName: "Cuidado de la piel",
     description:
-      "Cuidado profesional de la piel para la consulta, como apoyo antes y después de un procedimiento.",
+      "Dermocosmética de uso profesional para acompañar la práctica médica.",
     detail:
-      "La dermocosmética profesional es cuidado de la piel de uso en consulta. Acompaña el trabajo del médico antes y después de un procedimiento, y la valoración sigue siendo de quien atiende.",
+      "Estamos preparando dermocosmética de uso profesional para acompañar la consulta. Complementa los protocolos del médico, y la recomendación queda a su criterio.",
     points: [
-      "Cuidado de la piel para usar en la consulta.",
-      "Pensado como apoyo antes y después de un procedimiento.",
-      "La valoración sigue en manos del profesional que atiende.",
+      "Línea de uso profesional.",
+      "Para complementar los protocolos de consulta.",
+      "Recomendación a criterio del médico.",
     ],
     icon: "leaf",
     tone: "gold",

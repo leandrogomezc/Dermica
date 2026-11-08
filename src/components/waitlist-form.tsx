@@ -81,7 +81,7 @@ export function WaitlistForm() {
     if (!validated.ok) {
       setErrors(validated.fieldErrors);
       setStatus("error");
-      setMessage("Revisa los campos marcados. Todavía no enviamos el formulario.");
+      setMessage("Revisá los campos marcados. Todavía no enviamos el formulario.");
       focusField(validated.fieldErrors);
       return;
     }
@@ -183,7 +183,7 @@ export function WaitlistForm() {
         label="Nombre"
         required
         error={errors.name}
-        hint="Nombre y apellido, como quieres que te identifiquemos."
+        hint="Nombre y apellido, como querés que te identifiquemos."
       >
         <input
           id="waitlist-nombre"
@@ -204,7 +204,7 @@ export function WaitlistForm() {
         label="Correo"
         required
         error={errors.email}
-        hint="Ahí enviaremos, más adelante y de forma manual, el aviso de apertura."
+        hint="Ahí te vamos a escribir para avisarte de la apertura."
       >
         <input
           id="waitlist-email"
@@ -226,7 +226,7 @@ export function WaitlistForm() {
           id="waitlist-especialidad"
           label="Especialidad"
           error={errors.specialty}
-          hint="Opcional. Por ejemplo, dermatología. No escribas datos de pacientes."
+          hint="Opcional. Por ejemplo, dermatología. No escribás datos de pacientes."
         >
           <input
             id="waitlist-especialidad"
@@ -243,7 +243,7 @@ export function WaitlistForm() {
           id="waitlist-ciudad"
           label="Ciudad"
           error={errors.city}
-          hint="Opcional. La ciudad de Nicaragua donde ejerces."
+          hint="Opcional. La ciudad de Nicaragua donde ejercés."
         >
           <input
             id="waitlist-ciudad"
@@ -262,7 +262,7 @@ export function WaitlistForm() {
         id="waitlist-telefono"
         label="Teléfono"
         error={errors.phone}
-        hint="Opcional. Solo para el aviso de apertura, no para mensajes automáticos."
+        hint="Opcional. Solo para el aviso de apertura."
       >
         <input
           id="waitlist-telefono"
@@ -312,7 +312,7 @@ export function WaitlistForm() {
       </div>
 
       <p id="waitlist-privacy" className="text-xs leading-relaxed text-muted">
-        Guardamos el nombre, el correo y, si los escribes, la especialidad, la ciudad y el
+        Guardamos el nombre, el correo y, si los escribís, la especialidad, la ciudad y el
         teléfono, junto con la fecha y esta aceptación. No pedimos datos de pacientes ni
         documentos profesionales. El dato permanece hasta el aviso de apertura. Hoy no
         publicamos teléfono ni dirección: cuando exista un canal de contacto, el aviso dirá
@@ -324,7 +324,7 @@ export function WaitlistForm() {
         disabled={status === "loading"}
         className="inline-flex w-full items-center justify-center rounded-full bg-plum px-6 py-3.5 text-sm font-semibold text-cream transition-colors hover:bg-plum-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-plum/30 disabled:cursor-wait disabled:opacity-70 sm:w-auto"
       >
-        {status === "loading" ? "Guardando…" : "Unirme a la lista de espera"}
+        {status === "loading" ? "Guardando…" : "Avisame cuando abran"}
       </button>
     </form>
   );

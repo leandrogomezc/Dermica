@@ -1,25 +1,23 @@
 import type { Metadata } from "next";
 import { Container, SectionHeading, Eyebrow, ButtonLink } from "@/components/ui";
-import { CheckIcon, CloseIcon } from "@/components/icons";
+import { CheckIcon } from "@/components/icons";
 import { waitlistHref } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Apertura en Nicaragua",
   description:
-    "Dérmica aún no tiene fecha de apertura ni cobertura de envíos en Nicaragua. Puedes dejar tu correo para enterarte cuando haya novedades.",
+    "Estamos preparando la apertura. Dejanos tu correo y te avisamos cuando abramos.",
 };
 
-const yes = [
-  "Puedes dejar nombre y correo para un aviso de apertura.",
-  "Puedes leer las tres categorías que prevemos ofrecer.",
-  "Puedes decidir no escribirnos: la casilla de aceptación viene desmarcada.",
+const today = [
+  "Conocer las tres categorías que estamos preparando.",
+  "Dejarnos tu nombre y correo para recibir el aviso de apertura.",
 ];
 
-const no = [
-  "No hay una fecha de apertura confirmada.",
-  "No despachamos pedidos ni prometemos llegar a todo el país.",
-  "No publicamos sedes, teléfonos ni horarios de atención.",
-  "No agendamos pacientes ni realizamos tratamientos.",
+const pending = [
+  "La fecha de apertura y la cobertura de envíos.",
+  "Precios, sedes y canales de atención.",
+  "Dérmica no es una clínica: no agendamos pacientes ni realizamos tratamientos.",
 ];
 
 export default function OpeningPage() {
@@ -31,11 +29,11 @@ export default function OpeningPage() {
           <div className="max-w-3xl">
             <Eyebrow>Apertura</Eyebrow>
             <h1 className="font-display mt-4 text-4xl font-medium leading-tight text-plum sm:text-5xl">
-              Próximamente en Nicaragua
+              Estamos preparando la apertura en Nicaragua
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-muted">
-              Estamos preparando la llegada. Hasta que abramos, esta página no
-              toma pedidos, no calcula envíos y no confirma cobertura.
+              Mientras preparamos la apertura, este sitio sirve para que nos conozcás
+              y nos dejés tu correo. No toma pedidos ni confirma envíos.
             </p>
           </div>
         </Container>
@@ -44,9 +42,9 @@ export default function OpeningPage() {
       <section className="py-20 sm:py-24">
         <Container className="grid gap-8 lg:grid-cols-2">
           <div className="rounded-3xl border border-line bg-white p-8">
-            <SectionHeading eyebrow="Sí" title="Lo que puedes hacer hoy" />
+            <SectionHeading eyebrow="Hoy" title="Lo que podés hacer hoy" />
             <ul className="mt-6 space-y-4">
-              {yes.map((item) => (
+              {today.map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm text-ink">
                   <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-gold" />
                   {item}
@@ -55,11 +53,11 @@ export default function OpeningPage() {
             </ul>
           </div>
           <div className="rounded-3xl bg-plum-900 p-8 text-cream">
-            <h2 className="font-display text-3xl font-medium">Lo que aún no hacemos</h2>
+            <h2 className="font-display text-3xl font-medium">Lo que todavía no está definido</h2>
             <ul className="mt-6 space-y-4">
-              {no.map((item) => (
+              {pending.map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm text-cream/90">
-                  <CloseIcon className="mt-0.5 h-5 w-5 shrink-0 text-blush" />
+                  <CheckIcon className="mt-0.5 h-5 w-5 shrink-0 text-blush" />
                   {item}
                 </li>
               ))}
@@ -71,14 +69,13 @@ export default function OpeningPage() {
       <section className="pb-8 text-center">
         <Container>
           <h2 className="font-display text-2xl font-medium text-plum sm:text-3xl">
-            El siguiente paso es la lista, si quieres estar
+            ¿Querés que te avisemos?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-muted">
-            No implica una reserva de producto. Solo nos deja tu contacto para el
-            aviso de apertura.
+            Anotarte no reserva productos. Solo te escribimos cuando abramos.
           </p>
           <div className="mt-6 flex justify-center">
-            <ButtonLink href={waitlistHref}>Unirme a la lista de espera</ButtonLink>
+            <ButtonLink href={waitlistHref}>Avisame cuando abran</ButtonLink>
           </div>
         </Container>
       </section>

@@ -6,25 +6,31 @@ import { ShieldIcon, MailIcon, CheckIcon } from "@/components/icons";
 export const metadata: Metadata = {
   title: "Quiénes somos",
   description:
-    "Dérmica prepara su apertura en Nicaragua para ofrecer a profesionales médicos rellenos de ácido hialurónico, revitalización inyectable y dermocosmética profesional.",
+    "Dérmica prepara su apertura en Nicaragua para ofrecer a profesionales médicos rellenos de ácido hialurónico, polirrevitalización inyectable y dermocosmética profesional.",
 };
 
 const values = [
   {
     icon: ShieldIcon,
-    title: "Decir lo que todavía no es",
-    text: "No nos presentamos como distribuidores confirmados ni prometemos registros, exclusivas o resultados. Contamos la intención y el momento: la apertura está por delante.",
+    title: "Claridad primero",
+    text: "No hablamos de acuerdos, registros, exclusivas ni resultados que no estén confirmados.",
   },
   {
     icon: MailIcon,
-    title: "Un aviso, con permiso",
-    text: "Si dejas tu correo, es porque marcaste que quieres enterarte. No armamos otra lista ni escribimos por otro canal desde este sitio.",
+    title: "Tu correo, para un solo fin",
+    text: "Si nos dejás tu correo, lo usamos para avisarte cuando abramos. Nada más.",
   },
   {
     icon: CheckIcon,
     title: "Lenguaje de categoría",
-    text: "Hablamos de rellenos de ácido hialurónico, polirrevitalización inyectable y dermocosmética profesional. Sin nombres comerciales en esta página.",
+    text: "Hablamos de categorías de producto, sin nombres comerciales.",
   },
+];
+
+const facts = [
+  "Prelanzamiento en Nicaragua",
+  "Solo para profesionales médicos",
+  "Un aviso por correo, cuando abramos",
 ];
 
 export default function AboutPage() {
@@ -38,10 +44,9 @@ export default function AboutPage() {
               Preparamos Dérmica para los médicos de Nicaragua
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-muted">
-              Queremos llegar con categorías de producto para la práctica médica:
-              rellenos dérmicos de ácido hialurónico, revitalización inyectable y
-              dermocosmética profesional. Esa es la dirección. La operación todavía
-              no está abierta.
+              Queremos acercar a la práctica médica rellenos de ácido hialurónico,
+              polirrevitalización inyectable y dermocosmética profesional. Estamos en
+              prelanzamiento y preparando la apertura.
             </p>
           </div>
         </Container>
@@ -50,31 +55,19 @@ export default function AboutPage() {
       <section className="py-20 sm:py-24">
         <Container className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div className="space-y-5 text-base leading-relaxed text-ink">
-            <SectionHeading
-              eyebrow="En este momento"
-              title="Una presentación, no un historial de ventas"
-            />
+            <SectionHeading eyebrow="En este momento" title="Una presentación honesta" />
             <p>
-              No tenemos sedes publicadas, no despachamos pedidos y no atendemos
-              pacientes. Esta página existe para que un profesional médico sepa qué
-              categorías pensamos ofrecer y pueda pedir que le avisemos de la apertura.
+              Este sitio existe para que conozcás lo que preparamos y nos pidás el aviso
+              de apertura. Cuando tengamos fecha, condiciones y acuerdos definidos, los
+              vamos a comunicar con la misma claridad.
             </p>
             <p>
-              No afirmamos un acuerdo de distribución, una autorización sanitaria ni
-              una fecha. Cuando eso esté definido, lo diremos con el mismo cuidado
-              con el que hoy decimos que aún no lo está.
-            </p>
-            <p>
-              Si buscas un tratamiento, una cita o un precio, no podemos ayudarte
-              desde aquí. Dérmica no es una clínica.
+              Si buscás un tratamiento o una cita, Dérmica no es una clínica y no podemos
+              ayudarte desde aquí.
             </p>
           </div>
           <div className="grid gap-4">
-            {[
-              "Próximamente en Nicaragua",
-              "Solo para profesionales médicos",
-              "Sin venta abierta en este sitio",
-            ].map((item) => (
+            {facts.map((item) => (
               <div key={item} className="rounded-2xl border border-line bg-cream-200 p-7">
                 <p className="font-display text-2xl font-medium text-plum">{item}</p>
               </div>
@@ -85,11 +78,7 @@ export default function AboutPage() {
 
       <section className="border-y border-line bg-white py-20 sm:py-24">
         <Container>
-          <SectionHeading
-            eyebrow="Cómo hablamos"
-            title="Claridad antes que una promesa"
-            align="center"
-          />
+          <SectionHeading title="Cómo trabajamos" align="center" />
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {values.map((value) => (
               <div key={value.title} className="rounded-2xl border border-line bg-cream p-8">

@@ -14,14 +14,13 @@ export function CtaBanner() {
               id="cierre-lista"
               className="font-display text-3xl font-medium leading-tight text-cream sm:text-4xl"
             >
-              Si ejerces medicina, te avisamos cuando abramos
+              ¿Ejercés medicina estética? Te avisamos cuando abramos.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-cream/80">
-              La lista guarda tu nombre y tu correo para un solo aviso de apertura
-              en Nicaragua.
+              Dejanos tu nombre y correo: te escribimos una sola vez, cuando abramos en Nicaragua.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <ButtonLink href={waitlistHref}>Enterarme de la apertura</ButtonLink>
+              <ButtonLink href={waitlistHref}>Avisame cuando abran</ButtonLink>
               <ButtonLink
                 href="/catalogo"
                 variant="outline"

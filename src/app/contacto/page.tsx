@@ -4,8 +4,7 @@ import { WaitlistSection } from "@/components/waitlist-section";
 
 export const metadata: Metadata = {
   title: "Contacto",
-  description:
-    "Dérmica aún no publica teléfono ni dirección en Nicaragua. El contacto de este sitio es la lista de espera para el aviso de apertura.",
+  description: "Por ahora, el contacto con Dérmica es la lista de aviso de apertura.",
 };
 
 export default function ContactPage() {
@@ -20,7 +19,7 @@ export default function ContactPage() {
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-muted">
               No tenemos un teléfono, un correo público ni una dirección que mostrar.
-              Si quieres que te escribamos cuando abramos en Nicaragua, el formulario
+              Si querés que te escribamos cuando abramos en Nicaragua, el formulario
               de abajo es el canal. No abre un chat ni un pedido.
             </p>
           </div>

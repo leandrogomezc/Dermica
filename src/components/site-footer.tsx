@@ -10,7 +10,7 @@ export function SiteFooter() {
         <div>
           <span className="font-display text-2xl font-semibold text-cream">Dérmica</span>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-cream/70">
-            Preparamos nuestra llegada a Nicaragua para profesionales médicos.
+            Dérmica prepara insumos de medicina estética para profesionales médicos en Nicaragua. Estamos en prelanzamiento.
           </p>
         </div>
 
@@ -63,7 +63,7 @@ export function SiteFooter() {
             href={waitlistHref}
             className="mt-4 inline-flex text-sm font-semibold text-cream underline-offset-4 hover:underline"
           >
-            Unirme a la lista de espera
+            Avisame cuando abran
           </Link>
         </div>
       </Container>

@@ -1,9 +1,9 @@
 export const site = {
   name: "Dérmica",
   legalName: "Dérmica",
-  tagline: "Próximamente en Nicaragua para profesionales médicos",
+  tagline: "Insumos de medicina estética para médicos en Nicaragua",
   description:
-    "Dérmica prepara su apertura en Nicaragua. Prevemos ofrecer a profesionales médicos rellenos dérmicos de ácido hialurónico, revitalización inyectable y dermocosmética profesional. Aún no vendemos ni atendemos pacientes.",
+    "Dérmica prepara rellenos de ácido hialurónico, polirrevitalización inyectable y dermocosmética profesional para médicos en Nicaragua. Dejanos tu correo y te avisamos cuando abramos.",
   url: "https://dermica-tawny.vercel.app",
   country: "Nicaragua",
   locale: "es_NI",
@@ -28,5 +28,3 @@ export const nav = [
 ] as const;
 
 export const waitlistHref = "/#lista-espera";
-
-export const prelaunchNote = "Todavía no está a la venta.";

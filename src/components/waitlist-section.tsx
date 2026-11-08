@@ -12,12 +12,11 @@ export function WaitlistSection() {
               id="lista-titulo"
               className="font-display mt-3 text-3xl font-medium leading-tight text-plum sm:text-4xl"
             >
-              Enterarme de la apertura
+              Dejanos tu correo y te avisamos cuando abramos
             </h2>
             <p className="mt-4 text-base leading-relaxed text-muted">
-              Si eres profesional médico y quieres saber cuándo abramos en Nicaragua,
-              deja tu nombre y tu correo. La especialidad, la ciudad y el teléfono son
-              opcionales.
+              Si sos profesional médico y querés saber cuándo abrimos en Nicaragua,
+              completá estos datos.
             </p>
             <ul className="mt-6 space-y-3 text-sm leading-relaxed text-ink">
               <li>Un solo propósito: avisarte de la apertura.</li>

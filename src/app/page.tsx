@@ -10,18 +10,18 @@ import { ShieldIcon, MailIcon, UsersIcon } from "@/components/icons";
 const valueProps = [
   {
     icon: ShieldIcon,
-    title: "Para la consulta médica",
-    text: "Pensamos en profesionales que ya ejercen en su consulta.",
+    title: "Pensado para tu consulta",
+    text: "Trabajamos la propuesta para médicos que ya realizan procedimientos estéticos.",
   },
   {
     icon: UsersIcon,
-    title: "Tres categorías previstas",
-    text: "Rellenos de ácido hialurónico, revitalización inyectable y dermocosmética profesional.",
+    title: "Tres categorías",
+    text: "Rellenos de ácido hialurónico, polirrevitalización inyectable y dermocosmética profesional.",
   },
   {
     icon: MailIcon,
-    title: "Aviso, no un pedido",
-    text: "La lista de espera sirve para enterarte de la apertura.",
+    title: "Un aviso, cuando abramos",
+    text: "Te escribimos una sola vez al correo que nos dejés, cuando abramos en Nicaragua.",
   },
 ];
 
@@ -52,8 +52,8 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Categorías"
-            title="Lo que queremos poner a tu alcance"
-            description="Cada ficha explica la categoría en castellano llano."
+            title="Lo que estamos preparando para tu práctica"
+            description="Cada categoría explicada con claridad, sin nombres comerciales."
           />
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {categories.map((category) => (
@@ -66,14 +66,14 @@ export default function HomePage() {
       <section className="border-y border-line bg-white py-16">
         <Container className="max-w-3xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold">
-            Para quién es esta página
+            Para quién es Dérmica
           </p>
           <h2 className="font-display mt-3 text-3xl font-medium text-plum">
-            Médicos que quieran saber cuándo abramos
+            Para médicos que trabajan estética en su consulta
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted">
-            Dermatología, medicina estética y cirugía son el perfil que tenemos en mente.
-            El formulario pide nombre y correo, y deja el resto como opcional.
+            Dermatología, medicina estética y cirugía son los perfiles que tenemos en mente.
+            Para anotarte solo pedimos tu nombre y tu correo; el resto es opcional.
           </p>
         </Container>
       </section>

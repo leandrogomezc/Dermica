@@ -8,12 +8,21 @@ import { ArrowRightIcon } from "@/components/icons";
 import { focusPoints } from "@/lib/data";
 import { waitlistHref } from "@/lib/site";
 
-const headline = ["Próximamente", "en", "Nicaragua"];
+const headline = [
+  "Insumos",
+  "de",
+  "medicina",
+  "estética",
+  "para",
+  "médicos",
+  "de",
+  "Nicaragua",
+];
 
 const stats = [
-  { value: "NI", label: "Preparamos la llegada a Nicaragua" },
-  { value: "3", label: "Categorías previstas para médicos" },
-  { value: "Aviso", label: "Te escribimos cuando abramos" },
+  { value: "3", label: "Categorías para la práctica médica" },
+  { value: "Médicos", label: "Una propuesta pensada solo para profesionales" },
+  { value: "Correo", label: "Un aviso cuando abramos" },
 ];
 
 export function HeroScan() {
@@ -60,26 +69,29 @@ export function HeroScan() {
           </motion.div>
 
           <h1 className="font-display mt-5 text-4xl font-medium leading-[1.05] text-plum sm:text-5xl">
-            {headline.map((wordText) => (
-              <motion.span key={wordText} variants={word} className="mr-[0.25em] inline-block">
+            {headline.map((wordText, index) => (
+              <motion.span key={`${wordText}-${index}`} variants={word} className="mr-[0.25em] inline-block">
                 {wordText}
               </motion.span>
             ))}
           </h1>
 
           <motion.p variants={fade} className="mt-5 max-w-md text-base leading-relaxed text-muted">
-            Somos Dérmica. Preparamos una oferta para profesionales médicos: rellenos
-            dérmicos de ácido hialurónico, revitalización inyectable y dermocosmética
-            profesional. Todavía no vendemos ni atendemos pacientes.
+            En Dérmica estamos preparando, para tu consulta, rellenos de ácido
+            hialurónico, polirrevitalización inyectable y dermocosmética profesional.
+            Dejanos tu correo y te avisamos cuando abramos.
           </motion.p>
 
           <motion.div variants={fade} className="mt-7 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
-            <ButtonLink href={waitlistHref}>Unirme a la lista de espera</ButtonLink>
+            <ButtonLink href={waitlistHref}>Avisame cuando abran</ButtonLink>
             <ButtonLink href="/catalogo" variant="outline">
-              Ver categorías
+              Ver las categorías
               <ArrowRightIcon className="h-4 w-4" />
             </ButtonLink>
           </motion.div>
+          <motion.p variants={fade} className="mt-4 max-w-md text-sm text-muted">
+            Estamos en prelanzamiento: todavía no vendemos ni atendemos pacientes.
+          </motion.p>
         </motion.div>
 
         <div className="order-1 lg:order-2 lg:col-span-4">
@@ -121,7 +133,7 @@ function FaceScan({ reduce }: { reduce: boolean }) {
         <div className="relative h-full w-full overflow-hidden rounded-[2rem]">
           <Image
             src="/hero-rostro.png"
-            alt="Retrato ilustrativo. Dérmica no realiza tratamientos ni agenda citas."
+            alt="Retrato ilustrativo de piel. Dérmica no realiza tratamientos."
             fill
             priority
             sizes="(max-width: 1024px) 80vw, 28rem"
@@ -149,9 +161,7 @@ function FaceScan({ reduce }: { reduce: boolean }) {
           </li>
         ))}
       </ul>
-      <p className="mt-3 text-center text-xs text-muted">
-        Imagen ilustrativa de las categorías previstas, no de un tratamiento.
-      </p>
+      <p className="mt-3 text-center text-xs text-muted">Imagen ilustrativa.</p>
     </div>
   );
 }
@@ -200,9 +210,6 @@ function ScanBox({
 function TrustBadge() {
   return (
     <div className="inline-flex items-center gap-3 rounded-full border border-line bg-white/70 py-1.5 pl-1.5 pr-4 backdrop-blur-sm">
-      <span className="rounded-full bg-plum px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-cream">
-        Pronto
-      </span>
       <span className="text-xs font-medium text-ink">Para profesionales médicos</span>
     </div>
   );

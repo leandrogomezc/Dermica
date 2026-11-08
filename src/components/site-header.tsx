@@ -56,7 +56,7 @@ export function SiteHeader() {
 
         <div className="hidden lg:block">
           <ButtonLink href={waitlistHref} onClick={focusWaitlist}>
-            Enterarme de la apertura
+            Avisame cuando abran
           </ButtonLink>
         </div>
 
@@ -92,7 +92,7 @@ export function SiteHeader() {
             ))}
             <div className="mt-3">
               <ButtonLink href={waitlistHref} onClick={focusWaitlist} full>
-                Enterarme de la apertura
+                Avisame cuando abran
               </ButtonLink>
             </div>
             <p className="mt-3 px-4 text-sm text-muted">Próximamente en Nicaragua</p>
