@@ -69,6 +69,7 @@ test("sin ruta de almacén no guarda y lo dice", async () => {
     assert.equal(saved.code, "not_configured");
     assert.match(saved.setup, /WAITLIST_SQLITE_PATH/);
     assert.doesNotMatch(saved.message, /localStorage/i);
+    assert.doesNotMatch(saved.message, /Postgres|Vercel/);
   }
 });
 
@@ -105,6 +106,8 @@ test("el envío sin almacén responde 503 y no afirma éxito", async () => {
     assert.equal(result.status, 503);
     assert.equal(result.body.ok, false);
     assert.equal(result.body.code, "not_configured");
+    assert.match(String(result.body.message), /No pudimos anotarte/);
+    assert.doesNotMatch(String(result.body.message), /WAITLIST_SQLITE_PATH|Postgres|Vercel/);
     assert.match(String(result.body.setup), /WAITLIST_SQLITE_PATH/);
   } finally {
     if (previous === undefined) delete process.env.WAITLIST_SQLITE_PATH;

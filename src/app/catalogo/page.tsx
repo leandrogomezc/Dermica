@@ -9,7 +9,7 @@ import { prelaunchNote, waitlistHref } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Categorías previstas para profesionales médicos",
   description:
-    "Categorías que Dérmica prevé ofrecer en Nicaragua: rellenos dérmicos de ácido hialurónico, revitalización inyectable y dermocosmética profesional. Sin precios ni existencias.",
+    "Categorías que Dérmica prevé ofrecer en Nicaragua: rellenos dérmicos de ácido hialurónico, revitalización inyectable y dermocosmética profesional.",
 };
 
 type SearchParams = Promise<{
@@ -53,8 +53,11 @@ export default async function CatalogPage({
             {activeCategory ? activeCategory.name : "Categorías que prevemos ofrecer"}
           </h1>
           <p className="mt-3 max-w-2xl text-muted">
-            {activeCategory ? activeCategory.description : prelaunchNote}
+            {activeCategory
+              ? activeCategory.description
+              : "Tres categorías para profesionales médicos, en castellano llano."}
           </p>
+          <p className="mt-3 text-sm text-ink">{prelaunchNote}</p>
         </Container>
       </section>
 

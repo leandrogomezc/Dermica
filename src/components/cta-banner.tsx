@@ -18,7 +18,7 @@ export function CtaBanner() {
             </h2>
             <p className="mt-4 text-base leading-relaxed text-cream/80">
               La lista guarda tu nombre y tu correo para un solo aviso de apertura
-              en Nicaragua. No es una compra, no es una cita y no confirma una fecha.
+              en Nicaragua.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <ButtonLink href={waitlistHref}>Enterarme de la apertura</ButtonLink>

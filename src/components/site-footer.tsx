@@ -11,7 +11,6 @@ export function SiteFooter() {
           <span className="font-display text-2xl font-semibold text-cream">Dérmica</span>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-cream/70">
             Preparamos nuestra llegada a Nicaragua para profesionales médicos.
-            Todavía no vendemos, no despachamos y no atendemos pacientes.
           </p>
         </div>
 
@@ -58,8 +57,7 @@ export function SiteFooter() {
             Apertura
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-cream/70">
-            No publicamos teléfono, dirección ni redes: aún no operamos en {site.country}.
-            La lista de espera es el único canal de este sitio.
+            La lista de espera es el canal para saber cuándo abramos en {site.country}.
           </p>
           <Link
             href={waitlistHref}

@@ -16,7 +16,7 @@ export function ProductSpotlight() {
         <SectionHeading
           eyebrow="Lo que prevemos ofrecer"
           title="Tres categorías para la práctica médica"
-          description="Las describimos en lenguaje llano, sin marcas ni precios. Son la oferta que queremos tener lista cuando abramos en Nicaragua."
+          description="Son la oferta que queremos tener lista cuando abramos en Nicaragua, descrita en lenguaje llano."
         />
 
         <div className="mt-12 grid gap-6 lg:grid-cols-3">

@@ -66,7 +66,6 @@ export default async function CategoryPage({ params }: { params: Params }) {
               {category.name}
             </h1>
             <p className="mt-5 text-base leading-relaxed text-ink">{category.detail}</p>
-            <p className="mt-4 rounded-2xl bg-cream-200 px-4 py-3 text-sm text-ink">{prelaunchNote}</p>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href={waitlistHref}>Unirme a la lista de espera</ButtonLink>
@@ -83,6 +82,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
                 </li>
               ))}
             </ul>
+            <p className="mt-4 text-sm text-ink">{prelaunchNote}</p>
           </div>
         </div>
       </Container>

@@ -43,7 +43,6 @@ export function WaitlistForm() {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
-  const [setup, setSetup] = useState<string | null>(null);
   const [store, setStore] = useState<StoreStatus | null>(null);
 
   useEffect(() => {
@@ -85,7 +84,6 @@ export function WaitlistForm() {
       setErrors(validated.fieldErrors);
       setStatus("error");
       setMessage("Revisa los campos marcados. Todavía no enviamos el formulario.");
-      setSetup(null);
       focusField(validated.fieldErrors);
       return;
     }
@@ -94,7 +92,6 @@ export function WaitlistForm() {
     setStatus("loading");
     setErrors({});
     setMessage("");
-    setSetup(null);
 
     try {
       const response = await fetch("/api/lista-espera", {
@@ -109,13 +106,11 @@ export function WaitlistForm() {
       const body = (await response.json()) as {
         ok?: boolean;
         message?: string;
-        setup?: string;
         fieldErrors?: FieldErrors;
       };
       if (!response.ok || body.ok !== true) {
         setStatus("error");
-        setMessage(body.message || "No guardamos tu registro.");
-        setSetup(body.setup ?? null);
+        setMessage(body.message || "No pudimos anotarte. Tu correo no quedó registrado.");
         setErrors(body.fieldErrors ?? {});
         if (body.fieldErrors) focusField(body.fieldErrors);
         else statusRef.current?.focus();
@@ -177,13 +172,12 @@ export function WaitlistForm() {
         }
       >
         {status === "loading" ? "Guardando tu registro…" : message}
-        {setup ? <p className="mt-2 text-xs leading-relaxed text-muted">{setup}</p> : null}
       </div>
 
       {store ? (
         <p className="text-sm leading-relaxed text-muted">{store.storageNote}</p>
       ) : (
-        <p className="text-sm text-muted">Comprobando si el almacén de la lista está activo…</p>
+        <p className="text-sm text-muted">Comprobando si la lista puede guardar registros…</p>
       )}
 
       <Field

@@ -13,7 +13,7 @@ const headline = ["Próximamente", "en", "Nicaragua"];
 const stats = [
   { value: "NI", label: "Preparamos la llegada a Nicaragua" },
   { value: "3", label: "Categorías previstas para médicos" },
-  { value: "No", label: "Todavía no hay venta ni pedidos" },
+  { value: "Aviso", label: "Te escribimos cuando abramos" },
 ];
 
 export function HeroScan() {

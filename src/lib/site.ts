@@ -29,5 +29,4 @@ export const nav = [
 
 export const waitlistHref = "/#lista-espera";
 
-export const prelaunchNote =
-  "Próximamente en Nicaragua. Describimos categorías que prevemos ofrecer a profesionales médicos. No hay venta, existencias, pedidos ni citas.";
+export const prelaunchNote = "Todavía no está a la venta.";

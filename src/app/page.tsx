@@ -11,7 +11,7 @@ const valueProps = [
   {
     icon: ShieldIcon,
     title: "Para la consulta médica",
-    text: "Pensamos en profesionales que ya ejercen. Dérmica no atiende pacientes ni agenda citas.",
+    text: "Pensamos en profesionales que ya ejercen en su consulta.",
   },
   {
     icon: UsersIcon,
@@ -21,7 +21,7 @@ const valueProps = [
   {
     icon: MailIcon,
     title: "Aviso, no un pedido",
-    text: "La lista de espera sirve para enterarte de la apertura. Hoy no hay venta ni despacho.",
+    text: "La lista de espera sirve para enterarte de la apertura.",
   },
 ];
 
@@ -53,7 +53,7 @@ export default function HomePage() {
           <SectionHeading
             eyebrow="Categorías"
             title="Lo que queremos poner a tu alcance"
-            description="Cada ficha explica la categoría en castellano llano. No hay marcas, precios ni botón de compra."
+            description="Cada ficha explica la categoría en castellano llano."
           />
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {categories.map((category) => (
@@ -73,8 +73,7 @@ export default function HomePage() {
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted">
             Dermatología, medicina estética y cirugía son el perfil que tenemos en mente.
-            No verificamos credenciales en este formulario y no pedimos un carné. Si
-            buscas un tratamiento para ti, este no es el sitio: no tenemos consulta.
+            El formulario pide nombre y correo, y deja el resto como opcional.
           </p>
         </Container>
       </section>

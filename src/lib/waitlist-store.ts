@@ -2,6 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 import type { NormalizedWaitlist } from "./waitlist-validation";
 
+export const WAITLIST_PUBLIC_UNAVAILABLE =
+  "No pudimos anotarte. Esta página todavía no tiene dónde guardar la lista, así que tu correo no quedó registrado. Cuando la lista esté activa, el mismo formulario lo va a decir antes de que envíes.";
+
 export const WAITLIST_SETUP_MESSAGE =
   "Falta configurar un almacén durable. Define la variable de entorno WAITLIST_SQLITE_PATH con la ruta absoluta de un archivo SQLite en un disco que sí persista. No uses /tmp en un hosting de disco efímero: el registro se perdería. Este repositorio no tiene Postgres, Neon, Supabase, Blob ni variables en el proyecto de Vercel, y esta tarea no crea ninguno. Sin esa variable el formulario responde error y no guarda los datos, tampoco en el navegador.";
 
@@ -41,7 +44,7 @@ export function describeWaitlistStore(sqlitePath = readSqlitePathFromEnv()): Wai
     return {
       configured: false,
       storageNote:
-        "En este entorno todavía no hay almacén. Si envías el formulario, no guardaremos los datos.",
+        "Esta página todavía no puede guardar la lista. Si envías el formulario, tu correo no queda registrado.",
       setup: WAITLIST_SETUP_MESSAGE,
     };
   }
@@ -75,8 +78,7 @@ export async function saveWaitlistEntry(
     return {
       ok: false,
       code: "not_configured",
-      message:
-        "No guardamos tu registro. La lista de espera no tiene un almacén configurado, así que no quedó anotado en ningún sitio.",
+      message: WAITLIST_PUBLIC_UNAVAILABLE,
       setup: info.setup ?? WAITLIST_SETUP_MESSAGE,
     };
   }
