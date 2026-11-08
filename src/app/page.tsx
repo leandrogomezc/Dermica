@@ -1,39 +1,27 @@
-import { Container, ButtonLink, SectionHeading } from "@/components/ui";
+import { Container, SectionHeading } from "@/components/ui";
 import { CategoryCard } from "@/components/category-card";
-import { ProductCard } from "@/components/product-card";
 import { HeroScan } from "@/components/hero-scan";
 import { ProductSpotlight } from "@/components/product-spotlight";
-import { BrandsStrip } from "@/components/brands-strip";
-import { Testimonials } from "@/components/testimonials";
 import { CtaBanner } from "@/components/cta-banner";
-import { categories, products } from "@/lib/data";
-import { site } from "@/lib/site";
-import {
-  WhatsAppIcon,
-  ArrowRightIcon,
-  TruckIcon,
-  ShieldIcon,
-} from "@/components/icons";
-
-const featured = products
-  .filter((p) => p.badge && p.category !== "medicina-estetica")
-  .slice(0, 3);
+import { WaitlistSection } from "@/components/waitlist-section";
+import { categories } from "@/lib/data";
+import { ShieldIcon, MailIcon, UsersIcon } from "@/components/icons";
 
 const valueProps = [
   {
     icon: ShieldIcon,
-    title: "Distribuidores autorizados",
-    text: "Productos originales con respaldo de marca y garantía real en aparatología.",
+    title: "Para la consulta médica",
+    text: "Pensamos en profesionales que ya ejercen. Dérmica no atiende pacientes ni agenda citas.",
   },
   {
-    icon: TruckIcon,
-    title: "Envíos a todo Honduras",
-    text: "Despachamos a todo el país con Cargo Expreso y CAEX. Retiro disponible en sede.",
+    icon: UsersIcon,
+    title: "Tres categorías previstas",
+    text: "Rellenos de ácido hialurónico, revitalización inyectable y dermocosmética profesional.",
   },
   {
-    icon: WhatsAppIcon,
-    title: "Cotización por WhatsApp",
-    text: "Atención personalizada, precios en lempiras y dólares y respuesta en minutos.",
+    icon: MailIcon,
+    title: "Aviso, no un pedido",
+    text: "La lista de espera sirve para enterarte de la apertura. Hoy no hay venta ni despacho.",
   },
 ];
 
@@ -44,14 +32,14 @@ export default function HomePage() {
 
       <section className="border-t border-line bg-white py-8">
         <Container className="grid gap-6 sm:grid-cols-3">
-          {valueProps.map((v) => (
-            <div key={v.title} className="flex items-start gap-4">
+          {valueProps.map((item) => (
+            <div key={item.title} className="flex items-start gap-4">
               <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-cream-200 text-plum">
-                <v.icon className="h-6 w-6" />
+                <item.icon className="h-6 w-6" />
               </span>
               <div>
-                <h3 className="font-semibold text-plum">{v.title}</h3>
-                <p className="mt-1 text-sm text-muted">{v.text}</p>
+                <h2 className="font-semibold text-plum">{item.title}</h2>
+                <p className="mt-1 text-sm text-muted">{item.text}</p>
               </div>
             </div>
           ))}
@@ -63,50 +51,36 @@ export default function HomePage() {
       <section className="py-20 sm:py-24">
         <Container>
           <SectionHeading
-            eyebrow="Nuestras categorías"
-            title="Todo lo que tu cabina necesita, en un solo lugar"
-            description="Encuentra equipos, activos profesionales e insumos seleccionados para clínicas, spas y salones de belleza."
+            eyebrow="Categorías"
+            title="Lo que queremos poner a tu alcance"
+            description="Cada ficha explica la categoría en castellano llano. No hay marcas, precios ni botón de compra."
           />
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {categories.map((c) => (
-              <CategoryCard key={c.slug} category={c} />
+          <div className="mt-12 grid gap-6 lg:grid-cols-3">
+            {categories.map((category) => (
+              <CategoryCard key={category.slug} category={category} />
             ))}
           </div>
         </Container>
       </section>
 
-      <BrandsStrip />
-
-      <section className="py-20 sm:py-24">
-        <Container>
-          <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-            <SectionHeading
-              eyebrow="Selección destacada"
-              title="Los favoritos de los profesionales"
-            />
-            <ButtonLink href="/catalogo" variant="ghost">
-              Ver todo el catálogo
-              <ArrowRightIcon className="h-4 w-4" />
-            </ButtonLink>
-          </div>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featured.map((p) => (
-              <ProductCard key={p.slug} product={p} />
-            ))}
-          </div>
+      <section className="border-y border-line bg-white py-16">
+        <Container className="max-w-3xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold">
+            Para quién es esta página
+          </p>
+          <h2 className="font-display mt-3 text-3xl font-medium text-plum">
+            Médicos que quieran saber cuándo abramos
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-muted">
+            Dermatología, medicina estética y cirugía son el perfil que tenemos en mente.
+            No verificamos credenciales en este formulario y no pedimos un carné. Si
+            buscas un tratamiento para ti, este no es el sitio: no tenemos consulta.
+          </p>
         </Container>
       </section>
 
-      <Testimonials />
-
+      <WaitlistSection />
       <CtaBanner />
-
-      <div className="py-12 text-center">
-        <p className="text-sm text-muted">
-          Aceptamos transferencias bancarias:{" "}
-          <span className="font-medium text-ink">{site.banks.join(" · ")}</span>
-        </p>
-      </div>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
 
 export function Container({
   children,
@@ -51,15 +51,13 @@ export function SectionHeading({
   );
 }
 
-type Variant = "primary" | "outline" | "whatsapp" | "ghost";
+type Variant = "primary" | "outline" | "ghost";
 
 const variants: Record<Variant, string> = {
   primary:
     "bg-plum text-cream hover:bg-plum-700 focus-visible:ring-plum/40",
   outline:
     "border border-plum/30 text-plum hover:bg-plum hover:text-cream focus-visible:ring-plum/30",
-  whatsapp:
-    "bg-[#25D366] text-white hover:bg-[#1eb558] focus-visible:ring-[#25D366]/40",
   ghost: "text-plum hover:bg-cream-200 focus-visible:ring-plum/20",
 };
 
@@ -76,6 +74,7 @@ export function ButtonLink({
   full,
   external,
   className = "",
+  onClick,
 }: {
   href: string;
   children: ReactNode;
@@ -83,6 +82,7 @@ export function ButtonLink({
   full?: boolean;
   external?: boolean;
   className?: string;
+  onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
 }) {
   if (external) {
     return (
@@ -90,6 +90,7 @@ export function ButtonLink({
         href={href}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={onClick}
         className={classes(variant, full, className)}
       >
         {children}
@@ -97,7 +98,7 @@ export function ButtonLink({
     );
   }
   return (
-    <Link href={href} className={classes(variant, full, className)}>
+    <Link href={href} onClick={onClick} className={classes(variant, full, className)}>
       {children}
     </Link>
   );

@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  serverExternalPackages: ["node:sqlite"],
+  async redirects() {
+    return [
+      { source: "/envios", destination: "/apertura", permanent: false },
+      { source: "/producto/:slug", destination: "/catalogo", permanent: false },
+    ];
+  },
 };
 
 export default nextConfig;

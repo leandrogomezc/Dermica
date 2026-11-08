@@ -4,16 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { Container, ButtonLink } from "@/components/ui";
-import { WhatsAppIcon, ArrowRightIcon } from "@/components/icons";
-import { injectables } from "@/lib/data";
-import { whatsappLink } from "@/lib/whatsapp";
+import { ArrowRightIcon } from "@/components/icons";
+import { focusPoints } from "@/lib/data";
+import { waitlistHref } from "@/lib/site";
 
-const headline = ["Resultados", "naturales", "que", "se", "notan"];
+const headline = ["Próximamente", "en", "Nicaragua"];
 
 const stats = [
-  { value: "100%", label: "Productos originales y trazables" },
-  { value: "+500", label: "Clínicas y médicos abastecidos" },
-  { value: "3", label: "Líneas insignia de Merz Aesthetics" },
+  { value: "NI", label: "Preparamos la llegada a Nicaragua" },
+  { value: "3", label: "Categorías previstas para médicos" },
+  { value: "No", label: "Todavía no hay venta ni pedidos" },
 ];
 
 export function HeroScan() {
@@ -49,7 +49,6 @@ export function HeroScan() {
       </div>
 
       <Container className="relative grid items-center gap-10 py-12 lg:grid-cols-12 lg:gap-6 lg:py-20">
-        {/* Columna izquierda: copy */}
         <motion.div
           variants={container}
           initial="hidden"
@@ -61,38 +60,32 @@ export function HeroScan() {
           </motion.div>
 
           <h1 className="font-display mt-5 text-4xl font-medium leading-[1.05] text-plum sm:text-5xl">
-            {headline.map((w, i) => (
-              <motion.span key={i} variants={word} className="mr-[0.25em] inline-block">
-                {w}
+            {headline.map((wordText) => (
+              <motion.span key={wordText} variants={word} className="mr-[0.25em] inline-block">
+                {wordText}
               </motion.span>
             ))}
           </h1>
 
           <motion.p variants={fade} className="mt-5 max-w-md text-base leading-relaxed text-muted">
-            Distribuidores autorizados de <strong className="text-ink">Xeomin</strong>,{" "}
-            <strong className="text-ink">Radiesse</strong> y{" "}
-            <strong className="text-ink">Belotero</strong> de Merz Aesthetics. Toxina
-            botulínica, bioestimuladores y rellenos originales para tu práctica médica.
+            Somos Dérmica. Preparamos una oferta para profesionales médicos: rellenos
+            dérmicos de ácido hialurónico, revitalización inyectable y dermocosmética
+            profesional. Todavía no vendemos ni atendemos pacientes.
           </motion.p>
 
           <motion.div variants={fade} className="mt-7 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
-            <ButtonLink href={whatsappLink()} variant="whatsapp" external>
-              <WhatsAppIcon className="h-4 w-4" />
-              Cotizar por WhatsApp
-            </ButtonLink>
-            <ButtonLink href="/catalogo?categoria=medicina-estetica" variant="outline">
-              Ver línea Merz
+            <ButtonLink href={waitlistHref}>Unirme a la lista de espera</ButtonLink>
+            <ButtonLink href="/catalogo" variant="outline">
+              Ver categorías
               <ArrowRightIcon className="h-4 w-4" />
             </ButtonLink>
           </motion.div>
         </motion.div>
 
-        {/* Columna central: retrato con escaneo */}
         <div className="order-1 lg:order-2 lg:col-span-4">
           <FaceScan reduce={!!reduce} />
         </div>
 
-        {/* Columna derecha: stats */}
         <motion.div
           variants={container}
           initial="hidden"
@@ -100,17 +93,17 @@ export function HeroScan() {
           className="order-3 lg:col-span-4 lg:pl-6"
         >
           <div className="grid grid-cols-3 gap-4 lg:grid-cols-1 lg:gap-6">
-            {stats.map((s) => (
+            {stats.map((stat) => (
               <motion.div
-                key={s.label}
+                key={stat.label}
                 variants={fade}
                 className="rounded-2xl border border-line bg-white/70 p-4 backdrop-blur-sm lg:flex lg:items-center lg:gap-4 lg:border-0 lg:bg-transparent lg:p-0"
               >
                 <p className="font-display text-3xl font-semibold text-plum lg:text-4xl">
-                  {s.value}
+                  {stat.value}
                 </p>
                 <p className="mt-1 text-xs leading-snug text-muted lg:mt-0 lg:max-w-[12rem] lg:text-sm">
-                  {s.label}
+                  {stat.label}
                 </p>
               </motion.div>
             ))}
@@ -123,24 +116,42 @@ export function HeroScan() {
 
 function FaceScan({ reduce }: { reduce: boolean }) {
   return (
-    <div className="relative mx-auto aspect-[3/4] w-full max-w-sm">
-      <div className="relative h-full w-full overflow-hidden rounded-[2rem]">
-        <Image
-          src="/hero-rostro.png"
-          alt="Rostro que ilustra las zonas de tratamiento con Xeomin, Radiesse y Belotero"
-          fill
-          priority
-          sizes="(max-width: 1024px) 80vw, 28rem"
-          className="object-cover object-top"
-        />
-        {!reduce ? (
-          <span className="animate-scan-sweep pointer-events-none absolute left-0 right-0 h-16 bg-gradient-to-b from-transparent via-blush/30 to-transparent" />
-        ) : null}
-      </div>
+    <div className="mx-auto w-full max-w-sm">
+      <div className="relative aspect-[3/4] w-full">
+        <div className="relative h-full w-full overflow-hidden rounded-[2rem]">
+          <Image
+            src="/hero-rostro.png"
+            alt="Retrato ilustrativo. Dérmica no realiza tratamientos ni agenda citas."
+            fill
+            priority
+            sizes="(max-width: 1024px) 80vw, 28rem"
+            className="object-cover object-top"
+          />
+          {!reduce ? (
+            <span className="animate-scan-sweep pointer-events-none absolute left-0 right-0 h-16 bg-gradient-to-b from-transparent via-blush/30 to-transparent" />
+          ) : null}
+        </div>
 
-      {injectables.map((item, i) => (
-        <ScanBox key={item.slug} item={item} index={i} reduce={reduce} />
-      ))}
+        {focusPoints.map((item, index) => (
+          <ScanBox key={item.slug} item={item} index={index} reduce={reduce} />
+        ))}
+      </div>
+      <ul className="mt-4 space-y-2 sm:hidden">
+        {focusPoints.map((item) => (
+          <li key={item.slug}>
+            <Link
+              href={`/catalogo/${item.slug}`}
+              className="flex items-center justify-between rounded-xl border border-line bg-white px-4 py-3 text-sm"
+            >
+              <span className="font-medium text-plum">{item.label}</span>
+              <span className="text-muted">{item.note}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-3 text-center text-xs text-muted">
+        Imagen ilustrativa de las categorías previstas, no de un tratamiento.
+      </p>
     </div>
   );
 }
@@ -150,7 +161,7 @@ function ScanBox({
   index,
   reduce,
 }: {
-  item: (typeof injectables)[number];
+  item: (typeof focusPoints)[number];
   index: number;
   reduce: boolean;
 }) {
@@ -163,7 +174,7 @@ function ScanBox({
         duration: 0.5,
         ease: "easeOut",
       }}
-      className="absolute z-10 -translate-x-1/2 -translate-y-1/2"
+      className="absolute z-10 hidden -translate-x-1/2 -translate-y-1/2 sm:block"
       style={{ left: `${item.x}%`, top: `${item.y}%` }}
     >
       <div className="relative">
@@ -173,15 +184,13 @@ function ScanBox({
         ) : null}
         <span className="absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white" />
         <Link
-          href={`/producto/${item.slug}`}
-          className="absolute left-[calc(100%+0.5rem)] top-1/2 w-max -translate-y-1/2 rounded-lg bg-plum/90 px-2.5 py-1.5 text-left shadow-lg backdrop-blur-sm transition-colors hover:bg-plum"
+          href={`/catalogo/${item.slug}`}
+          className="absolute left-[calc(100%+0.5rem)] top-1/2 hidden w-[9.5rem] -translate-y-1/2 rounded-lg bg-plum/90 px-2.5 py-1.5 text-left shadow-lg backdrop-blur-sm transition-colors hover:bg-plum sm:block"
         >
           <span className="block text-[11px] font-semibold leading-tight text-cream">
-            {item.product}
-          </span>
-          <span className="block text-[10px] leading-tight text-cream/70">
             {item.label}
           </span>
+          <span className="block text-[10px] leading-tight text-cream/70">{item.note}</span>
         </Link>
       </div>
     </motion.div>
@@ -191,17 +200,10 @@ function ScanBox({
 function TrustBadge() {
   return (
     <div className="inline-flex items-center gap-3 rounded-full border border-line bg-white/70 py-1.5 pl-1.5 pr-4 backdrop-blur-sm">
-      <div className="flex -space-x-2">
-        {["bg-plum", "bg-blush", "bg-gold"].map((c, i) => (
-          <span
-            key={i}
-            className={`h-7 w-7 rounded-full border-2 border-cream ${c}`}
-          />
-        ))}
-      </div>
-      <span className="text-xs font-medium text-ink">
-        Distribuidor autorizado Merz Aesthetics
+      <span className="rounded-full bg-plum px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-cream">
+        Pronto
       </span>
+      <span className="text-xs font-medium text-ink">Para profesionales médicos</span>
     </div>
   );
 }
