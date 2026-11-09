@@ -6,9 +6,9 @@ export function CategoryCard({ category }: { category: Category }) {
   return (
     <Link
       href={`/catalogo/${category.slug}`}
-      className="group flex h-full flex-col rounded-2xl border border-mist bg-white p-7 transition-all hover:-translate-y-1 hover:border-clinical hover:shadow-lg hover:shadow-clinical/5"
+      className="group flex h-full flex-col rounded-2xl border border-mist bg-white p-7"
     >
-      <span className="flex h-14 w-14 items-center justify-center rounded-xl bg-sky-100 text-clinical transition-colors group-hover:bg-clinical group-hover:text-white">
+      <span className="flex h-14 w-14 items-center justify-center rounded-lg bg-sky-100 text-clinical">
         <CategoryIcon name={category.icon} className="h-7 w-7" />
       </span>
       <h3 className="font-display mt-5 text-xl font-semibold text-clinical">{category.name}</h3>

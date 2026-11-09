@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Container, SectionHeading, Eyebrow, ButtonLink } from "@/components/ui";
+import { Container, SectionHeading, PageHero, ButtonLink } from "@/components/ui";
 import { CheckIcon } from "@/components/icons";
 import { waitlistHref } from "@/lib/site";
 import { pageMetadata } from "@/lib/page-metadata";
@@ -26,19 +26,14 @@ const pending = [
 export default function OpeningPage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-mist bg-white">
-        <span className="pointer-events-none absolute -right-20 -top-10 h-72 w-72 rounded-full bg-sky/20 blur-3xl" />
+      <section className="border-b border-mist bg-white">
         <Container className="py-16 sm:py-20">
-          <div className="max-w-3xl">
-            <Eyebrow>Apertura</Eyebrow>
-            <h1 className="font-display mt-4 text-4xl font-semibold leading-tight text-clinical sm:text-5xl">
-              Abrimos en marzo de 2027
-            </h1>
+          <PageHero eyebrow="Apertura" title="Abrimos en marzo de 2027">
             <p className="mt-6 text-lg leading-relaxed text-clinical">
               Hay un cupo de 30 médicos fundadores, con acceso anticipado y precio de
               apertura. Anotate y te avisamos primero. El sitio no toma pedidos ni confirma envíos.
             </p>
-          </div>
+          </PageHero>
         </Container>
       </section>
 

@@ -36,14 +36,18 @@ export function ProductPlaceholder({
 
 export function OfferingCard({ category }: { category: Category }) {
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl border border-mist bg-white transition-shadow hover:shadow-lg hover:shadow-clinical/5">
+    <article className="group flex flex-col overflow-hidden rounded-2xl border border-mist bg-white">
       <Link href={`/catalogo/${category.slug}`} className="relative block">
         <ProductPlaceholder
           tone={category.tone}
           label={category.shortName}
           className="aspect-[4/3] w-full"
         />
-        <span className="absolute left-3 top-3 rounded-full bg-white px-3 py-1 text-xs font-semibold text-clinical shadow-sm">
+        <span
+          className={`absolute left-3 top-3 rounded-lg px-3 py-1 text-xs font-semibold text-clinical ${
+            category.tone === "blush" || category.tone === "gold" ? "bg-white" : "bg-sky-100"
+          }`}
+        >
           En preparación
         </span>
       </Link>

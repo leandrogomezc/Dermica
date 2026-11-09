@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Container, SectionHeading, Eyebrow } from "@/components/ui";
+import { Container, SectionHeading, PageHero } from "@/components/ui";
 import { CtaBanner } from "@/components/cta-banner";
 import { ShieldIcon, MailIcon, CheckIcon } from "@/components/icons";
 import { pageMetadata } from "@/lib/page-metadata";
@@ -38,19 +38,15 @@ const facts = [
 export default function AboutPage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-mist bg-white">
+      <section className="border-b border-mist bg-white">
         <Container className="py-16 sm:py-20">
-          <div className="max-w-3xl">
-            <Eyebrow>Quiénes somos</Eyebrow>
-            <h1 className="font-display mt-4 text-4xl font-semibold leading-tight text-clinical sm:text-5xl">
-              Preparamos Dérmica para los médicos de Nicaragua
-            </h1>
+          <PageHero eyebrow="Quiénes somos" title="Preparamos Dérmica para los médicos de Nicaragua">
             <p className="mt-6 text-lg leading-relaxed text-clinical">
               Queremos acercar a la práctica médica rellenos de ácido hialurónico,
               polirrevitalización inyectable y dermocosmética profesional. Estamos en
               prelanzamiento y preparando la apertura.
             </p>
-          </div>
+          </PageHero>
         </Container>
       </section>
 

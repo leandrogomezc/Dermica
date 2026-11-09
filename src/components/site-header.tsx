@@ -65,7 +65,7 @@ export function SiteHeader() {
           aria-controls="menu-movil"
           aria-label={open ? "Cerrar menú" : "Abrir menú"}
           onClick={() => setOpen((value) => !value)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full text-clinical hover:bg-sky-100 lg:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-clinical hover:bg-sky-100 lg:hidden"
         >
           {open ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
         </button>

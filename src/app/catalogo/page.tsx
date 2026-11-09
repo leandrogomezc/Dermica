@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Container, ButtonLink } from "@/components/ui";
+import { Container, PageHero, ButtonLink } from "@/components/ui";
 import { OfferingCard } from "@/components/product-card";
 import { CatalogFilters } from "@/components/catalog-filters";
 import { categories, getCategory } from "@/lib/data";
@@ -34,18 +34,17 @@ export default async function CatalogPage({
   return (
     <>
       <section className="border-b border-mist bg-white">
-        <Container className="py-12 sm:py-16">
-          <p className="text-xs font-semibold text-clinical">
-            Categorías
-          </p>
-          <h1 className="font-display mt-3 text-3xl font-semibold text-clinical sm:text-4xl">
-            {activeCategory ? activeCategory.name : "Categorías para profesionales médicos"}
-          </h1>
-          <p className="mt-3 max-w-2xl text-clinical">
-            {activeCategory
-              ? activeCategory.description
-              : "Tres categorías que estamos preparando para la práctica médica en Nicaragua."}
-          </p>
+        <Container className="py-16 sm:py-20">
+          <PageHero
+            eyebrow="Categorías"
+            title={activeCategory ? activeCategory.name : "Categorías para profesionales médicos"}
+          >
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-clinical">
+              {activeCategory
+                ? activeCategory.description
+                : "Tres categorías que estamos preparando para la práctica médica en Nicaragua."}
+            </p>
+          </PageHero>
         </Container>
       </section>
 

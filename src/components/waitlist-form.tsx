@@ -161,7 +161,7 @@ export function WaitlistForm() {
   }
 
   const inputClass =
-    "mt-1.5 w-full rounded-xl border border-mist bg-white px-4 py-3 text-sm text-clinical outline-none transition-colors placeholder:text-clinical focus:border-clinical focus-visible:ring-4 focus-visible:ring-clinical/15 aria-[invalid=true]:border-clinical";
+    "mt-1.5 w-full rounded-lg border border-clinical bg-white px-4 py-3 text-sm text-clinical outline-none transition-colors placeholder:text-clinical focus:border-clinical focus-visible:ring-4 focus-visible:ring-clinical/15 aria-[invalid=true]:border-clinical";
 
   return (
     <form
@@ -243,7 +243,7 @@ export function WaitlistForm() {
       </Field>
 
       <details
-        className="rounded-xl border border-mist px-4 py-3"
+        className="rounded-lg border border-clinical px-4 py-3"
         open={detailsOpen}
         onToggle={(event) => setDetailsOpen(event.currentTarget.open)}
       >
@@ -341,7 +341,7 @@ export function WaitlistForm() {
           }
             checked={fields.consent}
             onChange={(event) => update("consent", event.target.checked)}
-            className="mt-0.5 h-5 w-5 shrink-0 rounded border-mist text-clinical focus-visible:ring-4 focus-visible:ring-clinical/20"
+            className="mt-0.5 h-5 w-5 shrink-0 rounded border-clinical accent-clinical focus-visible:ring-4 focus-visible:ring-clinical/20"
           />
           <span>
             <span className="font-medium text-clinical">Quiero enterarme primero.</span>{" "}
@@ -373,7 +373,7 @@ export function WaitlistForm() {
             aria-invalid={errors.marketingConsent ? true : undefined}
             checked={fields.marketingConsent}
             onChange={(event) => update("marketingConsent", event.target.checked)}
-            className="mt-0.5 h-5 w-5 shrink-0 rounded border-mist text-clinical focus-visible:ring-4 focus-visible:ring-clinical/20"
+            className="mt-0.5 h-5 w-5 shrink-0 rounded border-clinical accent-clinical focus-visible:ring-4 focus-visible:ring-clinical/20"
           />
           <span>
             Quiero recibir por correo novedades y comunicaciones de marketing de Dérmica.
@@ -403,7 +403,7 @@ export function WaitlistForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="inline-flex w-full items-center justify-center rounded-full bg-clinical px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-clinical/90 focus:outline-none focus-visible:ring-4 focus-visible:ring-clinical/30 disabled:cursor-wait disabled:opacity-70 sm:w-auto"
+        className="inline-flex min-h-11 w-full items-center justify-center rounded-lg bg-clinical px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-clinical/90 focus:outline-none focus-visible:ring-4 focus-visible:ring-clinical/30 disabled:cursor-wait disabled:opacity-70 sm:w-auto"
       >
         {status === "loading" ? "Guardando…" : "Avisame cuando abran"}
       </button>

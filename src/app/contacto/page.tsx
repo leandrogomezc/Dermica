@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Container, Eyebrow } from "@/components/ui";
+import { Container, PageHero } from "@/components/ui";
 import { WaitlistSection } from "@/components/waitlist-section";
 import { site } from "@/lib/site";
 import { pageMetadata } from "@/lib/page-metadata";
@@ -16,11 +16,7 @@ export default function ContactPage() {
     <>
       <section className="border-b border-mist bg-white">
         <Container className="py-16 sm:py-20">
-          <div className="max-w-3xl">
-            <Eyebrow>Contacto</Eyebrow>
-            <h1 className="font-display mt-4 text-4xl font-semibold leading-tight text-clinical sm:text-5xl">
-              Dejanos tu correo y te avisamos cuando abramos
-            </h1>
+          <PageHero eyebrow="Contacto" title="Dejanos tu correo y te avisamos cuando abramos">
             <p className="mt-6 text-lg leading-relaxed text-clinical">
               Si preferís escribirnos directo, el correo es{" "}
               <a href={`mailto:${site.email}`} className="font-semibold text-clinical underline-offset-4 hover:underline">
@@ -36,7 +32,7 @@ export default function ContactPage() {
               </Link>
               .
             </p>
-          </div>
+          </PageHero>
         </Container>
       </section>
       <WaitlistSection />

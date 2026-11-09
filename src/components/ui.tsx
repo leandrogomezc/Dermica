@@ -23,6 +23,26 @@ export function Eyebrow({ children }: { children: ReactNode }) {
   );
 }
 
+export function PageHero({
+  eyebrow,
+  title,
+  children,
+}: {
+  eyebrow: ReactNode;
+  title: ReactNode;
+  children?: ReactNode;
+}) {
+  return (
+    <div className="max-w-3xl">
+      <Eyebrow>{eyebrow}</Eyebrow>
+      <h1 className="font-display mt-4 text-4xl font-semibold leading-tight text-clinical sm:text-5xl">
+        {title}
+      </h1>
+      {children}
+    </div>
+  );
+}
+
 export function SectionHeading({
   eyebrow,
   title,
@@ -61,10 +81,10 @@ const variants: Record<Variant, string> = {
   ghost: "text-clinical hover:bg-sky-100 focus-visible:ring-clinical/20",
 };
 
-const sizeClasses = "px-6 py-3 text-sm";
+const sizeClasses = "min-h-11 px-6 py-3 text-sm";
 
 function classes(variant: Variant, full?: boolean, extra = "") {
-  return `inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors focus:outline-none focus-visible:ring-4 ${sizeClasses} ${variants[variant]} ${full ? "w-full" : ""} ${extra}`;
+  return `inline-flex items-center justify-center gap-2 rounded-lg font-semibold transition-colors focus:outline-none focus-visible:ring-4 ${sizeClasses} ${variants[variant]} ${full ? "w-full" : ""} ${extra}`;
 }
 
 export function ButtonLink({

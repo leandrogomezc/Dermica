@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Container, Eyebrow } from "@/components/ui";
+import { Container, PageHero } from "@/components/ui";
 import { site } from "@/lib/site";
 import { pageMetadata } from "@/lib/page-metadata";
 
@@ -15,10 +15,7 @@ export default function PrivacyPage() {
   return (
     <section className="border-b border-mist bg-white">
       <Container className="max-w-3xl py-16 sm:py-20">
-        <Eyebrow>Privacidad</Eyebrow>
-        <h1 className="font-display mt-4 text-4xl font-semibold leading-tight text-clinical sm:text-5xl">
-          Qué guardamos y para qué
-        </h1>
+        <PageHero eyebrow="Privacidad" title="Qué guardamos y para qué" />
         <div className="mt-8 space-y-5 text-base leading-relaxed text-clinical">
           <p>
             Dérmica está en prelanzamiento en Nicaragua. Esta página describe el formulario

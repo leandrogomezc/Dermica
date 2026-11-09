@@ -72,8 +72,8 @@ function FilterButton({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`rounded-lg px-3 py-2 text-left text-sm transition-colors ${
-        active ? "bg-clinical font-medium text-white" : "text-clinical hover:bg-sky-100"
+      className={`min-h-11 rounded-lg px-3 py-2 text-left text-sm transition-colors ${
+        active ? "bg-clinical font-semibold text-white" : "text-clinical hover:bg-sky-100"
       }`}
     >
       {children}

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Container, Eyebrow } from "@/components/ui";
+import { Container, PageHero } from "@/components/ui";
 import { faq } from "@/lib/faq";
 import { pageMetadata } from "@/lib/page-metadata";
 import { site } from "@/lib/site";
@@ -33,14 +33,12 @@ export default function FaqPage() {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        <Eyebrow>Preguntas frecuentes</Eyebrow>
-        <h1 className="font-display mt-4 text-4xl font-semibold leading-tight text-clinical sm:text-5xl">
-          Preguntas frecuentes sobre Dérmica
-        </h1>
-        <p className="mt-6 text-base leading-relaxed text-clinical">
-          Estas respuestas usan solo lo que el sitio ya dice. {site.name} está en
-          prelanzamiento en Nicaragua y no es una clínica.
-        </p>
+        <PageHero eyebrow="Preguntas frecuentes" title="Preguntas frecuentes sobre Dérmica">
+          <p className="mt-6 text-base leading-relaxed text-clinical">
+            Estas respuestas usan solo lo que el sitio ya dice. {site.name} está en
+            prelanzamiento en Nicaragua y no es una clínica.
+          </p>
+        </PageHero>
         <div className="mt-10 space-y-8">
           {faq.map((item) => (
             <article key={item.question}>
