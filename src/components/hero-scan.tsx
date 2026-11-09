@@ -91,7 +91,7 @@ export function HeroScan() {
         </motion.div>
 
         <div className="order-2 min-w-0 lg:col-span-4">
-          <LayerPanel />
+          <FaceScan reduce={!!reduce} />
         </div>
 
         <motion.div
@@ -122,23 +122,29 @@ export function HeroScan() {
   );
 }
 
-function LayerPanel() {
+function FaceScan({ reduce }: { reduce: boolean }) {
   return (
-    <div className="mx-auto w-full max-w-sm">
-      <div className="relative overflow-hidden rounded-2xl bg-sky-100 px-6 py-10">
-        <SkinLayers />
-        <div className="relative mx-auto w-fit rounded-2xl bg-sky-100 p-4">
+    <div className="mx-auto w-full max-w-[220px] sm:max-w-sm">
+      <div className="relative aspect-[4/5] w-full sm:aspect-[3/4]">
+        <div className="relative h-full w-full overflow-hidden rounded-2xl ring-1 ring-clinical/25">
           <Image
-            src="/brand/dermica-isotipo-color.svg"
-            alt=""
-            width={88}
-            height={108}
-            unoptimized
-            className="h-auto w-28"
+            src="/hero-rostro.webp"
+            alt="Retrato ilustrativo de piel. Dérmica no realiza tratamientos."
+            fill
+            priority
+            sizes="(max-width: 1024px) 80vw, 28rem"
+            className="object-cover object-top"
           />
+          <span className="pointer-events-none absolute inset-0 bg-clinical/20 mix-blend-multiply" />
+          <span className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-sky-100/50 to-transparent" />
         </div>
+
+        {focusPoints.map((item, index) => (
+          <ScanBox key={item.slug} item={item} index={index} reduce={reduce} />
+        ))}
       </div>
-      <ul className="mt-4 space-y-2">
+      <p className="mt-3 text-center text-xs text-clinical">Imagen ilustrativa.</p>
+      <ul className="mt-4 space-y-2 sm:hidden">
         {focusPoints.map((item) => (
           <li key={item.slug}>
             <Link
@@ -158,19 +164,35 @@ function LayerPanel() {
   );
 }
 
-function SkinLayers() {
+function ScanBox({
+  item,
+  index,
+  reduce,
+}: {
+  item: (typeof focusPoints)[number];
+  index: number;
+  reduce: boolean;
+}) {
   return (
-    <svg
-      viewBox="0 0 400 240"
-      preserveAspectRatio="xMidYMid slice"
-      className="pointer-events-none absolute inset-0 h-full w-full"
-      aria-hidden="true"
+    <motion.div
+      initial={{ opacity: reduce ? 1 : 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: reduce ? 0 : 0.2 + index * 0.12, duration: reduce ? 0 : 0.35, ease: "easeOut" }}
+      className="absolute z-10 hidden -translate-x-1/2 -translate-y-1/2 sm:block"
+      style={{ left: `${item.x}%`, top: `${item.y}%` }}
     >
-      <path d="M-10 52 C 50 32, 110 72, 170 52 S 290 32, 410 52" fill="none" stroke="#8BBDEF" strokeWidth="10" strokeLinecap="round" />
-      <path d="M-10 100 C 60 80, 120 120, 180 100 S 300 80, 410 100" fill="none" stroke="#8BBDEF" strokeWidth="7" strokeLinecap="round" opacity="0.8" />
-      <path d="M-10 148 C 40 128, 130 168, 190 148 S 310 128, 410 148" fill="none" stroke="#8BBDEF" strokeWidth="5" strokeLinecap="round" opacity="0.65" />
-      <path d="M-10 192 C 70 172, 140 212, 200 192 S 320 172, 410 192" fill="none" stroke="#8BBDEF" strokeWidth="4" strokeLinecap="round" opacity="0.5" />
-    </svg>
+      <div className="relative">
+        <div className="h-14 w-14 rounded-md border-2 border-white shadow-[0_0_0_1px_rgba(30,58,95,0.45)]" />
+        <span className="absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white" />
+        <Link
+          href={`/catalogo/${item.slug}`}
+          className="absolute left-[calc(100%+0.5rem)] top-1/2 hidden w-[9.5rem] -translate-y-1/2 rounded-lg bg-clinical px-2.5 py-1.5 text-left transition-colors hover:bg-clinical/90 sm:block"
+        >
+          <span className="block text-[11px] font-semibold leading-tight text-white">{item.label}</span>
+          <span className="block text-[10px] leading-tight text-white/80">{item.note}</span>
+        </Link>
+      </div>
+    </motion.div>
   );
 }
 
