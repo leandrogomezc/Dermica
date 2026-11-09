@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { Container, SectionHeading, Eyebrow } from "@/components/ui";
 import { CtaBanner } from "@/components/cta-banner";
 import { ShieldIcon, MailIcon, CheckIcon } from "@/components/icons";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Quiénes somos",
   description:
     "Dérmica prepara su apertura en Nicaragua para ofrecer a profesionales médicos rellenos de ácido hialurónico, polirrevitalización inyectable y dermocosmética profesional.",
-};
+  path: "/quienes-somos",
+});
 
 const values = [
   {

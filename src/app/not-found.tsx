@@ -1,5 +1,13 @@
 import { Container, ButtonLink } from "@/components/ui";
+import { pageMetadata } from "@/lib/page-metadata";
 import { waitlistHref } from "@/lib/site";
+
+export const metadata = pageMetadata({
+  title: "Página no encontrada",
+  description: "No encontramos esta página de Dérmica.",
+  path: "/404",
+  noIndex: true,
+});
 
 export default function NotFound() {
   return (

@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Container, Eyebrow } from "@/components/ui";
 import { site } from "@/lib/site";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Privacidad",
   description:
     "Qué datos pide Dérmica en la lista de espera, para qué, y cómo retirar el consentimiento de novedades por correo.",
-};
+  path: "/privacidad",
+});
 
 export default function PrivacyPage() {
   return (

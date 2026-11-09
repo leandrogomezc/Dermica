@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 import { Container, ButtonLink } from "@/components/ui";
 import { ProductPlaceholder } from "@/components/product-card";
 import { categories, getCategory } from "@/lib/data";
-import { waitlistHref } from "@/lib/site";
+import { categoryGuides } from "@/lib/category-guides";
+import { pageMetadata } from "@/lib/page-metadata";
+import { site, waitlistHref } from "@/lib/site";
 import { CheckIcon, ArrowRightIcon } from "@/components/icons";
 
 type Params = Promise<{ slug: string }>;
@@ -21,10 +23,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const category = getCategory(slug);
   if (!category) return { title: "Categoría no encontrada" };
-  return {
+  return pageMetadata({
     title: category.name,
-    description: category.description,
-  };
+    description: `${category.description} Categoría en preparación para médicos en Nicaragua.`,
+    path: `/catalogo/${category.slug}`,
+  });
 }
 
 export default async function CategoryPage({ params }: { params: Params }) {
@@ -33,10 +36,26 @@ export default async function CategoryPage({ params }: { params: Params }) {
   if (!category) notFound();
 
   const related = categories.filter((item) => item.slug !== category.slug);
+  const guide = categoryGuides[category.slug] ?? [];
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Inicio", item: site.url },
+      { "@type": "ListItem", position: 2, name: "Categorías", item: `${site.url}/catalogo` },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: category.name,
+        item: `${site.url}/catalogo/${category.slug}`,
+      },
+    ],
+  };
 
   return (
     <>
       <Container className="py-6">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
         <nav aria-label="Miga de pan" className="flex flex-wrap items-center gap-2 text-sm text-muted">
           <Link href="/" className="hover:text-plum">
             Inicio
@@ -83,6 +102,21 @@ export default async function CategoryPage({ params }: { params: Params }) {
               ))}
             </ul>
           </div>
+        </div>
+      </Container>
+
+      <Container className="pb-16">
+        <div className="max-w-3xl space-y-10">
+        {guide.map((section) => (
+          <section key={section.heading}>
+            <h2 className="font-display text-2xl font-medium text-plum">{section.heading}</h2>
+            <div className="mt-4 space-y-4 text-base leading-relaxed text-ink">
+              {section.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </section>
+        ))}
         </div>
       </Container>
 

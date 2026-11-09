@@ -5,12 +5,14 @@ import { OfferingCard } from "@/components/product-card";
 import { CatalogFilters } from "@/components/catalog-filters";
 import { categories, getCategory } from "@/lib/data";
 import { waitlistHref } from "@/lib/site";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Categorías para profesionales médicos",
   description:
     "Tres categorías que estamos preparando para la práctica médica en Nicaragua: rellenos de ácido hialurónico, polirrevitalización inyectable y dermocosmética profesional.",
-};
+  path: "/catalogo",
+});
 
 type SearchParams = Promise<{
   categoria?: string;

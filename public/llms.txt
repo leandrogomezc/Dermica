@@ -1,0 +1,19 @@
+Dérmica prepara insumos de medicina estética para profesionales médicos en Nicaragua. El sitio es de prelanzamiento y está dirigido a un público B2B: médicos que ya trabajan estética en su consulta. No es una clínica, no agenda pacientes y no realiza tratamientos.
+
+Las categorías en preparación son tres, descritas sin nombres comerciales: rellenos dérmicos de ácido hialurónico, revitalización inyectable (polirrevitalización) y dermocosmética profesional. La indicación y la técnica quedan a cargo del médico. Todavía no hay fecha de apertura, precios, sedes ni cobertura de envíos. Anotarse a la lista de espera no reserva productos.
+
+El canal para el aviso de apertura es el formulario del sitio. El correo y el consentimiento del aviso son obligatorios; el nombre, la especialidad, la ciudad y el teléfono son opcionales. Hay una casilla aparte, desmarcada, para novedades de marketing solo por correo. No incluye WhatsApp, SMS ni el envío de datos a terceros.
+
+Dérmica es quien trata los datos del formulario. No se publica una razón social, una dirección ni un RUC. Para privacidad, acceso, corrección, eliminación o retiro del consentimiento de marketing, el correo es gerencia@dermica.lat. El dominio canónico es https://dermica.lat.
+
+Páginas:
+- Inicio: https://dermica.lat/
+- Categorías: https://dermica.lat/catalogo
+- Rellenos dérmicos de ácido hialurónico: https://dermica.lat/catalogo/rellenos-acido-hialuronico
+- Revitalización inyectable: https://dermica.lat/catalogo/revitalizacion-inyectable
+- Dermocosmética profesional: https://dermica.lat/catalogo/dermocosmetica-profesional
+- Quiénes somos: https://dermica.lat/quienes-somos
+- Apertura: https://dermica.lat/apertura
+- Contacto: https://dermica.lat/contacto
+- Preguntas frecuentes: https://dermica.lat/preguntas-frecuentes
+- Privacidad: https://dermica.lat/privacidad

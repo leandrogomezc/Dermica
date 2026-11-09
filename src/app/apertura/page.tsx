@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { Container, SectionHeading, Eyebrow, ButtonLink } from "@/components/ui";
 import { CheckIcon } from "@/components/icons";
 import { waitlistHref } from "@/lib/site";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Apertura en Nicaragua",
   description:
     "Estamos preparando la apertura. Dejanos tu correo y te avisamos cuando abramos.",
-};
+  path: "/apertura",
+});
 
 const today = [
   "Conocer las tres categorías que estamos preparando.",

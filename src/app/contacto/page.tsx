@@ -3,11 +3,13 @@ import Link from "next/link";
 import { Container, Eyebrow } from "@/components/ui";
 import { WaitlistSection } from "@/components/waitlist-section";
 import { site } from "@/lib/site";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contacto",
   description: "Por ahora, el contacto con Dérmica es la lista de aviso de apertura.",
-};
+  path: "/contacto",
+});
 
 export default function ContactPage() {
   return (
