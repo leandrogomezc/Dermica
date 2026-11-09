@@ -13,13 +13,13 @@ export const metadata: Metadata = pageMetadata({
 
 export default function PrivacyPage() {
   return (
-    <section className="border-b border-line bg-white">
+    <section className="border-b border-mist bg-white">
       <Container className="max-w-3xl py-16 sm:py-20">
         <Eyebrow>Privacidad</Eyebrow>
-        <h1 className="font-display mt-4 text-4xl font-medium leading-tight text-plum sm:text-5xl">
+        <h1 className="font-display mt-4 text-4xl font-semibold leading-tight text-clinical sm:text-5xl">
           Qué guardamos y para qué
         </h1>
-        <div className="mt-8 space-y-5 text-base leading-relaxed text-ink">
+        <div className="mt-8 space-y-5 text-base leading-relaxed text-clinical">
           <p>
             Dérmica está en prelanzamiento en Nicaragua. Esta página describe el formulario
             del sitio. Dérmica es quien trata estos datos. Todavía no publicamos una razón
@@ -39,7 +39,7 @@ export default function PrivacyPage() {
           <p>
             Si la marcás y el registro se guarda, la página te muestra un enlace para retirar
             ese consentimiento. Conservalo. Si lo perdés, escribinos a{" "}
-            <a href={`mailto:${site.email}`} className="font-semibold text-plum underline-offset-4 hover:underline">
+            <a href={`mailto:${site.email}`} className="font-semibold text-clinical underline-offset-4 hover:underline">
               {site.email}
             </a>
             . Ese mismo correo sirve para pedir acceso, corrección o eliminación de tus datos.
@@ -55,13 +55,13 @@ export default function PrivacyPage() {
           <p>
             Esto no es un dictamen de cumplimiento legal. Para el aviso de apertura, el acceso
             o la eliminación, el canal es{" "}
-            <a href={`mailto:${site.email}`} className="font-semibold text-plum underline-offset-4 hover:underline">
+            <a href={`mailto:${site.email}`} className="font-semibold text-clinical underline-offset-4 hover:underline">
               {site.email}
             </a>
             .
           </p>
           <p>
-            <Link href="/contacto" className="font-semibold text-plum underline-offset-4 hover:underline">
+            <Link href="/contacto" className="font-semibold text-clinical underline-offset-4 hover:underline">
               Volver al formulario
             </Link>
           </p>

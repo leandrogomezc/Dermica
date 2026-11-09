@@ -17,7 +17,7 @@ export function Container({
 
 export function Eyebrow({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-block text-xs font-semibold uppercase tracking-[0.22em] text-gold">
+    <span className="inline-block text-xs font-semibold text-clinical">
       {children}
     </span>
   );
@@ -41,11 +41,11 @@ export function SectionHeading({
       className={`${align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"} ${className}`}
     >
       {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-      <h2 className="font-display mt-3 text-3xl font-medium leading-tight text-plum sm:text-4xl">
+      <h2 className="font-display mt-3 text-3xl font-semibold leading-tight text-clinical sm:text-4xl">
         {title}
       </h2>
       {description ? (
-        <p className="mt-4 text-base leading-relaxed text-muted">{description}</p>
+        <p className="mt-4 text-base leading-relaxed text-clinical">{description}</p>
       ) : null}
     </div>
   );
@@ -55,10 +55,10 @@ type Variant = "primary" | "outline" | "ghost";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-plum text-cream hover:bg-plum-700 focus-visible:ring-plum/40",
+    "bg-clinical text-white hover:bg-clinical/90 focus-visible:ring-clinical/40",
   outline:
-    "border border-plum/30 text-plum hover:bg-plum hover:text-cream focus-visible:ring-plum/30",
-  ghost: "text-plum hover:bg-cream-200 focus-visible:ring-plum/20",
+    "border border-clinical/30 text-clinical hover:bg-clinical hover:text-white focus-visible:ring-clinical/30",
+  ghost: "text-clinical hover:bg-sky-100 focus-visible:ring-clinical/20",
 };
 
 const sizeClasses = "px-6 py-3 text-sm";

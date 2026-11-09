@@ -28,7 +28,7 @@ export function CatalogFilters() {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-sm font-semibold text-plum">Categorías</h2>
+        <h2 className="text-sm font-semibold text-clinical">Categorías</h2>
         <div className="mt-3 flex flex-col gap-1">
           <FilterButton active={!activeCategory} onClick={() => update("categoria", "")}>
             Todas
@@ -49,7 +49,7 @@ export function CatalogFilters() {
         <button
           type="button"
           onClick={() => router.replace(pathname, { scroll: false })}
-          className="text-sm font-medium text-plum underline underline-offset-4 hover:text-plum-700"
+          className="text-sm font-medium text-clinical underline underline-offset-4 hover:text-clinical"
         >
           Limpiar filtros
         </button>
@@ -73,7 +73,7 @@ function FilterButton({
       onClick={onClick}
       aria-pressed={active}
       className={`rounded-lg px-3 py-2 text-left text-sm transition-colors ${
-        active ? "bg-plum font-medium text-cream" : "text-ink hover:bg-cream-200"
+        active ? "bg-clinical font-medium text-white" : "text-clinical hover:bg-sky-100"
       }`}
     >
       {children}

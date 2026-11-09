@@ -11,7 +11,7 @@ export function ProductSpotlight() {
   const reduce = useReducedMotion();
 
   return (
-    <section className="border-y border-line bg-white py-20 sm:py-24">
+    <section className="border-y border-mist bg-white py-20 sm:py-24">
       <Container>
         <SectionHeading
           eyebrow="Categorías en preparación"
@@ -27,7 +27,7 @@ export function ProductSpotlight() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: reduce ? 0 : index * 0.12, ease: "easeOut" }}
-              className="flex flex-col overflow-hidden rounded-3xl border border-line bg-cream"
+              className="flex flex-col overflow-hidden rounded-3xl border border-mist bg-white"
             >
               <div className="relative">
                 <ProductPlaceholder
@@ -35,25 +35,25 @@ export function ProductSpotlight() {
                   label={category.shortName}
                   className="aspect-[16/10] w-full"
                 />
-                <span className="absolute left-4 top-4 rounded-full bg-cream/90 px-3 py-1 text-xs font-semibold text-plum shadow-sm">
+                <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-clinical shadow-sm">
                   En preparación
                 </span>
               </div>
 
               <div className="flex flex-1 flex-col p-6">
-                <h3 className="font-display text-xl font-medium text-plum">{category.name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{category.description}</p>
+                <h3 className="font-display text-xl font-semibold text-clinical">{category.name}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-clinical">{category.description}</p>
                 <ul className="mt-4 space-y-2">
                   {category.points.slice(0, 2).map((point) => (
-                    <li key={point} className="flex items-start gap-2 text-sm text-ink">
-                      <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
+                    <li key={point} className="flex items-start gap-2 text-sm text-clinical">
+                      <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-clinical" />
                       {point}
                     </li>
                   ))}
                 </ul>
                 <Link
                   href={`/catalogo/${category.slug}`}
-                  className="mt-5 inline-flex items-center justify-center gap-2 rounded-full border border-plum/30 px-4 py-2.5 text-sm font-semibold text-plum transition-colors hover:bg-plum hover:text-cream"
+                  className="mt-5 inline-flex items-center justify-center gap-2 rounded-full border border-clinical/30 px-4 py-2.5 text-sm font-semibold text-clinical transition-colors hover:bg-clinical hover:text-white"
                 >
                   Ver esta categoría
                   <ArrowRightIcon className="h-4 w-4" />

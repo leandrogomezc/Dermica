@@ -35,14 +35,14 @@ export function WithdrawMarketing() {
           type="button"
           onClick={withdraw}
           disabled={status === "loading" || status === "done"}
-          className="inline-flex items-center justify-center rounded-full bg-plum px-6 py-3 text-sm font-semibold text-cream hover:bg-plum-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-plum/30 disabled:opacity-70"
+          className="inline-flex items-center justify-center rounded-full bg-clinical px-6 py-3 text-sm font-semibold text-white hover:bg-clinical/90 focus:outline-none focus-visible:ring-4 focus-visible:ring-clinical/30 disabled:opacity-70"
         >
           {status === "loading" ? "Retirando…" : "Retirar novedades por correo"}
         </button>
       ) : (
-        <p className="text-sm text-plum">Este enlace no incluye la clave. No cambiamos ninguna preferencia.</p>
+        <p className="text-sm text-clinical">Este enlace no incluye la clave. No cambiamos ninguna preferencia.</p>
       )}
-      <div role={status === "error" ? "alert" : "status"} aria-live="polite" className="mt-4 text-sm text-ink">
+      <div role={status === "error" ? "alert" : "status"} aria-live="polite" className="mt-4 text-sm text-clinical">
         {message}
       </div>
     </div>

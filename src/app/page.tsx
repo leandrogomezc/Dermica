@@ -38,16 +38,16 @@ export default function HomePage() {
     <>
       <HeroScan />
 
-      <section className="border-t border-line bg-white py-8">
+      <section className="border-t border-mist bg-white py-8">
         <Container className="grid gap-6 sm:grid-cols-3">
           {valueProps.map((item) => (
             <div key={item.title} className="flex items-start gap-4">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-cream-200 text-plum">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-clinical">
                 <item.icon className="h-6 w-6" />
               </span>
               <div>
-                <h2 className="font-semibold text-plum">{item.title}</h2>
-                <p className="mt-1 text-sm text-muted">{item.text}</p>
+                <h2 className="font-semibold text-clinical">{item.title}</h2>
+                <p className="mt-1 text-sm text-clinical">{item.text}</p>
               </div>
             </div>
           ))}
@@ -69,15 +69,15 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="border-y border-line bg-white py-16">
+      <section className="border-y border-mist bg-white py-16">
         <Container className="max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold">
+          <p className="text-xs font-semibold text-clinical">
             Para quién es Dérmica
           </p>
-          <h2 className="font-display mt-3 text-3xl font-medium text-plum">
+          <h2 className="font-display mt-3 text-3xl font-semibold text-clinical">
             Si trabajás estética en tu consulta
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-muted">
+          <p className="mt-4 text-base leading-relaxed text-clinical">
             Dermatología, medicina estética y cirugía son los perfiles que tenemos en mente.
             Anotate y enterate primero. El nombre y lo demás son opcionales.
           </p>

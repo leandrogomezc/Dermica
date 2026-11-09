@@ -161,7 +161,7 @@ export function WaitlistForm() {
   }
 
   const inputClass =
-    "mt-1.5 w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-plum focus-visible:ring-4 focus-visible:ring-plum/15 aria-[invalid=true]:border-plum-700";
+    "mt-1.5 w-full rounded-xl border border-mist bg-white px-4 py-3 text-sm text-clinical outline-none transition-colors placeholder:text-clinical focus:border-clinical focus-visible:ring-4 focus-visible:ring-clinical/15 aria-[invalid=true]:border-clinical";
 
   return (
     <form
@@ -194,10 +194,10 @@ export function WaitlistForm() {
             ? "sr-only"
             : `rounded-2xl px-4 py-3 text-sm outline-none ${
                 status === "success"
-                  ? "bg-cream-200 text-plum"
+                  ? "bg-sky-100 text-clinical"
                   : status === "error"
-                    ? "bg-white text-plum ring-1 ring-plum/20"
-                    : "bg-cream-200 text-ink"
+                    ? "bg-white text-clinical ring-1 ring-clinical/20"
+                    : "bg-sky-100 text-clinical"
               }`
         }
       >
@@ -207,7 +207,7 @@ export function WaitlistForm() {
             <span className="mt-2 block">
               Guardá este enlace. Si lo perdés, pedí el retiro de las novedades a {site.email}.
             </span>
-            <a href={withdrawPath} className="mt-2 block font-semibold text-plum underline-offset-4 hover:underline">
+            <a href={withdrawPath} className="mt-2 block font-semibold text-clinical underline-offset-4 hover:underline">
               Retirar el consentimiento de novedades
             </a>
           </>
@@ -215,9 +215,9 @@ export function WaitlistForm() {
       </div>
 
       {store ? (
-        <p className="text-sm leading-relaxed text-muted">{store.storageNote}</p>
+        <p className="text-sm leading-relaxed text-clinical">{store.storageNote}</p>
       ) : (
-        <p className="text-sm text-muted">Comprobando si la lista puede guardar registros…</p>
+        <p className="text-sm text-clinical">Comprobando si la lista puede guardar registros…</p>
       )}
 
       <Field
@@ -243,11 +243,11 @@ export function WaitlistForm() {
       </Field>
 
       <details
-        className="rounded-xl border border-line px-4 py-3"
+        className="rounded-xl border border-mist px-4 py-3"
         open={detailsOpen}
         onToggle={(event) => setDetailsOpen(event.currentTarget.open)}
       >
-        <summary className="cursor-pointer text-sm font-medium text-plum">
+        <summary className="cursor-pointer text-sm font-medium text-clinical">
           Agregar nombre, ciudad o teléfono (opcional)
         </summary>
         <div className="mt-4 space-y-5">
@@ -326,7 +326,7 @@ export function WaitlistForm() {
       </details>
 
       <div>
-        <label htmlFor="waitlist-consent" className="flex items-start gap-3 text-sm text-ink">
+        <label htmlFor="waitlist-consent" className="flex items-start gap-3 text-sm text-clinical">
           <input
             id="waitlist-consent"
             name="consent"
@@ -341,26 +341,26 @@ export function WaitlistForm() {
           }
             checked={fields.consent}
             onChange={(event) => update("consent", event.target.checked)}
-            className="mt-0.5 h-5 w-5 shrink-0 rounded border-line text-plum focus-visible:ring-4 focus-visible:ring-plum/20"
+            className="mt-0.5 h-5 w-5 shrink-0 rounded border-mist text-clinical focus-visible:ring-4 focus-visible:ring-clinical/20"
           />
           <span>
-            <span className="font-medium text-plum">Quiero enterarme primero.</span>{" "}
+            <span className="font-medium text-clinical">Quiero enterarme primero.</span>{" "}
             Acepto que Dérmica guarde estos datos solo para avisarme de la apertura.
           </span>
         </label>
-        <p id="waitlist-consent-hint" className="mt-2 pl-8 text-xs leading-relaxed text-muted">
+        <p id="waitlist-consent-hint" className="mt-2 pl-8 text-xs leading-relaxed text-clinical">
           La casilla viene desmarcada. No es una suscripción de marketing ni autoriza correos o
           WhatsApp automáticos.
         </p>
         {errors.consent ? (
-          <p id="waitlist-consent-error" className="mt-2 pl-8 text-sm text-plum-700">
+          <p id="waitlist-consent-error" className="mt-2 pl-8 text-sm text-clinical">
             {errors.consent}
           </p>
         ) : null}
       </div>
 
       <div>
-        <label htmlFor="waitlist-marketing" className="flex items-start gap-3 text-sm text-ink">
+        <label htmlFor="waitlist-marketing" className="flex items-start gap-3 text-sm text-clinical">
           <input
             id="waitlist-marketing"
             name="marketingConsent"
@@ -373,29 +373,29 @@ export function WaitlistForm() {
             aria-invalid={errors.marketingConsent ? true : undefined}
             checked={fields.marketingConsent}
             onChange={(event) => update("marketingConsent", event.target.checked)}
-            className="mt-0.5 h-5 w-5 shrink-0 rounded border-line text-plum focus-visible:ring-4 focus-visible:ring-plum/20"
+            className="mt-0.5 h-5 w-5 shrink-0 rounded border-mist text-clinical focus-visible:ring-4 focus-visible:ring-clinical/20"
           />
           <span>
             Quiero recibir por correo novedades y comunicaciones de marketing de Dérmica.
             Puedo retirar mi consentimiento con el enlace que se muestra al guardar o escribiendo a {site.email}.
           </span>
         </label>
-        <p id="waitlist-marketing-hint" className="mt-2 pl-8 text-xs leading-relaxed text-muted">
+        <p id="waitlist-marketing-hint" className="mt-2 pl-8 text-xs leading-relaxed text-clinical">
           Opcional y desmarcada. No frena el aviso de apertura. Es solo por correo: no autoriza
           WhatsApp, SMS ni compartir tus datos con terceros.
         </p>
         {errors.marketingConsent ? (
-          <p id="waitlist-marketing-error" className="mt-2 pl-8 text-sm text-plum-700">
+          <p id="waitlist-marketing-error" className="mt-2 pl-8 text-sm text-clinical">
             {errors.marketingConsent}
           </p>
         ) : null}
       </div>
 
-      <p id="waitlist-privacy" className="text-xs leading-relaxed text-muted">
+      <p id="waitlist-privacy" className="text-xs leading-relaxed text-clinical">
         Guardamos tu correo para avisarte de la apertura. Si los escribís, también el nombre,
         la especialidad, la ciudad y el teléfono. Las novedades, si las marcás, son aparte y
         solo por correo. No pedimos datos de pacientes.{" "}
-        <a href="/privacidad" className="font-semibold text-plum underline-offset-4 hover:underline">
+        <a href="/privacidad" className="font-semibold text-clinical underline-offset-4 hover:underline">
           Privacidad
         </a>
       </p>
@@ -403,7 +403,7 @@ export function WaitlistForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="inline-flex w-full items-center justify-center rounded-full bg-plum px-6 py-3.5 text-sm font-semibold text-cream transition-colors hover:bg-plum-700 focus:outline-none focus-visible:ring-4 focus-visible:ring-plum/30 disabled:cursor-wait disabled:opacity-70 sm:w-auto"
+        className="inline-flex w-full items-center justify-center rounded-full bg-clinical px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-clinical/90 focus:outline-none focus-visible:ring-4 focus-visible:ring-clinical/30 disabled:cursor-wait disabled:opacity-70 sm:w-auto"
       >
         {status === "loading" ? "Guardando…" : "Avisame cuando abran"}
       </button>
@@ -426,7 +426,7 @@ function Field({
   hint: string;
   children: ReactElement<{ id?: string; "aria-describedby"?: string }>;
 }) {
-  const labelClass = "block text-sm font-medium text-plum";
+  const labelClass = "block text-sm font-medium text-clinical";
   const hintId = `${id}-hint`;
   const errorId = `${id}-error`;
   const describedBy = error ? `${hintId} ${errorId}` : hintId;
@@ -435,16 +435,16 @@ function Field({
     <div>
       <label htmlFor={id} className={labelClass}>
         {label}{" "}
-        <span className="font-normal text-muted">{required ? "(obligatorio)" : "(opcional)"}</span>
+        <span className="font-normal text-clinical">{required ? "(obligatorio)" : "(opcional)"}</span>
       </label>
       <Described fieldId={id} describedBy={describedBy}>
         {children}
       </Described>
-      <p id={hintId} className="mt-1.5 text-xs leading-relaxed text-muted">
+      <p id={hintId} className="mt-1.5 text-xs leading-relaxed text-clinical">
         {hint}
       </p>
       {error ? (
-        <p id={errorId} className="mt-1 text-sm text-plum-700">
+        <p id={errorId} className="mt-1 text-sm text-clinical">
           {error}
         </p>
       ) : null}

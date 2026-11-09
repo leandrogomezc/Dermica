@@ -33,15 +33,15 @@ export default async function CatalogPage({
 
   return (
     <>
-      <section className="border-b border-line bg-white">
+      <section className="border-b border-mist bg-white">
         <Container className="py-12 sm:py-16">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold">
+          <p className="text-xs font-semibold text-clinical">
             Categorías
           </p>
-          <h1 className="font-display mt-3 text-3xl font-medium text-plum sm:text-4xl">
+          <h1 className="font-display mt-3 text-3xl font-semibold text-clinical sm:text-4xl">
             {activeCategory ? activeCategory.name : "Categorías para profesionales médicos"}
           </h1>
-          <p className="mt-3 max-w-2xl text-muted">
+          <p className="mt-3 max-w-2xl text-clinical">
             {activeCategory
               ? activeCategory.description
               : "Tres categorías que estamos preparando para la práctica médica en Nicaragua."}
@@ -52,13 +52,13 @@ export default async function CatalogPage({
       <Container className="py-12">
         <div className="grid gap-10 lg:grid-cols-[260px_1fr]">
           <aside className="lg:sticky lg:top-24 lg:self-start">
-            <Suspense fallback={<div className="text-sm text-muted">Cargando filtros…</div>}>
+            <Suspense fallback={<div className="text-sm text-clinical">Cargando filtros…</div>}>
               <CatalogFilters />
             </Suspense>
           </aside>
 
           <div>
-            <p className="mb-6 text-sm text-muted">
+            <p className="mb-6 text-sm text-clinical">
               {filtered.length} {filtered.length === 1 ? "categoría" : "categorías"}
             </p>
 
@@ -69,11 +69,11 @@ export default async function CatalogPage({
                 ))}
               </div>
             ) : (
-              <div className="rounded-2xl border border-dashed border-line bg-white p-12 text-center">
-                <h2 className="font-display text-xl text-plum">
+              <div className="rounded-2xl border border-dashed border-mist bg-white p-12 text-center">
+                <h2 className="font-display text-xl text-clinical">
                   No encontramos una categoría con ese texto
                 </h2>
-                <p className="mt-2 text-sm text-muted">
+                <p className="mt-2 text-sm text-clinical">
                   Si querés enterarte cuando abramos, dejanos tu correo.
                 </p>
                 <div className="mt-6 flex justify-center">

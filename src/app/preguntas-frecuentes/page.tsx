@@ -27,35 +27,35 @@ export default function FaqPage() {
   };
 
   return (
-    <section className="border-b border-line bg-white">
+    <section className="border-b border-mist bg-white">
       <Container className="max-w-3xl py-16 sm:py-20">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
         <Eyebrow>Preguntas frecuentes</Eyebrow>
-        <h1 className="font-display mt-4 text-4xl font-medium leading-tight text-plum sm:text-5xl">
+        <h1 className="font-display mt-4 text-4xl font-semibold leading-tight text-clinical sm:text-5xl">
           Preguntas frecuentes sobre Dérmica
         </h1>
-        <p className="mt-6 text-base leading-relaxed text-muted">
+        <p className="mt-6 text-base leading-relaxed text-clinical">
           Estas respuestas usan solo lo que el sitio ya dice. {site.name} está en
           prelanzamiento en Nicaragua y no es una clínica.
         </p>
         <div className="mt-10 space-y-8">
           {faq.map((item) => (
             <article key={item.question}>
-              <h2 className="font-display text-2xl font-medium text-plum">{item.question}</h2>
-              <p className="mt-3 text-base leading-relaxed text-ink">{item.answer}</p>
+              <h2 className="font-display text-2xl font-semibold text-clinical">{item.question}</h2>
+              <p className="mt-3 text-base leading-relaxed text-clinical">{item.answer}</p>
             </article>
           ))}
         </div>
-        <p className="mt-10 text-sm leading-relaxed text-muted">
+        <p className="mt-10 text-sm leading-relaxed text-clinical">
           El detalle de los datos está en{" "}
-          <Link href="/privacidad" className="font-semibold text-plum underline-offset-4 hover:underline">
+          <Link href="/privacidad" className="font-semibold text-clinical underline-offset-4 hover:underline">
             Privacidad
           </Link>
           . El formulario está en{" "}
-          <Link href="/contacto" className="font-semibold text-plum underline-offset-4 hover:underline">
+          <Link href="/contacto" className="font-semibold text-clinical underline-offset-4 hover:underline">
             Contacto
           </Link>
           .

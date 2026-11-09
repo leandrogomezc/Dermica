@@ -53,8 +53,8 @@ export function HeroScan() {
   return (
     <section className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <span className="absolute left-1/2 top-1/3 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-blush/20 blur-3xl" />
-        <span className="absolute -left-20 bottom-0 h-80 w-80 rounded-full bg-gold/10 blur-3xl" />
+        <span className="absolute left-1/2 top-1/3 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-sky/20 blur-3xl" />
+        <span className="absolute -left-20 bottom-0 h-80 w-80 rounded-full bg-sky/10 blur-3xl" />
       </div>
 
       <Container className="relative grid items-center gap-8 py-8 sm:gap-10 sm:py-12 lg:grid-cols-12 lg:gap-6 lg:py-20">
@@ -68,7 +68,7 @@ export function HeroScan() {
             <TrustBadge />
           </motion.div>
 
-          <h1 className="font-display mt-4 max-w-full text-3xl font-medium leading-[1.05] text-plum sm:mt-5 sm:text-5xl">
+          <h1 className="font-display mt-4 max-w-full text-4xl font-semibold leading-[1.05] text-clinical sm:mt-5 sm:text-5xl">
             {headline.map((wordText, index) => (
               <motion.span key={`${wordText}-${index}`} variants={word} className="mr-[0.25em] inline-block!">
                 {wordText}
@@ -76,7 +76,7 @@ export function HeroScan() {
             ))}
           </h1>
 
-          <motion.p variants={fade} className="mt-5 max-w-md text-base leading-relaxed text-muted">
+          <motion.p variants={fade} className="mt-5 max-w-md text-base leading-relaxed text-clinical">
             Anotate y enterate primero. En marzo de 2027 abrimos en Nicaragua: un cupo
             de 30 médicos fundadores, con acceso anticipado y precio de apertura,
             para tu consulta.
@@ -91,7 +91,7 @@ export function HeroScan() {
               <ArrowRightIcon className="h-4 w-4" />
             </ButtonLink>
           </motion.div>
-          <motion.p variants={fade} className="mt-4 max-w-md text-sm text-muted">
+          <motion.p variants={fade} className="mt-4 max-w-md text-sm text-clinical">
             Todavía no vendemos ni atendemos pacientes. Anotarte no te garantiza el cupo: te avisamos primero.
           </motion.p>
         </motion.div>
@@ -111,12 +111,12 @@ export function HeroScan() {
               <motion.div
                 key={stat.label}
                 variants={fade}
-                className="min-w-0 rounded-2xl border border-line bg-white/70 p-4 backdrop-blur-sm lg:grid lg:grid-cols-[auto_minmax(0,1fr)] lg:items-center lg:gap-4 lg:border-0 lg:bg-transparent lg:p-0"
+                className="min-w-0 rounded-2xl border border-mist bg-white/70 p-4 backdrop-blur-sm lg:grid lg:grid-cols-[auto_minmax(0,1fr)] lg:items-center lg:gap-4 lg:border-0 lg:bg-transparent lg:p-0"
               >
-                <p className="whitespace-nowrap font-display text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold leading-none text-plum">
+                <p className="whitespace-nowrap font-display text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold leading-none text-clinical">
                   {stat.value}
                 </p>
-                <p className="mt-1 min-w-0 text-xs leading-snug text-muted lg:mt-0 lg:text-sm">
+                <p className="mt-1 min-w-0 text-xs leading-snug text-clinical lg:mt-0 lg:text-sm">
                   {stat.label}
                 </p>
               </motion.div>
@@ -142,7 +142,7 @@ function FaceScan({ reduce }: { reduce: boolean }) {
             className="object-cover object-top"
           />
           {!reduce ? (
-            <span className="animate-scan-sweep pointer-events-none absolute left-0 right-0 h-16 bg-gradient-to-b from-transparent via-blush/30 to-transparent" />
+            <span className="animate-scan-sweep pointer-events-none absolute left-0 right-0 h-16 bg-gradient-to-b from-transparent via-sky/30 to-transparent" />
           ) : null}
         </div>
 
@@ -150,7 +150,7 @@ function FaceScan({ reduce }: { reduce: boolean }) {
           <ScanBox key={item.slug} item={item} index={index} reduce={reduce} />
         ))}
       </div>
-      <p className="mt-3 text-center text-xs text-muted">Imagen ilustrativa.</p>
+      <p className="mt-3 text-center text-xs text-clinical">Imagen ilustrativa.</p>
     </div>
   );
 }
@@ -184,12 +184,12 @@ function ScanBox({
         <span className="absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white" />
         <Link
           href={`/catalogo/${item.slug}`}
-          className="absolute left-[calc(100%+0.5rem)] top-1/2 hidden w-[9.5rem] -translate-y-1/2 rounded-lg bg-plum/90 px-2.5 py-1.5 text-left shadow-lg backdrop-blur-sm transition-colors hover:bg-plum sm:block"
+          className="absolute left-[calc(100%+0.5rem)] top-1/2 hidden w-[9.5rem] -translate-y-1/2 rounded-lg bg-clinical/90 px-2.5 py-1.5 text-left shadow-lg backdrop-blur-sm transition-colors hover:bg-clinical sm:block"
         >
-          <span className="block text-[11px] font-semibold leading-tight text-cream">
+          <span className="block text-[11px] font-semibold leading-tight text-white">
             {item.label}
           </span>
-          <span className="block text-[10px] leading-tight text-cream/70">{item.note}</span>
+          <span className="block text-[10px] leading-tight text-white/70">{item.note}</span>
         </Link>
       </div>
     </motion.div>
@@ -198,8 +198,8 @@ function ScanBox({
 
 function TrustBadge() {
   return (
-    <div className="inline-flex items-center gap-3 rounded-full border border-line bg-white/70 py-1.5 pl-1.5 pr-4 backdrop-blur-sm">
-      <span className="text-xs font-medium text-ink">Para profesionales médicos</span>
+    <div className="inline-flex items-center gap-3 rounded-full border border-mist bg-white/70 py-1.5 pl-1.5 pr-4 backdrop-blur-sm">
+      <span className="text-xs font-medium text-clinical">Para profesionales médicos</span>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { useState, type MouseEvent } from "react";
 import { nav, waitlistHref } from "@/lib/site";
 import { Container, ButtonLink } from "@/components/ui";
 import { MenuIcon, CloseIcon } from "@/components/icons";
+import { Logo } from "@/components/logo";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -27,14 +28,12 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-cream/85 backdrop-blur-md">
-      <Container className="flex h-16 items-center justify-between gap-4 sm:h-20">
-        <Link href="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-          <span className="font-display text-2xl font-semibold tracking-tight text-plum">
-            Dérmica
-          </span>
-          <span className="hidden h-5 w-px bg-line sm:block" />
-          <span className="hidden text-[11px] font-medium uppercase tracking-[0.2em] text-muted sm:block">
+    <header className="sticky top-0 z-40 border-b border-mist bg-white/85 backdrop-blur-md">
+      <Container className="flex items-center justify-between gap-4">
+        <Link href="/" className="flex items-center" onClick={() => setOpen(false)}>
+          <Logo variant="horizontal" />
+          <span className="hidden h-5 w-px bg-mist sm:block" aria-hidden="true" />
+          <span className="hidden pl-3 text-xs font-medium text-clinical sm:block">
             Nicaragua
           </span>
         </Link>
@@ -45,8 +44,8 @@ export function SiteHeader() {
               key={item.href}
               href={item.href}
               aria-current={isActive(item.href) ? "page" : undefined}
-              className={`text-sm font-medium transition-colors hover:text-plum ${
-                isActive(item.href) ? "text-plum" : "text-muted"
+              className={`text-sm transition-colors hover:text-clinical ${
+                isActive(item.href) ? "font-semibold text-clinical" : "font-medium text-clinical"
               }`}
             >
               {item.label}
@@ -66,14 +65,14 @@ export function SiteHeader() {
           aria-controls="menu-movil"
           aria-label={open ? "Cerrar menú" : "Abrir menú"}
           onClick={() => setOpen((value) => !value)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full text-plum hover:bg-cream-200 lg:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full text-clinical hover:bg-sky-100 lg:hidden"
         >
           {open ? <CloseIcon className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
         </button>
       </Container>
 
       {open ? (
-        <div id="menu-movil" className="border-t border-line bg-cream lg:hidden">
+        <div id="menu-movil" className="border-t border-mist bg-white lg:hidden">
           <Container className="flex flex-col gap-1 py-4">
             {nav.map((item) => (
               <Link
@@ -83,8 +82,8 @@ export function SiteHeader() {
                 aria-current={isActive(item.href) ? "page" : undefined}
                 className={`rounded-xl px-4 py-3 text-base font-medium transition-colors ${
                   isActive(item.href)
-                    ? "bg-cream-200 text-plum"
-                    : "text-ink hover:bg-cream-200"
+                    ? "bg-sky-100 text-clinical"
+                    : "text-clinical hover:bg-sky-100"
                 }`}
               >
                 {item.label}
@@ -95,7 +94,7 @@ export function SiteHeader() {
                 Avisame cuando abran
               </ButtonLink>
             </div>
-            <p className="mt-3 px-4 text-sm text-muted">Próximamente en Nicaragua</p>
+            <p className="mt-3 px-4 text-sm text-clinical">Próximamente en Nicaragua</p>
           </Container>
         </div>
       ) : null}
