@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Figtree, Inter } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
@@ -59,6 +59,10 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon-180.png", sizes: "180x180", type: "image/png" }],
   },
   ...(verification ? { verification } : {}),
+};
+
+export const viewport: Viewport = {
+  themeColor: "#1E3A5F",
 };
 
 export default function RootLayout({
