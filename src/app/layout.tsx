@@ -47,6 +47,17 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     images: ["/og.png"],
   },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/app-icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/app-icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon-180.png", sizes: "180x180", type: "image/png" }],
+  },
   ...(verification ? { verification } : {}),
 };
 
