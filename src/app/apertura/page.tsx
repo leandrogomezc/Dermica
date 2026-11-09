@@ -26,7 +26,7 @@ const pending = [
 export default function OpeningPage() {
   return (
     <>
-      <section className="border-b border-mist bg-white">
+      <section className="bg-sky-100">
         <Container className="py-16 sm:py-20">
           <PageHero eyebrow="Apertura" title="Abrimos en marzo de 2027">
             <p className="mt-6 text-lg leading-relaxed text-clinical">
@@ -37,7 +37,7 @@ export default function OpeningPage() {
         </Container>
       </section>
 
-      <section className="py-20 sm:py-24">
+      <section className="bg-sky-100 py-20 sm:py-24">
         <Container className="grid gap-8 lg:grid-cols-2">
           <div className="rounded-3xl border border-mist bg-white p-8">
             <SectionHeading eyebrow="Lo que te llevás" title="Acceso anticipado" />

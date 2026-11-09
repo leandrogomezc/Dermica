@@ -38,7 +38,7 @@ const facts = [
 export default function AboutPage() {
   return (
     <>
-      <section className="border-b border-mist bg-white">
+      <section className="bg-sky-100">
         <Container className="py-16 sm:py-20">
           <PageHero eyebrow="Quiénes somos" title="Preparamos Dérmica para los médicos de Nicaragua">
             <p className="mt-6 text-lg leading-relaxed text-clinical">
@@ -50,7 +50,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="py-20 sm:py-24">
+      <section className="bg-sky-100 py-20 sm:py-24">
         <Container className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div className="space-y-5 text-base leading-relaxed text-clinical">
             <SectionHeading eyebrow="En este momento" title="Una presentación honesta" />
@@ -66,7 +66,7 @@ export default function AboutPage() {
           </div>
           <div className="grid gap-4">
             {facts.map((item) => (
-              <div key={item} className="rounded-2xl border border-mist bg-sky-100 p-7">
+              <div key={item} className="rounded-2xl border border-mist bg-white p-7">
                 <p className="font-display text-2xl font-semibold text-clinical">{item}</p>
               </div>
             ))}
@@ -80,7 +80,7 @@ export default function AboutPage() {
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {values.map((value) => (
               <div key={value.title} className="rounded-2xl border border-mist bg-white p-8">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-clinical text-white">
+                <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-sky-100 text-clinical">
                   <value.icon className="h-6 w-6" />
                 </span>
                 <h3 className="font-display mt-5 text-xl font-semibold text-clinical">{value.title}</h3>

@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMetadata({
 export default function ContactPage() {
   return (
     <>
-      <section className="border-b border-mist bg-white">
+      <section className="border-b border-mist bg-sky-100">
         <Container className="py-16 sm:py-20">
           <PageHero eyebrow="Contacto" title="Dejanos tu correo y te avisamos cuando abramos">
             <p className="mt-6 text-lg leading-relaxed text-clinical">

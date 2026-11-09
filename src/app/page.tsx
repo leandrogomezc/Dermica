@@ -38,11 +38,11 @@ export default function HomePage() {
     <>
       <HeroScan />
 
-      <section className="border-t border-mist bg-white py-8">
+      <section className="border-y border-mist bg-sky-100 py-8">
         <Container className="grid gap-6 sm:grid-cols-3">
           {valueProps.map((item) => (
             <div key={item.title} className="flex items-start gap-4">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-clinical">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white text-clinical">
                 <item.icon className="h-6 w-6" />
               </span>
               <div>
@@ -69,7 +69,7 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <section className="border-y border-mist bg-white py-16">
+      <section className="border-y border-mist bg-sky-100 py-16">
         <Container className="max-w-3xl text-center">
           <p className="text-xs font-semibold text-clinical">
             Para quién es Dérmica

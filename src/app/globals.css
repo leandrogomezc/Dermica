@@ -75,50 +75,9 @@ body {
   animation: fade-up 0.6s ease-out both;
 }
 
-@keyframes scan-sweep {
-  0% {
-    top: 0;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    top: 100%;
-    opacity: 0;
-  }
-}
-
-.animate-scan-sweep {
-  animation: scan-sweep 3.2s ease-in-out infinite;
-}
-
-@keyframes pulse-ring {
-  0% {
-    transform: scale(0.9);
-    opacity: 0.7;
-  }
-  70% {
-    transform: scale(1.6);
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-.animate-pulse-ring {
-  animation: pulse-ring 2.4s ease-out infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee,
-  .animate-fade-up,
-  .animate-scan-sweep,
-  .animate-pulse-ring {
+  .animate-fade-up {
     animation: none !important;
   }
 }

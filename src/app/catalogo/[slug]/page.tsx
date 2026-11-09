@@ -74,7 +74,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
           <ProductPlaceholder
             tone={category.tone}
             label={category.shortName}
-            className="aspect-square w-full rounded-3xl shadow-sm"
+            className="aspect-square w-full rounded-2xl"
           />
 
           <div>

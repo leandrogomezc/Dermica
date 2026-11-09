@@ -31,33 +31,27 @@ export function HeroScan() {
   const container: Variants = {
     hidden: {},
     show: {
-      transition: { staggerChildren: reduce ? 0 : 0.08, delayChildren: 0.1 },
+      transition: { staggerChildren: reduce ? 0 : 0.04, delayChildren: reduce ? 0 : 0.05 },
     },
   };
 
   const word: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 16, filter: reduce ? "blur(0px)" : "blur(10px)" },
+    hidden: { opacity: reduce ? 1 : 0, y: reduce ? 0 : 8 },
     show: {
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: reduce ? 0 : 0.35, ease: "easeOut" },
     },
   };
 
   const fade: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 14 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    hidden: { opacity: reduce ? 1 : 0, y: reduce ? 0 : 8 },
+    show: { opacity: 1, y: 0, transition: { duration: reduce ? 0 : 0.35, ease: "easeOut" } },
   };
 
   return (
-    <section className="relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <span className="absolute left-1/2 top-1/3 h-[40rem] w-[40rem] -translate-x-1/2 rounded-full bg-sky/20 blur-3xl" />
-        <span className="absolute -left-20 bottom-0 h-80 w-80 rounded-full bg-sky/10 blur-3xl" />
-      </div>
-
-      <Container className="relative grid items-center gap-8 py-8 sm:gap-10 sm:py-12 lg:grid-cols-12 lg:gap-6 lg:py-20">
+    <section>
+      <Container className="grid items-center gap-8 py-8 sm:gap-10 sm:py-12 lg:grid-cols-12 lg:gap-8 lg:py-20">
         <motion.div
           variants={container}
           initial="hidden"
@@ -96,8 +90,8 @@ export function HeroScan() {
           </motion.p>
         </motion.div>
 
-        <div className="order-2 min-w-0 lg:order-2 lg:col-span-4">
-          <FaceScan reduce={!!reduce} />
+        <div className="order-2 min-w-0 lg:col-span-4">
+          <LayerPanel />
         </div>
 
         <motion.div
@@ -111,7 +105,7 @@ export function HeroScan() {
               <motion.div
                 key={stat.label}
                 variants={fade}
-                className="min-w-0 rounded-2xl border border-mist bg-white/70 p-4 backdrop-blur-sm lg:grid lg:grid-cols-[auto_minmax(0,1fr)] lg:items-center lg:gap-4 lg:border-0 lg:bg-transparent lg:p-0"
+                className="min-w-0 rounded-2xl border border-mist bg-white p-4 lg:grid lg:grid-cols-[auto_minmax(0,1fr)] lg:items-center lg:gap-4 lg:border-0 lg:bg-transparent lg:p-0"
               >
                 <p className="whitespace-nowrap font-display text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold leading-none text-clinical">
                   {stat.value}
@@ -128,77 +122,61 @@ export function HeroScan() {
   );
 }
 
-function FaceScan({ reduce }: { reduce: boolean }) {
+function LayerPanel() {
   return (
-    <div className="mx-auto w-full max-w-[220px] sm:max-w-sm">
-      <div className="relative aspect-[4/5] w-full sm:aspect-[3/4]">
-        <div className="relative h-full w-full overflow-hidden rounded-[2rem]">
+    <div className="mx-auto w-full max-w-sm">
+      <div className="relative overflow-hidden rounded-2xl bg-sky-100 px-6 py-10">
+        <SkinLayers />
+        <div className="relative mx-auto w-fit rounded-2xl bg-sky-100 p-4">
           <Image
-            src="/hero-rostro.webp"
-            alt="Retrato ilustrativo de piel. Dérmica no realiza tratamientos."
-            fill
-            priority
-            sizes="(max-width: 1024px) 80vw, 28rem"
-            className="object-cover object-top"
+            src="/brand/dermica-isotipo-color.svg"
+            alt=""
+            width={88}
+            height={108}
+            unoptimized
+            className="h-auto w-28"
           />
-          {!reduce ? (
-            <span className="animate-scan-sweep pointer-events-none absolute left-0 right-0 h-16 bg-gradient-to-b from-transparent via-sky/30 to-transparent" />
-          ) : null}
         </div>
-
-        {focusPoints.map((item, index) => (
-          <ScanBox key={item.slug} item={item} index={index} reduce={reduce} />
-        ))}
       </div>
-      <p className="mt-3 text-center text-xs text-clinical">Imagen ilustrativa.</p>
+      <ul className="mt-4 space-y-2">
+        {focusPoints.map((item) => (
+          <li key={item.slug}>
+            <Link
+              href={`/catalogo/${item.slug}`}
+              className="flex min-h-11 items-center justify-between gap-3 rounded-lg border border-mist bg-white px-4 py-2.5"
+            >
+              <span className="min-w-0">
+                <span className="block text-sm font-semibold text-clinical">{item.label}</span>
+                <span className="block text-xs text-clinical">{item.note}</span>
+              </span>
+              <ArrowRightIcon className="h-4 w-4 shrink-0 text-clinical" />
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
 
-function ScanBox({
-  item,
-  index,
-  reduce,
-}: {
-  item: (typeof focusPoints)[number];
-  index: number;
-  reduce: boolean;
-}) {
+function SkinLayers() {
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: reduce ? 1 : 0.6 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{
-        delay: reduce ? 0 : 1.1 + index * 0.5,
-        duration: 0.5,
-        ease: "easeOut",
-      }}
-      className="absolute z-10 hidden -translate-x-1/2 -translate-y-1/2 sm:block"
-      style={{ left: `${item.x}%`, top: `${item.y}%` }}
+    <svg
+      viewBox="0 0 400 240"
+      preserveAspectRatio="xMidYMid slice"
+      className="pointer-events-none absolute inset-0 h-full w-full"
+      aria-hidden="true"
     >
-      <div className="relative">
-        <div className="h-14 w-14 rounded-md border-2 border-white shadow-[0_0_0_1px_rgba(74,44,58,0.15)]" />
-        {!reduce ? (
-          <span className="animate-pulse-ring absolute inset-0 rounded-md border-2 border-white" />
-        ) : null}
-        <span className="absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white" />
-        <Link
-          href={`/catalogo/${item.slug}`}
-          className="absolute left-[calc(100%+0.5rem)] top-1/2 hidden w-[9.5rem] -translate-y-1/2 rounded-lg bg-clinical/90 px-2.5 py-1.5 text-left shadow-lg backdrop-blur-sm transition-colors hover:bg-clinical sm:block"
-        >
-          <span className="block text-[11px] font-semibold leading-tight text-white">
-            {item.label}
-          </span>
-          <span className="block text-[10px] leading-tight text-white/70">{item.note}</span>
-        </Link>
-      </div>
-    </motion.div>
+      <path d="M-10 52 C 50 32, 110 72, 170 52 S 290 32, 410 52" fill="none" stroke="#8BBDEF" strokeWidth="10" strokeLinecap="round" />
+      <path d="M-10 100 C 60 80, 120 120, 180 100 S 300 80, 410 100" fill="none" stroke="#8BBDEF" strokeWidth="7" strokeLinecap="round" opacity="0.8" />
+      <path d="M-10 148 C 40 128, 130 168, 190 148 S 310 128, 410 148" fill="none" stroke="#8BBDEF" strokeWidth="5" strokeLinecap="round" opacity="0.65" />
+      <path d="M-10 192 C 70 172, 140 212, 200 192 S 320 172, 410 192" fill="none" stroke="#8BBDEF" strokeWidth="4" strokeLinecap="round" opacity="0.5" />
+    </svg>
   );
 }
 
 function TrustBadge() {
   return (
-    <div className="inline-flex items-center gap-3 rounded-full border border-mist bg-white/70 py-1.5 pl-1.5 pr-4 backdrop-blur-sm">
+    <div className="inline-flex items-center rounded-lg border border-mist bg-white px-3 py-1.5">
       <span className="text-xs font-medium text-clinical">Para profesionales médicos</span>
     </div>
   );

@@ -13,7 +13,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function PrivacyPage() {
   return (
-    <section className="border-b border-mist bg-white">
+    <section className="border-b border-mist bg-sky-100">
       <Container className="max-w-3xl py-16 sm:py-20">
         <PageHero eyebrow="Privacidad" title="Qué guardamos y para qué" />
         <div className="mt-8 space-y-5 text-base leading-relaxed text-clinical">

@@ -33,7 +33,7 @@ export default async function CatalogPage({
 
   return (
     <>
-      <section className="border-b border-mist bg-white">
+      <section className="border-b border-mist bg-sky-100">
         <Container className="py-16 sm:py-20">
           <PageHero
             eyebrow="Categorías"
