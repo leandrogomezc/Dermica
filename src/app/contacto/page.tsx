@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata: Metadata = pageMetadata({
   title: "Contacto",
-  description: "Dejanos tu correo para el aviso de apertura o escribinos a gerencia@dermica.lat.",
+  description: "Anotate para enterarte primero de la apertura en marzo 2027, o escribinos a gerencia@dermica.lat.",
   path: "/contacto",
 });
 

@@ -28,8 +28,8 @@ const valueProps = [
   },
   {
     icon: MailIcon,
-    title: "Un aviso, cuando abramos",
-    text: "Te escribimos al correo cuando abramos. Las novedades de marketing son opcionales y aparte.",
+    title: "Enterate primero",
+    text: "En marzo 2027 hay un cupo de 30 médicos fundadores, con acceso anticipado y precio de apertura.",
   },
 ];
 
@@ -79,7 +79,7 @@ export default function HomePage() {
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted">
             Dermatología, medicina estética y cirugía son los perfiles que tenemos en mente.
-            Para anotarte pedimos tu correo y que marques el aviso. El nombre y lo demás son opcionales.
+            Anotate y enterate primero. El nombre y lo demás son opcionales.
           </p>
         </Container>
       </section>

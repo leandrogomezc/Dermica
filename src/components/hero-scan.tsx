@@ -22,7 +22,7 @@ const headline = [
 const stats = [
   { value: "3", label: "Categorías para la práctica médica" },
   { value: "Médicos", label: "Una propuesta pensada solo para profesionales" },
-  { value: "Correo", label: "Un aviso cuando abramos" },
+  { value: "Marzo", label: "Apertura en 2027" },
 ];
 
 export function HeroScan() {
@@ -77,9 +77,9 @@ export function HeroScan() {
           </h1>
 
           <motion.p variants={fade} className="mt-5 max-w-md text-base leading-relaxed text-muted">
-            En Dérmica estamos preparando, para tu consulta, rellenos de ácido
-            hialurónico, polirrevitalización inyectable y dermocosmética profesional.
-            Dejanos tu correo y te avisamos cuando abramos.
+            Anotate y enterate primero. En marzo 2027 abrimos en Nicaragua: un cupo
+            de 30 médicos fundadores, con acceso anticipado y precio de apertura,
+            para tu consulta.
           </motion.p>
 
           <motion.div variants={fade} className="mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row lg:flex-col xl:flex-row">
@@ -90,7 +90,7 @@ export function HeroScan() {
             </ButtonLink>
           </motion.div>
           <motion.p variants={fade} className="mt-4 max-w-md text-sm text-muted">
-            Estamos en prelanzamiento: todavía no vendemos ni atendemos pacientes.
+            Todavía no vendemos ni atendemos pacientes. Anotarte no te garantiza el cupo: te avisamos primero.
           </motion.p>
         </motion.div>
 

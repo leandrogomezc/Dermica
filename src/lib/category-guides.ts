@@ -4,8 +4,8 @@ export type CategoryGuideSection = {
 };
 
 export const categoryLimits = [
-  "No hay precios, fecha, sedes ni envíos definidos.",
-  "Anotarte no reserva productos ni confirma una compra.",
+  "No publicamos el monto del precio de apertura, las sedes ni los envíos.",
+  "Anotarte no te garantiza el cupo ni confirma una compra. Te avisamos primero.",
   "La indicación y la técnica las decidís vos. Dérmica no atiende pacientes.",
 ] as const;
 
@@ -15,7 +15,7 @@ export const categoryGuides: Record<string, CategoryGuideSection[]> = {
       heading: "Uso profesional",
       paragraphs: [
         "Esta ficha describe los rellenos dérmicos de ácido hialurónico que preparamos para tu consulta en Nicaragua. No es una guía de aplicación ni un listado de marcas. Habla de geles de uso profesional para quien ya realiza este procedimiento.",
-        "La indicación, la zona y la técnica las definís vos. Acá no publicamos un protocolo, una cantidad ni un resultado. Dérmica no aplica el producto y no abre citas. Si ya realizás rellenos, esta ficha te dice qué categoría estamos preparando y qué no vas a encontrar todavía: ni marca, ni precio, ni modo de uso.",
+        "La indicación, la zona y la técnica las definís vos. Acá no publicamos un protocolo, una cantidad ni un resultado. Dérmica no aplica el producto y no abre citas. Si ya realizás rellenos, esta ficha te dice qué categoría estamos preparando y qué no vas a encontrar todavía: ni una marca, ni el monto, ni un modo de uso.",
       ],
     },
     {

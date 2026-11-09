@@ -12,14 +12,16 @@ export function WaitlistSection() {
               id="lista-titulo"
               className="font-display mt-3 text-3xl font-medium leading-tight text-plum sm:text-4xl"
             >
-              Dejanos tu correo y te avisamos cuando abramos
+              Enterate primero
             </h2>
             <p className="mt-4 text-base leading-relaxed text-muted">
-              Si sos profesional médico y querés saber cuándo abrimos en Nicaragua,
-              completá estos datos.
+              Anotate para el cupo de 30 médicos fundadores. Incluye acceso anticipado
+              y precio de apertura, para marzo 2027 en Nicaragua.
             </p>
             <ul className="mt-6 space-y-3 text-sm leading-relaxed text-ink">
-              <li>El aviso de apertura es el motivo de la lista. Las novedades de marketing son opcionales y por correo.</li>
+              <li>Acceso anticipado y precio de apertura para ese cupo de fundadores.</li>
+              <li>Te avisamos primero. Anotarte no te reserva el lugar por sí solo.</li>
+              <li>Las novedades de marketing son opcionales y por correo.</li>
               <li>Si hoy no podemos guardar la lista, el formulario lo dice y no anota tu correo.</li>
             </ul>
           </div>
