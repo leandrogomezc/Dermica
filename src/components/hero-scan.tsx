@@ -62,15 +62,15 @@ export function HeroScan() {
           variants={container}
           initial="hidden"
           animate="show"
-          className="order-2 lg:order-1 lg:col-span-4"
+          className="order-2 min-w-0 lg:order-1 lg:col-span-4"
         >
           <motion.div variants={fade}>
             <TrustBadge />
           </motion.div>
 
-          <h1 className="font-display mt-5 text-4xl font-medium leading-[1.05] text-plum sm:text-5xl">
+          <h1 className="font-display mt-5 max-w-full text-4xl font-medium leading-[1.05] text-plum sm:text-5xl">
             {headline.map((wordText, index) => (
-              <motion.span key={`${wordText}-${index}`} variants={word} className="mr-[0.25em] inline-block">
+              <motion.span key={`${wordText}-${index}`} variants={word} className="mr-[0.25em] inline-block!">
                 {wordText}
               </motion.span>
             ))}
@@ -94,7 +94,7 @@ export function HeroScan() {
           </motion.p>
         </motion.div>
 
-        <div className="order-1 lg:order-2 lg:col-span-4">
+        <div className="order-1 min-w-0 lg:order-2 lg:col-span-4">
           <FaceScan reduce={!!reduce} />
         </div>
 
@@ -102,7 +102,7 @@ export function HeroScan() {
           variants={container}
           initial="hidden"
           animate="show"
-          className="order-3 lg:col-span-4 lg:pl-6"
+          className="order-3 min-w-0 lg:col-span-4 lg:pl-6"
         >
           <div className="grid grid-cols-1 gap-3 min-[36rem]:grid-cols-3 min-[36rem]:gap-4 lg:grid-cols-1 lg:gap-6">
             {stats.map((stat) => (
