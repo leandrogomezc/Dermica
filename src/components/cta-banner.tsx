@@ -17,7 +17,7 @@ export function CtaBanner() {
               ¿Ejercés medicina estética? Enterate primero.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-cream/80">
-              Apertura en marzo 2027. Cupo de 30 médicos fundadores, con acceso anticipado y precio de apertura.
+              Apertura en marzo de 2027. Cupo de 30 médicos fundadores, con acceso anticipado y precio de apertura.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <ButtonLink href={waitlistHref} metric="cta">Avisame cuando abran</ButtonLink>

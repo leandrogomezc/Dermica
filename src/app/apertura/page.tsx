@@ -7,12 +7,12 @@ import { pageMetadata } from "@/lib/page-metadata";
 export const metadata: Metadata = pageMetadata({
   title: "Apertura en Nicaragua",
   description:
-    "Abrimos en marzo 2027 en Nicaragua. Cupo de 30 médicos fundadores, con acceso anticipado y precio de apertura.",
+    "Abrimos en marzo de 2027 en Nicaragua. Cupo de 30 médicos fundadores, con acceso anticipado y precio de apertura.",
   path: "/apertura",
 });
 
 const today = [
-  "Apertura en marzo 2027, en Nicaragua.",
+  "Apertura en marzo de 2027, en Nicaragua.",
   "Cupo de 30 médicos fundadores, con acceso anticipado.",
   "Precio de apertura. El monto no está publicado.",
 ];
@@ -32,7 +32,7 @@ export default function OpeningPage() {
           <div className="max-w-3xl">
             <Eyebrow>Apertura</Eyebrow>
             <h1 className="font-display mt-4 text-4xl font-medium leading-tight text-plum sm:text-5xl">
-              Abrimos en marzo 2027
+              Abrimos en marzo de 2027
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-muted">
               Hay un cupo de 30 médicos fundadores, con acceso anticipado y precio de
@@ -75,7 +75,7 @@ export default function OpeningPage() {
             Anotate y enterate primero
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-muted">
-            Te avisamos antes de marzo 2027. Anotarte no reserva productos ni te garantiza el cupo. Si marcás novedades, ese correo es aparte.
+            Te avisamos antes de marzo de 2027. Anotarte no reserva productos ni te garantiza el cupo. Si marcás novedades, ese correo es aparte.
           </p>
           <div className="mt-6 flex justify-center">
             <ButtonLink href={waitlistHref} metric="cta">Avisame cuando abran</ButtonLink>

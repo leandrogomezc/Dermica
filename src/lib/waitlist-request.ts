@@ -155,8 +155,8 @@ export async function submitWaitlist(
     code: "created",
     marketing: saved.marketingRecorded,
     message: saved.marketingRecorded
-      ? "Listo, ya estás en la lista. Te avisamos primero, antes de la apertura en marzo 2027, para contarte el acceso anticipado. También anotamos que querés novedades por correo."
-      : "Listo, ya estás en la lista. Te avisamos primero, antes de la apertura en marzo 2027, para contarte el acceso anticipado.",
+      ? "Listo, ya estás en la lista. Te avisamos primero, antes de la apertura en marzo de 2027, para contarte el acceso anticipado. También anotamos que querés novedades por correo."
+      : "Listo, ya estás en la lista. Te avisamos primero, antes de la apertura en marzo de 2027, para contarte el acceso anticipado.",
   };
   if (saved.withdrawToken) {
     body.withdrawPath = `/retirar-marketing?token=${encodeURIComponent(saved.withdrawToken)}`;

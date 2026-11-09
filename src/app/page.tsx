@@ -29,7 +29,7 @@ const valueProps = [
   {
     icon: MailIcon,
     title: "Enterate primero",
-    text: "En marzo 2027 hay un cupo de 30 médicos fundadores, con acceso anticipado y precio de apertura.",
+    text: "En marzo de 2027 hay un cupo de 30 médicos fundadores, con acceso anticipado y precio de apertura.",
   },
 ];
 

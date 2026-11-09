@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/page-metadata";
 export const metadata: Metadata = pageMetadata({
   title: "Quiénes somos",
   description:
-    "Dérmica abre en marzo 2027 en Nicaragua, para médicos: rellenos de ácido hialurónico, polirrevitalización inyectable y dermocosmética profesional.",
+    "Dérmica abre en marzo de 2027 en Nicaragua, para médicos: rellenos de ácido hialurónico, polirrevitalización inyectable y dermocosmética profesional.",
   path: "/quienes-somos",
 });
 
@@ -32,7 +32,7 @@ const values = [
 const facts = [
   "Prelanzamiento en Nicaragua",
   "Solo para profesionales médicos",
-  "Apertura en marzo 2027",
+  "Apertura en marzo de 2027",
 ];
 
 export default function AboutPage() {
@@ -59,7 +59,7 @@ export default function AboutPage() {
           <div className="space-y-5 text-base leading-relaxed text-ink">
             <SectionHeading eyebrow="En este momento" title="Una presentación honesta" />
             <p>
-              Abrimos en marzo 2027. Hay un cupo de 30 médicos fundadores, con acceso
+              Abrimos en marzo de 2027. Hay un cupo de 30 médicos fundadores, con acceso
               anticipado y precio de apertura. El monto, las sedes y los envíos todavía
               no están publicados.
             </p>

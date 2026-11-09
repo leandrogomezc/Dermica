@@ -8,7 +8,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = pageMetadata({
   title: "Preguntas frecuentes",
   description:
-    "Respuestas sobre la apertura de Dérmica en marzo 2027, el cupo de 30 médicos fundadores, las categorías y cómo pedir el retiro de datos.",
+    "Respuestas sobre la apertura de Dérmica en marzo de 2027, el cupo de 30 médicos fundadores, las categorías y cómo pedir el retiro de datos.",
   path: "/preguntas-frecuentes",
 });
 

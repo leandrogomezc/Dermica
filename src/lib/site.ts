@@ -2,7 +2,7 @@ export const site = {
   name: "Dérmica",
   tagline: "Insumos de medicina estética para médicos en Nicaragua",
   description:
-    "En marzo 2027 Dérmica abre en Nicaragua para médicos. Anotate: hay un cupo de 30 médicos fundadores, con acceso anticipado y precio de apertura.",
+    "En marzo de 2027 Dérmica abre en Nicaragua para médicos. Anotate: hay un cupo de 30 médicos fundadores, con acceso anticipado y precio de apertura.",
   url: "https://dermica.lat",
   email: "gerencia@dermica.lat",
   country: "Nicaragua",

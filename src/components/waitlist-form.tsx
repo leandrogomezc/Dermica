@@ -225,7 +225,7 @@ export function WaitlistForm() {
         label="Correo"
         required
         error={errors.email}
-        hint="Ahí te escribimos primero, antes de marzo 2027."
+        hint="Ahí te escribimos primero, antes de marzo de 2027."
       >
         <input
           id="waitlist-email"

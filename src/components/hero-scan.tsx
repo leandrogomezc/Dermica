@@ -21,8 +21,8 @@ const headline = [
 
 const stats = [
   { value: "3", label: "Categorías para la práctica médica" },
-  { value: "Médicos", label: "Una propuesta pensada solo para profesionales" },
-  { value: "Marzo", label: "Apertura en 2027" },
+  { value: "30", label: "Cupos para médicos fundadores" },
+  { value: "2027", label: "Apertura en marzo" },
 ];
 
 export function HeroScan() {
@@ -62,7 +62,7 @@ export function HeroScan() {
           variants={container}
           initial="hidden"
           animate="show"
-          className="order-1 min-w-0 lg:col-span-4"
+          className="order-1 min-w-0 lg:col-span-5"
         >
           <motion.div variants={fade}>
             <TrustBadge />
@@ -77,14 +77,16 @@ export function HeroScan() {
           </h1>
 
           <motion.p variants={fade} className="mt-5 max-w-md text-base leading-relaxed text-muted">
-            Anotate y enterate primero. En marzo 2027 abrimos en Nicaragua: un cupo
+            Anotate y enterate primero. En marzo de 2027 abrimos en Nicaragua: un cupo
             de 30 médicos fundadores, con acceso anticipado y precio de apertura,
             para tu consulta.
           </motion.p>
 
           <motion.div variants={fade} className="mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row lg:flex-col xl:flex-row">
-            <ButtonLink href={waitlistHref} metric="cta">Avisame cuando abran</ButtonLink>
-            <ButtonLink href="/catalogo" variant="outline">
+            <ButtonLink href={waitlistHref} metric="cta" className="shrink-0 whitespace-nowrap">
+              Avisame cuando abran
+            </ButtonLink>
+            <ButtonLink href="/catalogo" variant="outline" className="shrink-0 whitespace-nowrap">
               Ver categorías
               <ArrowRightIcon className="h-4 w-4" />
             </ButtonLink>
@@ -102,19 +104,19 @@ export function HeroScan() {
           variants={container}
           initial="hidden"
           animate="show"
-          className="order-3 min-w-0 lg:col-span-4 lg:pl-6"
+          className="order-3 min-w-0 lg:col-span-3 lg:pl-2"
         >
           <div className="grid grid-cols-1 gap-3 min-[36rem]:grid-cols-3 min-[36rem]:gap-4 lg:grid-cols-1 lg:gap-6">
             {stats.map((stat) => (
               <motion.div
                 key={stat.label}
                 variants={fade}
-                className="min-w-0 rounded-2xl border border-line bg-white/70 p-4 backdrop-blur-sm lg:flex lg:items-center lg:gap-4 lg:border-0 lg:bg-transparent lg:p-0"
+                className="min-w-0 rounded-2xl border border-line bg-white/70 p-4 backdrop-blur-sm lg:grid lg:grid-cols-[auto_minmax(0,1fr)] lg:items-center lg:gap-4 lg:border-0 lg:bg-transparent lg:p-0"
               >
-                <p className="min-w-0 break-words font-display text-3xl font-semibold leading-tight text-plum lg:text-4xl">
+                <p className="whitespace-nowrap font-display text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold leading-none text-plum">
                   {stat.value}
                 </p>
-                <p className="mt-1 min-w-0 break-words text-xs leading-snug text-muted lg:mt-0 lg:max-w-[12rem] lg:text-sm">
+                <p className="mt-1 min-w-0 text-xs leading-snug text-muted lg:mt-0 lg:text-sm">
                   {stat.label}
                 </p>
               </motion.div>

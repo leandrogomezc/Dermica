@@ -16,7 +16,7 @@ export function WaitlistSection() {
             </h2>
             <p className="mt-4 text-base leading-relaxed text-muted">
               Anotate para el cupo de 30 médicos fundadores. Incluye acceso anticipado
-              y precio de apertura, para marzo 2027 en Nicaragua.
+              y precio de apertura, para marzo de 2027 en Nicaragua.
             </p>
             <ul className="mt-6 space-y-3 text-sm leading-relaxed text-ink">
               <li>Acceso anticipado y precio de apertura para ese cupo de fundadores.</li>
