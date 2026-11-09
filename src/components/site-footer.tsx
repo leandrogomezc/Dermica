@@ -33,6 +33,11 @@ export function SiteFooter() {
               </li>
             ))}
             <li>
+              <Link href="/preguntas-frecuentes" className="transition-colors hover:text-cream">
+                Preguntas frecuentes
+              </Link>
+            </li>
+            <li>
               <Link href="/privacidad" className="transition-colors hover:text-cream">
                 Privacidad
               </Link>

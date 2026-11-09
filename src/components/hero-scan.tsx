@@ -132,7 +132,7 @@ function FaceScan({ reduce }: { reduce: boolean }) {
       <div className="relative aspect-[3/4] w-full">
         <div className="relative h-full w-full overflow-hidden rounded-[2rem]">
           <Image
-            src="/hero-rostro.png"
+            src="/hero-rostro.webp"
             alt="Retrato ilustrativo de piel. Dérmica no realiza tratamientos."
             fill
             priority

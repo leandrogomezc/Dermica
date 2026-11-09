@@ -15,6 +15,7 @@ const paths = [
   "/quienes-somos",
   "/apertura",
   "/contacto",
+  "/preguntas-frecuentes",
   "/privacidad",
   "/retirar-marketing",
 ];

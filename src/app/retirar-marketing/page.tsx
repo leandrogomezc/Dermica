@@ -3,11 +3,15 @@ import { Suspense } from "react";
 import { Container, Eyebrow } from "@/components/ui";
 import { WithdrawMarketing } from "@/components/withdraw-marketing";
 import { site } from "@/lib/site";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Retirar novedades",
-  robots: { index: false, follow: false },
-};
+  description:
+    "Retira solo el consentimiento de novedades por correo de Dérmica. No borra el aviso de apertura.",
+  path: "/retirar-marketing",
+  noIndex: true,
+});
 
 export default function WithdrawPage() {
   return (

@@ -11,6 +11,18 @@ const nextConfig: NextConfig = {
       { source: "/producto/:slug", destination: "/catalogo", permanent: false },
     ];
   },
+  async rewrites() {
+    return [{ source: "/.well-known/llms.txt", destination: "/llms.txt" }];
+  },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: ".*\\.vercel\\.app" }],
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

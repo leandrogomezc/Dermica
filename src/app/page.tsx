@@ -6,6 +6,15 @@ import { CtaBanner } from "@/components/cta-banner";
 import { WaitlistSection } from "@/components/waitlist-section";
 import { categories } from "@/lib/data";
 import { ShieldIcon, MailIcon, UsersIcon } from "@/components/icons";
+import { pageMetadata } from "@/lib/page-metadata";
+import { site } from "@/lib/site";
+
+export const metadata = pageMetadata({
+  title: `${site.name} | ${site.tagline}`,
+  description: site.description,
+  path: "/",
+  absolute: true,
+});
 
 const valueProps = [
   {

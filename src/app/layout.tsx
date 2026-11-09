@@ -31,11 +31,19 @@ export const metadata: Metadata = {
     type: "website",
     locale: site.locale,
     siteName: site.name,
-    title: `${site.name} | ${site.tagline}`,
-    description: site.description,
-    url: "./",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Dérmica. Insumos de medicina estética para médicos en Nicaragua.",
+      },
+    ],
   },
-  alternates: { canonical: "./" },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og.png"],
+  },
 };
 
 export default function RootLayout({

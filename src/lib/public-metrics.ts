@@ -13,6 +13,7 @@ export const metricPaths = new Set<string>([
   "/apertura",
   "/contacto",
   "/privacidad",
+  "/preguntas-frecuentes",
   "/retirar-marketing",
   ...categories.map((category) => `/catalogo/${category.slug}`),
 ]);
