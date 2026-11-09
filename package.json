@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --experimental-strip-types --import ./tests/register.mjs --test tests/waitlist.test.ts tests/marketing.test.ts tests/waitlist-postgres.test.ts tests/responsive-overflow.test.ts"
+    "test": "node --experimental-strip-types --import ./tests/register.mjs --test tests/waitlist.test.ts tests/marketing.test.ts tests/waitlist-postgres.test.ts tests/search.test.ts tests/responsive-overflow.test.ts",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "motion": "^12.42.0",
