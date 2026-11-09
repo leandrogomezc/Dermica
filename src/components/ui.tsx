@@ -75,10 +75,10 @@ type Variant = "primary" | "outline" | "ghost";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-clinical text-white hover:bg-clinical/90 focus-visible:ring-clinical/40",
+    "bg-clinical text-white hover:bg-clinical/90 focus-visible:ring-clinical",
   outline:
-    "border border-clinical/30 text-clinical hover:bg-clinical hover:text-white focus-visible:ring-clinical/30",
-  ghost: "text-clinical hover:bg-sky-100 focus-visible:ring-clinical/20",
+    "border border-clinical text-clinical hover:bg-clinical hover:text-white focus-visible:ring-clinical",
+  ghost: "text-clinical hover:bg-sky-100 focus-visible:ring-clinical",
 };
 
 const sizeClasses = "min-h-11 px-6 py-3 text-sm";

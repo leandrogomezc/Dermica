@@ -21,14 +21,14 @@ export function CtaBanner() {
               <ButtonLink
                 href={waitlistHref}
                 metric="cta"
-                className="bg-white! text-clinical! hover:bg-sky-100!"
+                className="bg-white! text-clinical! hover:bg-sky-100! focus-visible:ring-white!"
               >
                 Avisame cuando abran
               </ButtonLink>
               <ButtonLink
                 href="/catalogo"
                 variant="outline"
-                className="border-white! bg-transparent! text-white! hover:bg-white! hover:text-clinical!"
+                className="border-white! bg-transparent! text-white! hover:bg-white! hover:text-clinical! focus-visible:ring-white!"
               >
                 Ver categorías
                 <ArrowRightIcon className="h-4 w-4" />

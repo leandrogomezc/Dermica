@@ -126,7 +126,7 @@ function FaceScan({ reduce }: { reduce: boolean }) {
   return (
     <div className="mx-auto w-full max-w-[220px] sm:max-w-sm">
       <div className="relative aspect-[4/5] w-full sm:aspect-[3/4]">
-        <div className="relative h-full w-full overflow-hidden rounded-2xl ring-1 ring-clinical/25">
+        <div className="relative h-full w-full overflow-hidden rounded-2xl ring-1 ring-clinical">
           <Image
             src="/hero-rostro.webp"
             alt="Retrato ilustrativo de piel. Dérmica no realiza tratamientos."

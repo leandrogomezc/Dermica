@@ -35,7 +35,7 @@ export function WithdrawMarketing() {
           type="button"
           onClick={withdraw}
           disabled={status === "loading" || status === "done"}
-          className="inline-flex min-h-11 items-center justify-center rounded-lg bg-clinical px-6 py-3 text-sm font-semibold text-white hover:bg-clinical/90 focus:outline-none focus-visible:ring-4 focus-visible:ring-clinical/30 disabled:opacity-70"
+          className="inline-flex min-h-11 items-center justify-center rounded-lg bg-clinical px-6 py-3 text-sm font-semibold text-white hover:bg-clinical/90 focus:outline-none focus-visible:ring-4 focus-visible:ring-clinical disabled:opacity-70"
         >
           {status === "loading" ? "Retirando…" : "Retirar novedades por correo"}
         </button>
