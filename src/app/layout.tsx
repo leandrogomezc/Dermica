@@ -33,9 +33,9 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: `${site.name} | ${site.tagline}`,
     description: site.description,
-    url: site.url,
+    url: "./",
   },
-  alternates: { canonical: site.url },
+  alternates: { canonical: "./" },
 };
 
 export default function RootLayout({
