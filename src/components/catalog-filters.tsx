@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
-import { categories, brands } from "@/lib/data";
+import { useCallback, type ReactNode } from "react";
+import { categories } from "@/lib/data";
 
 export function CatalogFilters() {
   const router = useRouter();
@@ -10,12 +10,12 @@ export function CatalogFilters() {
   const params = useSearchParams();
 
   const activeCategory = params.get("categoria") ?? "";
-  const activeBrand = params.get("marca") ?? "";
   const query = params.get("q") ?? "";
 
   const update = useCallback(
     (key: string, value: string) => {
       const next = new URLSearchParams(params.toString());
+      next.delete("marca");
       if (value) next.set(key, value);
       else next.delete(key);
       const qs = next.toString();
@@ -24,62 +24,40 @@ export function CatalogFilters() {
     [params, pathname, router],
   );
 
-  const hasFilters = activeCategory || activeBrand || query;
+  const hasFilters = activeCategory || query;
 
   return (
     <div className="space-y-8">
       <div>
-        <label
-          htmlFor="catalog-search"
-          className="block text-sm font-semibold text-plum"
-        >
-          Buscar producto
+        <label htmlFor="catalog-search" className="block text-sm font-semibold text-plum">
+          Buscar categoría
         </label>
         <input
           id="catalog-search"
           type="search"
           defaultValue={query}
-          placeholder="Ej. radiofrecuencia, sérum, pestañas…"
-          onChange={(e) => update("q", e.target.value)}
+          placeholder="Ácido hialurónico, piel…"
+          onChange={(event) => update("q", event.target.value)}
           className="mt-2 w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-plum"
         />
       </div>
 
       <div>
-        <h3 className="text-sm font-semibold text-plum">Categorías</h3>
+        <h2 className="text-sm font-semibold text-plum">Categorías</h2>
         <div className="mt-3 flex flex-col gap-1">
-          <FilterButton
-            active={!activeCategory}
-            onClick={() => update("categoria", "")}
-          >
-            Todas las categorías
+          <FilterButton active={!activeCategory} onClick={() => update("categoria", "")}>
+            Todas
           </FilterButton>
-          {categories.map((c) => (
+          {categories.map((category) => (
             <FilterButton
-              key={c.slug}
-              active={activeCategory === c.slug}
-              onClick={() => update("categoria", c.slug)}
+              key={category.slug}
+              active={activeCategory === category.slug}
+              onClick={() => update("categoria", category.slug)}
             >
-              {c.shortName}
+              {category.shortName}
             </FilterButton>
           ))}
         </div>
-      </div>
-
-      <div>
-        <h3 className="text-sm font-semibold text-plum">Marca</h3>
-        <select
-          value={activeBrand}
-          onChange={(e) => update("marca", e.target.value)}
-          className="mt-3 w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink outline-none focus:border-plum"
-        >
-          <option value="">Todas las marcas</option>
-          {brands.map((b) => (
-            <option key={b.name} value={b.name}>
-              {b.name}
-            </option>
-          ))}
-        </select>
       </div>
 
       {hasFilters ? (
@@ -102,16 +80,15 @@ function FilterButton({
 }: {
   active: boolean;
   onClick: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
+      aria-pressed={active}
       className={`rounded-lg px-3 py-2 text-left text-sm transition-colors ${
-        active
-          ? "bg-plum font-medium text-cream"
-          : "text-ink hover:bg-cream-200"
+        active ? "bg-plum font-medium text-cream" : "text-ink hover:bg-cream-200"
       }`}
     >
       {children}

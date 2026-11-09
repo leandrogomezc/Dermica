@@ -1,0 +1,233 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import test from "node:test";
+import { DatabaseSync } from "node:sqlite";
+import { resolveWaitlistBackend } from "../src/lib/waitlist-backend.ts";
+import { saveWaitlistEntry } from "../src/lib/waitlist-store.ts";
+import { WAITLIST_NAME_WHEN_OMITTED } from "../src/lib/waitlist-validation.ts";
+import { resetWaitlistRateLimit, submitWaitlist } from "../src/lib/waitlist-request.ts";
+import { validateWaitlist } from "../src/lib/waitlist-validation.ts";
+import type { NormalizedWaitlist } from "../src/lib/waitlist-validation.ts";
+
+const validFields = {
+  name: "Ana Solís",
+  email: "ana.solis@example.com",
+  specialty: "Dermatología",
+  city: "León",
+  phone: "+505 8888 0000",
+  consent: true,
+  marketingConsent: false,
+};
+
+function entry(email = "ana.solis@example.com"): NormalizedWaitlist {
+  return {
+    name: "Ana Solís",
+    email,
+    specialty: "Dermatología",
+    city: "León",
+    phone: "+505 8888 0000",
+    consent: true,
+    marketingConsent: false,
+  };
+}
+
+test("el correo y el consentimiento son obligatorios; el nombre puede faltar", () => {
+  const missing = validateWaitlist({
+    name: " ",
+    email: "no-es-correo",
+    specialty: "",
+    city: "",
+    phone: "",
+    consent: false,
+  });
+  assert.equal(missing.ok, false);
+  if (!missing.ok) {
+    assert.equal(missing.fieldErrors.name, undefined);
+    assert.ok(missing.fieldErrors.email);
+    assert.ok(missing.fieldErrors.consent);
+    assert.equal(missing.fieldErrors.phone, undefined);
+  }
+
+  const accepted = validateWaitlist({ ...validFields, name: "", specialty: "", city: "", phone: "" });
+  assert.equal(accepted.ok, true);
+  if (accepted.ok) {
+    assert.equal(accepted.value.email, "ana.solis@example.com");
+    assert.equal(accepted.value.name, null);
+    assert.equal(accepted.value.specialty, null);
+    assert.equal(accepted.value.phone, null);
+  }
+
+  const badName = validateWaitlist({ ...validFields, name: "A1" });
+  assert.equal(badName.ok, false);
+});
+
+test("rechaza un teléfono incompleto y acepta uno con código de país", () => {
+  const bad = validateWaitlist({ ...validFields, phone: "123" });
+  assert.equal(bad.ok, false);
+  const good = validateWaitlist(validFields);
+  assert.equal(good.ok, true);
+});
+
+test("sin ruta de almacén no guarda y lo dice", async () => {
+  const saved = await saveWaitlistEntry(entry(), null);
+  assert.equal(saved.ok, false);
+  if (!saved.ok) {
+    assert.equal(saved.code, "not_configured");
+    assert.match(saved.message, /No pudimos anotarte/);
+    assert.doesNotMatch(saved.message, /localStorage/i);
+    assert.doesNotMatch(saved.message, /Postgres|Vercel|sqlite/i);
+  }
+});
+
+test("con SQLite local persiste y no duplica el correo", async () => {
+  const file = path.join(os.tmpdir(), `dermica-waitlist-${process.pid}-${Date.now()}.sqlite`);
+  try {
+    const sqlite = { kind: "sqlite" as const, path: file };
+    const created = await saveWaitlistEntry(entry("primera@example.com"), sqlite);
+    assert.equal(created.ok, true);
+    if (created.ok) assert.equal(created.status, "created");
+    const duplicate = await saveWaitlistEntry(entry("primera@example.com"), sqlite);
+    assert.deepEqual(duplicate, { ok: true, status: "duplicate" });
+
+    const database = new DatabaseSync(file);
+    const row = database
+      .prepare("SELECT email, name, specialty, city, phone, consent_version FROM waitlist WHERE email = ?")
+      .get("primera@example.com") as Record<string, unknown>;
+    assert.equal(row.email, "primera@example.com");
+    assert.equal(row.name, "Ana Solís");
+    assert.equal(row.specialty, "Dermatología");
+    assert.equal(row.city, "León");
+    assert.equal(row.phone, "+505 8888 0000");
+    assert.equal(row.consent_version, "apertura-nicaragua-v1");
+
+    const omitted = await saveWaitlistEntry(
+      { ...entry("sin-nombre@example.com"), name: null },
+      sqlite,
+    );
+    assert.equal(omitted.ok, true);
+    if (omitted.ok) assert.equal(omitted.status, "created");
+    const stored = database.prepare("SELECT name FROM waitlist WHERE email = ?").get(
+      "sin-nombre@example.com",
+    ) as { name: string };
+    assert.equal(stored.name, WAITLIST_NAME_WHEN_OMITTED);
+    database.close();
+  } finally {
+    fs.rmSync(file, { force: true });
+  }
+});
+
+test("el envío sin almacén responde 503 y no afirma éxito", async () => {
+  resetWaitlistRateLimit();
+  const previous = process.env.WAITLIST_SQLITE_PATH;
+  delete process.env.WAITLIST_SQLITE_PATH;
+  try {
+    const result = await submitWaitlist(body(), { ip: "203.0.113.10", now: 10_000 });
+    assert.equal(result.status, 503);
+    assert.equal(result.body.ok, false);
+    assert.equal(result.body.code, "not_configured");
+    assert.match(String(result.body.message), /No pudimos anotarte/);
+    assert.equal("setup" in result.body, false);
+    assert.doesNotMatch(JSON.stringify(result.body), /WAITLIST_SQLITE_PATH|Postgres|Vercel|DATABASE_URL/);
+  } finally {
+    if (previous === undefined) delete process.env.WAITLIST_SQLITE_PATH;
+    else process.env.WAITLIST_SQLITE_PATH = previous;
+  }
+});
+
+test("el envío configurado crea, evita el duplicado y rechaza prisa o casilla vacía", async () => {
+  resetWaitlistRateLimit();
+  const file = path.join(os.tmpdir(), `dermica-waitlist-http-${process.pid}.sqlite`);
+  const previous = process.env.WAITLIST_SQLITE_PATH;
+  process.env.WAITLIST_SQLITE_PATH = file;
+  try {
+    const created = await submitWaitlist(body(), { ip: "203.0.113.20", now: 20_000 });
+    assert.equal(created.status, 201);
+    assert.equal(created.body.code, "created");
+
+    const again = await submitWaitlist(body(), { ip: "203.0.113.21", now: 30_000 });
+    assert.equal(again.status, 200);
+    assert.equal(again.body.code, "duplicate");
+
+    const fast = await submitWaitlist(body({ startedAt: 40_000 }), {
+      ip: "203.0.113.22",
+      now: 40_100,
+    });
+    assert.equal(fast.status, 400);
+    assert.equal(fast.body.code, "rejected");
+
+    const noConsent = await submitWaitlist(body({ consent: false }), {
+      ip: "203.0.113.23",
+      now: 50_000,
+    });
+    assert.equal(noConsent.status, 400);
+    assert.equal(noConsent.body.code, "validation");
+  } finally {
+    if (previous === undefined) delete process.env.WAITLIST_SQLITE_PATH;
+    else process.env.WAITLIST_SQLITE_PATH = previous;
+    fs.rmSync(file, { force: true });
+  }
+});
+
+test("en Vercel no usa SQLite aunque haya una ruta, y una URL inválida no se filtra", async () => {
+  const file = path.join(os.tmpdir(), `dermica-no-vercel-${process.pid}.sqlite`);
+  const hosted = resolveWaitlistBackend({
+    databaseUrl: null,
+    sqlitePath: file,
+    vercel: "1",
+    vercelEnv: "preview",
+  });
+  assert.equal(hosted.kind, "unavailable");
+  const ignored = await saveWaitlistEntry(entry("vercel@example.com"), hosted);
+  assert.equal(ignored.ok, false);
+  assert.equal(fs.existsSync(file), false);
+
+  const secret = "secret-token-should-not-leak";
+  const invalid = resolveWaitlistBackend({
+    databaseUrl: `https://user:${secret}@db.example.test/hidden`,
+    sqlitePath: file,
+    vercel: null,
+    vercelEnv: null,
+  });
+  assert.equal(invalid.kind, "unavailable");
+  const rejected = await saveWaitlistEntry(entry("bad-url@example.com"), invalid);
+  assert.equal(rejected.ok, false);
+  if (!rejected.ok) assert.doesNotMatch(rejected.message, new RegExp(secret));
+  assert.equal(fs.existsSync(file), false);
+
+  const postgresWins = resolveWaitlistBackend({
+    databaseUrl: "postgresql://localhost/dermica",
+    sqlitePath: file,
+    vercel: "1",
+    vercelEnv: null,
+  });
+  assert.deepEqual(postgresWins, {
+    kind: "postgres",
+    connectionString: "postgresql://localhost/dermica",
+  });
+});
+
+test("limita intentos repetidos desde la misma dirección", async () => {
+  resetWaitlistRateLimit();
+  const ip = "203.0.113.40";
+  for (let i = 0; i < 5; i += 1) {
+    const result = await submitWaitlist(body({ companyWebsite: "spam" }), {
+      ip,
+      now: 60_000 + i,
+    });
+    assert.equal(result.status, 400);
+  }
+  const blocked = await submitWaitlist(body(), { ip, now: 70_000 });
+  assert.equal(blocked.status, 429);
+  assert.equal(blocked.body.code, "rate_limited");
+});
+
+function body(overrides: Record<string, unknown> = {}) {
+  return {
+    ...validFields,
+    companyWebsite: "",
+    startedAt: 1_000,
+    ...overrides,
+  };
+}

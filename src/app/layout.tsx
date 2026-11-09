@@ -3,7 +3,7 @@ import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { WhatsAppFloat } from "@/components/whatsapp-float";
+import { SiteMetrics } from "@/components/site-metrics";
 import { JsonLd } from "@/components/json-ld";
 import { site } from "@/lib/site";
 
@@ -26,24 +26,16 @@ export const metadata: Metadata = {
     template: `%s | ${site.name}`,
   },
   description: site.description,
-  keywords: [
-    "productos estéticos Honduras",
-    "aparatología estética",
-    "distribuidora belleza Honduras",
-    "insumos spa",
-    "productos para esteticistas",
-    "Tegucigalpa",
-    "San Pedro Sula",
-  ],
+  keywords: [...site.keywords],
   openGraph: {
     type: "website",
-    locale: "es_HN",
+    locale: site.locale,
     siteName: site.name,
     title: `${site.name} | ${site.tagline}`,
     description: site.description,
-    url: site.url,
+    url: "./",
   },
-  alternates: { canonical: site.url },
+  alternates: { canonical: "./" },
 };
 
 export default function RootLayout({
@@ -53,15 +45,21 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="es"
+      lang="es-NI"
       className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-cream">
+        <a
+          href="#contenido"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-plum focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-cream"
+        >
+          Saltar al contenido
+        </a>
         <JsonLd />
+        <SiteMetrics />
         <SiteHeader />
-        <main className="flex-1">{children}</main>
+        <main id="contenido" className="flex-1">{children}</main>
         <SiteFooter />
-        <WhatsAppFloat />
       </body>
     </html>
   );
