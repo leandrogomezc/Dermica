@@ -9,6 +9,7 @@ export function JsonLd() {
         name: site.name,
         description: site.description,
         url: site.url,
+        logo: `${site.url}/brand/dermica-horizontal-color.svg`,
         email: site.email,
         areaServed: { "@type": "Country", name: site.country },
         knowsLanguage: "es",
@@ -19,7 +20,12 @@ export function JsonLd() {
         url: site.url,
         description: site.description,
         inLanguage: "es-NI",
-        publisher: { "@type": "Organization", name: site.name, url: site.url },
+        publisher: {
+          "@type": "Organization",
+          name: site.name,
+          url: site.url,
+          logo: `${site.url}/brand/dermica-horizontal-color.svg`,
+        },
       },
     ],
   };
