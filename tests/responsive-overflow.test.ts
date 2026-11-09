@@ -15,6 +15,8 @@ const paths = [
   "/quienes-somos",
   "/apertura",
   "/contacto",
+  "/privacidad",
+  "/retirar-marketing",
 ];
 
 test("el texto visible cabe en su caja en móvil, tablet y escritorio", async (t) => {
@@ -74,7 +76,7 @@ function measureOverflow() {
   const outside: string[] = [];
   const seen = new Set<string>();
   for (const el of document.querySelectorAll("h1,h2,h3,p,a,span,li,button,label")) {
-    if (el.closest("[aria-hidden='true']")) continue;
+    if (el.closest("[aria-hidden='true'], .sr-only")) continue;
     if (el.querySelector("*")) continue;
     const text = (el.textContent || "").replace(/\s+/g, " ").trim();
     if (!text) continue;

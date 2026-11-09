@@ -5,7 +5,6 @@ export function JsonLd() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: site.name,
-    legalName: site.legalName,
     description: site.description,
     url: site.url,
     areaServed: { "@type": "Country", name: site.country },

@@ -68,7 +68,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
             <p className="mt-5 text-base leading-relaxed text-ink">{category.detail}</p>
 
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <ButtonLink href={waitlistHref}>Avisame cuando abran</ButtonLink>
+              <ButtonLink href={waitlistHref} metric="cta">Avisame cuando abran</ButtonLink>
               <ButtonLink href="/catalogo" variant="outline">
                 Volver a categorías
               </ButtonLink>

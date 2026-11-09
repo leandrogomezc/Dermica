@@ -21,11 +21,13 @@ const emptyFields: WaitlistFields = {
   city: "",
   phone: "",
   consent: false,
+  marketingConsent: false,
 };
 
 const fieldOrder: WaitlistField[] = [
   "email",
   "consent",
+  "marketingConsent",
   "name",
   "specialty",
   "city",
@@ -46,6 +48,8 @@ export function WaitlistForm() {
   const [message, setMessage] = useState("");
   const [store, setStore] = useState<StoreStatus | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const [withdrawPath, setWithdrawPath] = useState("");
+  const notedStart = useRef(false);
 
   useEffect(() => {
     startedAt.current = Date.now();
@@ -102,6 +106,7 @@ export function WaitlistForm() {
     setStatus("loading");
     setErrors({});
     setMessage("");
+    setWithdrawPath("");
 
     try {
       const response = await fetch("/api/lista-espera", {
@@ -117,6 +122,7 @@ export function WaitlistForm() {
         ok?: boolean;
         message?: string;
         fieldErrors?: FieldErrors;
+        withdrawPath?: string;
       };
       if (!response.ok || body.ok !== true) {
         setStatus("error");
@@ -128,6 +134,7 @@ export function WaitlistForm() {
       }
       setStatus("success");
       setMessage(body.message || "Guardamos tu registro.");
+      setWithdrawPath(typeof body.withdrawPath === "string" ? body.withdrawPath : "");
       setFields(emptyFields);
       statusRef.current?.focus();
     } catch {
@@ -141,6 +148,17 @@ export function WaitlistForm() {
     }
   }
 
+  function noteFormStart() {
+    if (notedStart.current) return;
+    notedStart.current = true;
+    void fetch("/api/medicion", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event: "form_start", path: window.location.pathname }),
+      keepalive: true,
+    }).catch(() => undefined);
+  }
+
   const inputClass =
     "mt-1.5 w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-plum focus-visible:ring-4 focus-visible:ring-plum/15 aria-[invalid=true]:border-plum-700";
 
@@ -148,6 +166,7 @@ export function WaitlistForm() {
     <form
       id={`${formId}-form`}
       onSubmit={onSubmit}
+      onFocus={noteFormStart}
       noValidate
       aria-busy={status === "loading"}
       className="relative space-y-5"
@@ -182,6 +201,16 @@ export function WaitlistForm() {
         }
       >
         {status === "loading" ? "Guardando tu registro…" : message}
+        {status === "success" && withdrawPath ? (
+          <>
+            <span className="mt-2 block">
+              Guardá este enlace. Si lo perdés, hoy no hay otro canal para retirar las novedades.
+            </span>
+            <a href={withdrawPath} className="mt-2 block font-semibold text-plum underline-offset-4 hover:underline">
+              Retirar el consentimiento de novedades
+            </a>
+          </>
+        ) : null}
       </div>
 
       {store ? (
@@ -329,11 +358,45 @@ export function WaitlistForm() {
         ) : null}
       </div>
 
+      <div>
+        <label htmlFor="waitlist-marketing" className="flex items-start gap-3 text-sm text-ink">
+          <input
+            id="waitlist-marketing"
+            name="marketingConsent"
+            type="checkbox"
+            aria-describedby={
+              errors.marketingConsent
+                ? "waitlist-marketing-hint waitlist-marketing-error"
+                : "waitlist-marketing-hint"
+            }
+            aria-invalid={errors.marketingConsent ? true : undefined}
+            checked={fields.marketingConsent}
+            onChange={(event) => update("marketingConsent", event.target.checked)}
+            className="mt-0.5 h-5 w-5 shrink-0 rounded border-line text-plum focus-visible:ring-4 focus-visible:ring-plum/20"
+          />
+          <span>
+            Quiero recibir por correo novedades y comunicaciones de marketing de Dérmica.
+            Puedo retirar mi consentimiento con el enlace que se muestra al guardar, si lo conservo.
+          </span>
+        </label>
+        <p id="waitlist-marketing-hint" className="mt-2 pl-8 text-xs leading-relaxed text-muted">
+          Opcional y desmarcada. No frena el aviso de apertura. Es solo por correo: no autoriza
+          WhatsApp, SMS ni compartir tus datos con terceros.
+        </p>
+        {errors.marketingConsent ? (
+          <p id="waitlist-marketing-error" className="mt-2 pl-8 text-sm text-plum-700">
+            {errors.marketingConsent}
+          </p>
+        ) : null}
+      </div>
+
       <p id="waitlist-privacy" className="text-xs leading-relaxed text-muted">
-        Guardamos el correo y esta aceptación, y, si los escribís, el nombre, la especialidad,
-        la ciudad y el teléfono, junto con la fecha. Sirven solo para el aviso de apertura.
-        No pedimos datos de pacientes ni documentos. No sale un correo ni un WhatsApp
-        automático.
+        Guardamos el correo, la aceptación del aviso y, si la marcás, la de novedades.
+        Si los escribís, también el nombre, la especialidad, la ciudad y el teléfono, con la fecha.
+        No pedimos datos de pacientes ni documentos. No sale un correo ni un WhatsApp automático.{" "}
+        <a href="/privacidad" className="font-semibold text-plum underline-offset-4 hover:underline">
+          Privacidad
+        </a>
       </p>
 
       <button
@@ -403,7 +466,12 @@ function Described({
 function focusField(errors: FieldErrors) {
   const field = fieldOrder.find((key) => errors[key]);
   if (!field) return;
-  const id = field === "consent" ? "waitlist-consent" : `waitlist-${fieldId(field)}`;
+  const id =
+    field === "consent"
+      ? "waitlist-consent"
+      : field === "marketingConsent"
+        ? "waitlist-marketing"
+        : `waitlist-${fieldId(field)}`;
   document.getElementById(id)?.focus();
 }
 
@@ -419,6 +487,8 @@ function fieldId(field: WaitlistField): string {
       return "ciudad";
     case "phone":
       return "telefono";
+    case "marketingConsent":
+      return "marketing";
     case "consent":
       return "consent";
   }

@@ -72,10 +72,10 @@ export default function OpeningPage() {
             ¿Querés que te avisemos?
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-muted">
-            Anotarte no reserva productos. Solo te escribimos cuando abramos.
+            Anotarte no reserva productos. Te escribimos cuando abramos. Si marcás novedades, ese correo es aparte.
           </p>
           <div className="mt-6 flex justify-center">
-            <ButtonLink href={waitlistHref}>Avisame cuando abran</ButtonLink>
+            <ButtonLink href={waitlistHref} metric="cta">Avisame cuando abran</ButtonLink>
           </div>
         </Container>
       </section>

@@ -1,6 +1,5 @@
 export const site = {
   name: "Dérmica",
-  legalName: "Dérmica",
   tagline: "Insumos de medicina estética para médicos en Nicaragua",
   description:
     "Dérmica prepara rellenos de ácido hialurónico, polirrevitalización inyectable y dermocosmética profesional para médicos en Nicaragua. Dejanos tu correo y te avisamos cuando abramos.",
@@ -25,6 +24,7 @@ export const nav = [
   { label: "Categorías", href: "/catalogo" },
   { label: "Quiénes somos", href: "/quienes-somos" },
   { label: "Apertura", href: "/apertura" },
+  { label: "Contacto", href: "/contacto" },
 ] as const;
 
 export const waitlistHref = "/#lista-espera";

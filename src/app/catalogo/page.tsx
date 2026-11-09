@@ -88,7 +88,7 @@ export default async function CatalogPage({
                   Si querés enterarte cuando abramos, dejanos tu correo.
                 </p>
                 <div className="mt-6 flex justify-center">
-                  <ButtonLink href={waitlistHref}>Avisame cuando abran</ButtonLink>
+                  <ButtonLink href={waitlistHref} metric="cta">Avisame cuando abran</ButtonLink>
                 </div>
               </div>
             )}

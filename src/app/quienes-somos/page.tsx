@@ -17,8 +17,8 @@ const values = [
   },
   {
     icon: MailIcon,
-    title: "Tu correo, para un solo fin",
-    text: "Si nos dejás tu correo, lo usamos para avisarte cuando abramos. Nada más.",
+    title: "Tu correo, con un fin claro",
+    text: "El aviso de apertura es el motivo de la lista. Las novedades de marketing son opcionales, solo por correo, y no cambian el alta si no las marcás.",
   },
   {
     icon: CheckIcon,

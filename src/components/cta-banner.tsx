@@ -17,10 +17,10 @@ export function CtaBanner() {
               ¿Ejercés medicina estética? Te avisamos cuando abramos.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-cream/80">
-              Dejanos tu correo: te escribimos una sola vez, cuando abramos en Nicaragua.
+              Dejanos tu correo para el aviso de apertura. Las novedades por correo son opcionales.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <ButtonLink href={waitlistHref}>Avisame cuando abran</ButtonLink>
+              <ButtonLink href={waitlistHref} metric="cta">Avisame cuando abran</ButtonLink>
               <ButtonLink
                 href="/catalogo"
                 variant="outline"

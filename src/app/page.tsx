@@ -21,7 +21,7 @@ const valueProps = [
   {
     icon: MailIcon,
     title: "Un aviso, cuando abramos",
-    text: "Te escribimos una sola vez al correo que nos dejés, cuando abramos en Nicaragua.",
+    text: "Te escribimos al correo cuando abramos. Las novedades de marketing son opcionales y aparte.",
   },
 ];
 

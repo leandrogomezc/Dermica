@@ -5,6 +5,7 @@ export type WaitlistFields = {
   city: string;
   phone: string;
   consent: boolean;
+  marketingConsent: boolean;
 };
 
 export type WaitlistField = keyof WaitlistFields;
@@ -16,7 +17,10 @@ export type NormalizedWaitlist = {
   city: string | null;
   phone: string | null;
   consent: true;
+  marketingConsent: boolean;
 };
+
+export const WAITLIST_MARKETING_VERSION = "marketing-correo-v1";
 
 /** La columna name ya desplegada exige de 2 a 80 caracteres. No se muestra al médico. */
 export const WAITLIST_NAME_WHEN_OMITTED = "Sin nombre";
@@ -77,6 +81,7 @@ export function validateWaitlist(input: WaitlistFields):
       city: city === "empty" ? null : city,
       phone: phone === "empty" ? null : phone,
       consent: true,
+      marketingConsent: input.marketingConsent === true,
     },
   };
 }

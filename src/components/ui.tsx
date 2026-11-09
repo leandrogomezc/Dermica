@@ -75,6 +75,7 @@ export function ButtonLink({
   external,
   className = "",
   onClick,
+  metric,
 }: {
   href: string;
   children: ReactNode;
@@ -83,7 +84,9 @@ export function ButtonLink({
   external?: boolean;
   className?: string;
   onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
+  metric?: "cta";
 }) {
+  const metricProps = metric ? { "data-metric": metric } : {};
   if (external) {
     return (
       <a
@@ -92,13 +95,14 @@ export function ButtonLink({
         rel="noopener noreferrer"
         onClick={onClick}
         className={classes(variant, full, className)}
+        {...metricProps}
       >
         {children}
       </a>
     );
   }
   return (
-    <Link href={href} onClick={onClick} className={classes(variant, full, className)}>
+    <Link href={href} onClick={onClick} className={classes(variant, full, className)} {...metricProps}>
       {children}
     </Link>
   );

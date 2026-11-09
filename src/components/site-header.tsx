@@ -55,7 +55,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden lg:block">
-          <ButtonLink href={waitlistHref} onClick={focusWaitlist}>
+          <ButtonLink href={waitlistHref} onClick={focusWaitlist} metric="cta">
             Avisame cuando abran
           </ButtonLink>
         </div>
@@ -91,7 +91,7 @@ export function SiteHeader() {
               </Link>
             ))}
             <div className="mt-3">
-              <ButtonLink href={waitlistHref} onClick={focusWaitlist} full>
+              <ButtonLink href={waitlistHref} onClick={focusWaitlist} metric="cta" full>
                 Avisame cuando abran
               </ButtonLink>
             </div>

@@ -83,7 +83,7 @@ export function HeroScan() {
           </motion.p>
 
           <motion.div variants={fade} className="mt-7 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
-            <ButtonLink href={waitlistHref}>Avisame cuando abran</ButtonLink>
+            <ButtonLink href={waitlistHref} metric="cta">Avisame cuando abran</ButtonLink>
             <ButtonLink href="/catalogo" variant="outline">
               Ver las categorías
               <ArrowRightIcon className="h-4 w-4" />

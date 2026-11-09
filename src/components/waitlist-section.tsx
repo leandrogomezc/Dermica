@@ -19,7 +19,7 @@ export function WaitlistSection() {
               completá estos datos.
             </p>
             <ul className="mt-6 space-y-3 text-sm leading-relaxed text-ink">
-              <li>Un solo propósito: avisarte de la apertura.</li>
+              <li>El aviso de apertura es el motivo de la lista. Las novedades de marketing son opcionales y por correo.</li>
               <li>Si hoy no podemos guardar la lista, el formulario lo dice y no anota tu correo.</li>
             </ul>
           </div>

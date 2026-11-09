@@ -1,9 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { Client } from "pg";
+import { readMigration } from "../src/lib/migrations.ts";
+import { resetPublicMetricLimit, submitPublicMetric } from "../src/lib/public-metrics.ts";
 import { dermicaWaitlistMigrationSql, closeWaitlistPools, WAITLIST_STORE_ERROR } from "../src/lib/waitlist-postgres.ts";
-import { saveWaitlistEntry } from "../src/lib/waitlist-store.ts";
-import { WAITLIST_NAME_WHEN_OMITTED, type NormalizedWaitlist } from "../src/lib/waitlist-validation.ts";
+import { saveWaitlistEntry, withdrawMarketingConsent } from "../src/lib/waitlist-store.ts";
+import { resetWaitlistRateLimit, submitWaitlist } from "../src/lib/waitlist-request.ts";
+import { WAITLIST_MARKETING_VERSION, WAITLIST_NAME_WHEN_OMITTED, type NormalizedWaitlist } from "../src/lib/waitlist-validation.ts";
 
 const databaseUrl = process.env.DERMICA_TEST_DATABASE_URL?.trim();
 
@@ -40,11 +43,13 @@ test("Postgres local guarda, no duplica y absorbe altas simultáneas", { skip: d
   const omitted = `omitido-${Date.now()}@example.com`;
   try {
     const created = await saveWaitlistEntry(entry(solo), backend);
-    assert.deepEqual(created, { ok: true, status: "created" });
+    assert.equal(created.ok, true);
+    if (created.ok) assert.equal(created.status, "created");
     const again = await saveWaitlistEntry(entry(solo), backend);
     assert.deepEqual(again, { ok: true, status: "duplicate" });
     const withoutName = await saveWaitlistEntry({ ...entry(omitted), name: null }, backend);
-    assert.deepEqual(withoutName, { ok: true, status: "created" });
+    assert.equal(withoutName.ok, true);
+    if (withoutName.ok) assert.equal(withoutName.status, "created");
 
     const results = await Promise.all(
       Array.from({ length: 12 }, () => saveWaitlistEntry(entry(race), backend)),
@@ -103,6 +108,147 @@ test("Postgres local guarda, no duplica y absorbe altas simultáneas", { skip: d
   }
 });
 
+test("Postgres: esquema viejo, marketing, duplicado, baja y conteos", { skip: databaseUrl ? false : "sin DERMICA_TEST_DATABASE_URL" }, async () => {
+  if (!databaseUrl) return;
+  const backend = { kind: "postgres" as const, connectionString: databaseUrl };
+  const legacy = `viejo-${Date.now()}@example.com`;
+  const opted = `opta-${Date.now()}@example.com`;
+  const plain = `plano-${Date.now()}@example.com`;
+  const flow = `flujo-${Date.now()}@example.com`;
+  const previousDatabase = process.env.DATABASE_URL;
+  process.env.DATABASE_URL = databaseUrl;
+  const client = new Client({ connectionString: databaseUrl, ssl: false });
+  await client.connect();
+  try {
+    const column = await client.query(
+      `SELECT 1 FROM information_schema.columns
+       WHERE table_schema = 'public' AND table_name = 'dermica_waitlist' AND column_name = 'marketing_withdrawn_at'`,
+    );
+    if ((column.rowCount ?? 0) === 0) {
+      const blocked = await saveWaitlistEntry({ ...entry(opted), marketingConsent: true }, backend);
+      assert.equal(blocked.ok, false);
+      if (!blocked.ok) assert.equal(blocked.code, "marketing_pending");
+      const absent = await client.query("SELECT 1 FROM dermica_waitlist WHERE email = $1", [opted]);
+      assert.equal(absent.rowCount, 0);
+    }
+
+    const old = await saveWaitlistEntry(entry(legacy), backend);
+    assert.equal(old.ok && old.status, "created");
+
+    await client.query(readMigration("002_dermica_waitlist_marketing.sql"));
+    const legacyRow = await client.query<{ marketing_consent: boolean; marketing_consent_at: Date | null }>(
+      "SELECT marketing_consent, marketing_consent_at FROM dermica_waitlist WHERE email = $1",
+      [legacy],
+    );
+    assert.equal(legacyRow.rows[0]?.marketing_consent, false);
+    assert.equal(legacyRow.rows[0]?.marketing_consent_at, null);
+
+    const flip = await saveWaitlistEntry({ ...entry(legacy), marketingConsent: true }, backend);
+    assert.deepEqual(flip, { ok: true, status: "duplicate" });
+    const still = await client.query<{ marketing_consent: boolean }>(
+      "SELECT marketing_consent FROM dermica_waitlist WHERE email = $1",
+      [legacy],
+    );
+    assert.equal(still.rows[0]?.marketing_consent, false);
+
+    const created = await saveWaitlistEntry({ ...entry(opted), marketingConsent: true }, backend);
+    assert.equal(created.ok && created.status, "created");
+    assert.equal(created.ok && created.status === "created" && Boolean(created.withdrawToken), true);
+    const token = created.ok && created.status === "created" ? created.withdrawToken : null;
+    const optedRow = await client.query<{
+      marketing_consent: boolean;
+      marketing_consent_version: string;
+      marketing_consent_at: Date | null;
+      marketing_withdraw_token_hash: string | null;
+    }>(
+      `SELECT marketing_consent, marketing_consent_version, marketing_consent_at, marketing_withdraw_token_hash
+       FROM dermica_waitlist WHERE email = $1`,
+      [opted],
+    );
+    assert.equal(optedRow.rows[0]?.marketing_consent, true);
+    assert.equal(optedRow.rows[0]?.marketing_consent_version, WAITLIST_MARKETING_VERSION);
+    assert.ok(optedRow.rows[0]?.marketing_consent_at);
+    assert.equal(optedRow.rows[0]?.marketing_withdraw_token_hash?.length, 64);
+
+    const revoke = await saveWaitlistEntry(entry(opted), backend);
+    assert.deepEqual(revoke, { ok: true, status: "duplicate" });
+    const kept = await client.query<{ marketing_consent: boolean }>(
+      "SELECT marketing_consent FROM dermica_waitlist WHERE email = $1",
+      [opted],
+    );
+    assert.equal(kept.rows[0]?.marketing_consent, true);
+
+    const withdrawn = await withdrawMarketingConsent(token || "", backend);
+    assert.deepEqual(withdrawn, { ok: true, status: "withdrawn" });
+    const after = await client.query<{
+      marketing_consent: boolean;
+      consent: boolean;
+      marketing_withdraw_token_hash: string | null;
+      marketing_withdrawn_at: Date | null;
+    }>(
+      `SELECT marketing_consent, consent, marketing_withdraw_token_hash, marketing_withdrawn_at
+       FROM dermica_waitlist WHERE email = $1`,
+      [opted],
+    );
+    assert.equal(after.rows[0]?.marketing_consent, false);
+    assert.equal(after.rows[0]?.consent, true);
+    assert.equal(after.rows[0]?.marketing_withdraw_token_hash, null);
+    assert.ok(after.rows[0]?.marketing_withdrawn_at);
+    const again = await withdrawMarketingConsent(token || "", backend);
+    assert.deepEqual(again, { ok: true, status: "not_found" });
+
+    const regrant = await saveWaitlistEntry({ ...entry(opted), marketingConsent: true }, backend);
+    assert.deepEqual(regrant, { ok: true, status: "duplicate" });
+    const noRegrant = await client.query<{ marketing_consent: boolean }>(
+      "SELECT marketing_consent FROM dermica_waitlist WHERE email = $1",
+      [opted],
+    );
+    assert.equal(noRegrant.rows[0]?.marketing_consent, false);
+
+    const quiet = await saveWaitlistEntry(entry(plain), backend);
+    assert.equal(quiet.ok && quiet.status, "created");
+    if (quiet.ok && quiet.status === "created") assert.equal(quiet.withdrawToken, null);
+
+    await client.query(readMigration("003_dermica_metrics.sql"));
+    resetWaitlistRateLimit();
+    resetPublicMetricLimit();
+    const http = await submitWaitlist(
+      {
+        ...entry(flow),
+        companyWebsite: "",
+        startedAt: 1_000,
+        marketingConsent: false,
+      },
+      { ip: "203.0.113.80", now: 90_000 },
+    );
+    assert.equal(http.status, 201);
+    assert.equal("withdrawPath" in http.body, false);
+    const counts = await client.query<{ event_name: string; result_code: string; count: string }>(
+      `SELECT event_name, result_code, count::text AS count
+       FROM dermica_metrics
+       WHERE event_day = (now() AT TIME ZONE 'utc')::date
+         AND event_name IN ('form_attempt', 'form_result')
+         AND result_code IN ('', 'created')`,
+    );
+    assert.ok(counts.rows.some((row) => row.event_name === "form_attempt" && Number(row.count) >= 1));
+    assert.ok(counts.rows.some((row) => row.result_code === "created" && Number(row.count) >= 1));
+
+    const rejected = await submitPublicMetric(
+      { event: "form_result", path: "/", result: "created", email: "persona@example.com" },
+      { ip: "203.0.113.81", now: 91_000 },
+    );
+    assert.equal(rejected.status, 400);
+  } finally {
+    await client.query("DELETE FROM dermica_waitlist WHERE email = ANY($1::text[])", [
+      [legacy, opted, plain, flow],
+    ]);
+    await client.end();
+    await closeWaitlistPools();
+    if (previousDatabase === undefined) delete process.env.DATABASE_URL;
+    else process.env.DATABASE_URL = previousDatabase;
+  }
+});
+
 function entry(email: string): NormalizedWaitlist {
   return {
     name: "Ana Solís",
@@ -111,5 +257,6 @@ function entry(email: string): NormalizedWaitlist {
     city: "León",
     phone: "+505 8888 0000",
     consent: true,
+    marketingConsent: false,
   };
 }

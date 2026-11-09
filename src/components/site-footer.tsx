@@ -27,8 +27,8 @@ export function SiteFooter() {
               </li>
             ))}
             <li>
-              <Link href="/contacto" className="transition-colors hover:text-cream">
-                Contacto
+              <Link href="/privacidad" className="transition-colors hover:text-cream">
+                Privacidad
               </Link>
             </li>
           </ul>
@@ -61,6 +61,7 @@ export function SiteFooter() {
           </p>
           <Link
             href={waitlistHref}
+            data-metric="cta"
             className="mt-4 inline-flex text-sm font-semibold text-cream underline-offset-4 hover:underline"
           >
             Avisame cuando abran
@@ -71,7 +72,7 @@ export function SiteFooter() {
       <div className="border-t border-cream/10">
         <Container className="flex flex-col items-center justify-between gap-2 py-6 text-xs text-cream/50 sm:flex-row">
           <p>
-            © {new Date().getFullYear()} {site.legalName}. Todos los derechos reservados.
+            © {new Date().getFullYear()} {site.name}.
           </p>
           <p>Próximamente en Nicaragua, para profesionales médicos.</p>
         </Container>

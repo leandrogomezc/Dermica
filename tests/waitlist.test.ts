@@ -18,6 +18,7 @@ const validFields = {
   city: "León",
   phone: "+505 8888 0000",
   consent: true,
+  marketingConsent: false,
 };
 
 function entry(email = "ana.solis@example.com"): NormalizedWaitlist {
@@ -28,6 +29,7 @@ function entry(email = "ana.solis@example.com"): NormalizedWaitlist {
     city: "León",
     phone: "+505 8888 0000",
     consent: true,
+    marketingConsent: false,
   };
 }
 
@@ -84,7 +86,8 @@ test("con SQLite local persiste y no duplica el correo", async () => {
   try {
     const sqlite = { kind: "sqlite" as const, path: file };
     const created = await saveWaitlistEntry(entry("primera@example.com"), sqlite);
-    assert.deepEqual(created, { ok: true, status: "created" });
+    assert.equal(created.ok, true);
+    if (created.ok) assert.equal(created.status, "created");
     const duplicate = await saveWaitlistEntry(entry("primera@example.com"), sqlite);
     assert.deepEqual(duplicate, { ok: true, status: "duplicate" });
 
@@ -103,7 +106,8 @@ test("con SQLite local persiste y no duplica el correo", async () => {
       { ...entry("sin-nombre@example.com"), name: null },
       sqlite,
     );
-    assert.deepEqual(omitted, { ok: true, status: "created" });
+    assert.equal(omitted.ok, true);
+    if (omitted.ok) assert.equal(omitted.status, "created");
     const stored = database.prepare("SELECT name FROM waitlist WHERE email = ?").get(
       "sin-nombre@example.com",
     ) as { name: string };
