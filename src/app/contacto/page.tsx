@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata: Metadata = pageMetadata({
   title: "Contacto",
-  description: "Por ahora, el contacto con Dérmica es la lista de aviso de apertura.",
+  description: "Anotate para enterarte primero de la apertura en marzo de 2027, o escribinos a gerencia@dermica.lat.",
   path: "/contacto",
 });
 
@@ -19,18 +19,18 @@ export default function ContactPage() {
           <div className="max-w-3xl">
             <Eyebrow>Contacto</Eyebrow>
             <h1 className="font-display mt-4 text-4xl font-medium leading-tight text-plum sm:text-5xl">
-              El aviso de apertura es el mensaje que enviaremos
+              Dejanos tu correo y te avisamos cuando abramos
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-muted">
-              No tenemos un teléfono ni una dirección que mostrar. Si querés que te
-              escribamos cuando abramos en Nicaragua, el formulario de abajo es el canal.
-              Las novedades de marketing son una casilla aparte y no incluyen WhatsApp ni SMS.
-              No abre un chat ni un pedido. Para privacidad, acceso, eliminación o retiro de
-              novedades, escribinos a{" "}
+              Si preferís escribirnos directo, el correo es{" "}
               <a href={`mailto:${site.email}`} className="font-semibold text-plum underline-offset-4 hover:underline">
                 {site.email}
               </a>
-              . El detalle está en{" "}
+              . No tenemos un teléfono ni una dirección que mostrar. El formulario de abajo
+              es el canal del aviso de apertura. Las novedades de marketing son una casilla
+              aparte y no incluyen WhatsApp ni SMS. No abre un chat ni un pedido. Para
+              privacidad, acceso, eliminación o retiro de novedades, usá el mismo correo. El
+              detalle está en{" "}
               <Link href="/privacidad" className="font-semibold text-plum underline-offset-4 hover:underline">
                 Privacidad
               </Link>

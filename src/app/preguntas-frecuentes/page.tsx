@@ -8,7 +8,7 @@ import { site } from "@/lib/site";
 export const metadata: Metadata = pageMetadata({
   title: "Preguntas frecuentes",
   description:
-    "Respuestas sobre el prelanzamiento de Dérmica en Nicaragua: a quién va dirigida, las categorías, la lista de espera y cómo pedir el retiro de datos.",
+    "Respuestas sobre la apertura de Dérmica en marzo de 2027, el cupo de 30 médicos fundadores, las categorías y cómo pedir el retiro de datos.",
   path: "/preguntas-frecuentes",
 });
 
@@ -35,7 +35,7 @@ export default function FaqPage() {
         />
         <Eyebrow>Preguntas frecuentes</Eyebrow>
         <h1 className="font-display mt-4 text-4xl font-medium leading-tight text-plum sm:text-5xl">
-          Lo que ya se puede responder
+          Preguntas frecuentes sobre Dérmica
         </h1>
         <p className="mt-6 text-base leading-relaxed text-muted">
           Estas respuestas usan solo lo que el sitio ya dice. {site.name} está en

@@ -10,7 +10,6 @@ export function CatalogFilters() {
   const params = useSearchParams();
 
   const activeCategory = params.get("categoria") ?? "";
-  const query = params.get("q") ?? "";
 
   const update = useCallback(
     (key: string, value: string) => {
@@ -24,24 +23,10 @@ export function CatalogFilters() {
     [params, pathname, router],
   );
 
-  const hasFilters = activeCategory || query;
+  const hasFilters = Boolean(activeCategory);
 
   return (
     <div className="space-y-8">
-      <div>
-        <label htmlFor="catalog-search" className="block text-sm font-semibold text-plum">
-          Buscar categoría
-        </label>
-        <input
-          id="catalog-search"
-          type="search"
-          defaultValue={query}
-          placeholder="Ácido hialurónico, piel…"
-          onChange={(event) => update("q", event.target.value)}
-          className="mt-2 w-full rounded-xl border border-line bg-white px-4 py-3 text-sm text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-plum"
-        />
-      </div>
-
       <div>
         <h2 className="text-sm font-semibold text-plum">Categorías</h2>
         <div className="mt-3 flex flex-col gap-1">

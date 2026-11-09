@@ -60,7 +60,7 @@ export function OfferingCard({ category }: { category: Category }) {
           href={`/catalogo/${category.slug}`}
           className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-plum"
         >
-          Conocer la categoría
+          Ver esta categoría
           <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
         </Link>
       </div>

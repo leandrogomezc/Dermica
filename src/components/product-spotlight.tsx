@@ -14,7 +14,7 @@ export function ProductSpotlight() {
     <section className="border-y border-line bg-white py-20 sm:py-24">
       <Container>
         <SectionHeading
-          eyebrow="Lo que prevemos ofrecer"
+          eyebrow="Categorías en preparación"
           title="Tres categorías para la práctica médica"
           description="Son la oferta que queremos tener lista cuando abramos en Nicaragua, descrita en lenguaje llano."
         />
@@ -55,7 +55,7 @@ export function ProductSpotlight() {
                   href={`/catalogo/${category.slug}`}
                   className="mt-5 inline-flex items-center justify-center gap-2 rounded-full border border-plum/30 px-4 py-2.5 text-sm font-semibold text-plum transition-colors hover:bg-plum hover:text-cream"
                 >
-                  Conocer la categoría
+                  Ver esta categoría
                   <ArrowRightIcon className="h-4 w-4" />
                 </Link>
               </div>

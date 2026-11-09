@@ -2,7 +2,7 @@ export const site = {
   name: "Dérmica",
   tagline: "Insumos de medicina estética para médicos en Nicaragua",
   description:
-    "Dérmica prepara rellenos de ácido hialurónico, polirrevitalización inyectable y dermocosmética profesional para médicos en Nicaragua. Dejanos tu correo y te avisamos cuando abramos.",
+    "En marzo de 2027 Dérmica abre en Nicaragua para médicos. Anotate: hay un cupo de 30 médicos fundadores, con acceso anticipado y precio de apertura.",
   url: "https://dermica.lat",
   email: "gerencia@dermica.lat",
   country: "Nicaragua",
@@ -25,6 +25,7 @@ export const nav = [
   { label: "Categorías", href: "/catalogo" },
   { label: "Quiénes somos", href: "/quienes-somos" },
   { label: "Apertura", href: "/apertura" },
+  { label: "Preguntas", href: "/preguntas-frecuentes" },
   { label: "Contacto", href: "/contacto" },
 ] as const;
 

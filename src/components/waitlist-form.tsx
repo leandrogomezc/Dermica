@@ -225,7 +225,7 @@ export function WaitlistForm() {
         label="Correo"
         required
         error={errors.email}
-        hint="Ahí te vamos a escribir para avisarte de la apertura."
+        hint="Ahí te escribimos primero, antes de marzo de 2027."
       >
         <input
           id="waitlist-email"
@@ -344,12 +344,12 @@ export function WaitlistForm() {
             className="mt-0.5 h-5 w-5 shrink-0 rounded border-line text-plum focus-visible:ring-4 focus-visible:ring-plum/20"
           />
           <span>
-            <span className="font-medium text-plum">Quiero enterarme de la apertura.</span>{" "}
-            Acepto que Dérmica guarde estos datos solo para avisarme cuando abra en Nicaragua.
+            <span className="font-medium text-plum">Quiero enterarme primero.</span>{" "}
+            Acepto que Dérmica guarde estos datos solo para avisarme de la apertura.
           </span>
         </label>
         <p id="waitlist-consent-hint" className="mt-2 pl-8 text-xs leading-relaxed text-muted">
-          La casilla viene desmarcada. No es una suscripción de mercadeo ni autoriza correos o
+          La casilla viene desmarcada. No es una suscripción de marketing ni autoriza correos o
           WhatsApp automáticos.
         </p>
         {errors.consent ? (
@@ -392,9 +392,9 @@ export function WaitlistForm() {
       </div>
 
       <p id="waitlist-privacy" className="text-xs leading-relaxed text-muted">
-        Guardamos el correo, la aceptación del aviso y, si la marcás, la de novedades.
-        Si los escribís, también el nombre, la especialidad, la ciudad y el teléfono, con la fecha.
-        No pedimos datos de pacientes ni documentos. No sale un correo ni un WhatsApp automático.{" "}
+        Guardamos tu correo para avisarte de la apertura. Si los escribís, también el nombre,
+        la especialidad, la ciudad y el teléfono. Las novedades, si las marcás, son aparte y
+        solo por correo. No pedimos datos de pacientes.{" "}
         <a href="/privacidad" className="font-semibold text-plum underline-offset-4 hover:underline">
           Privacidad
         </a>

@@ -2,7 +2,7 @@ export const faq = [
   {
     question: "¿A quién está dirigida Dérmica?",
     answer:
-      "Dérmica prepara insumos de medicina estética para profesionales médicos en Nicaragua. El sitio está pensado para médicos que ya trabajan estética en su consulta, en perfiles como dermatología, medicina estética y cirugía. No es una página para agendar pacientes.",
+      "Dérmica prepara insumos de medicina estética para profesionales médicos en Nicaragua. El sitio está pensado para tu consulta si ya trabajás estética, en perfiles como dermatología, medicina estética y cirugía. No es una página para agendar pacientes.",
   },
   {
     question: "¿Dérmica es una clínica?",
@@ -10,9 +10,14 @@ export const faq = [
       "No. Dérmica no es una clínica. No agenda pacientes ni realiza tratamientos. Si buscás un tratamiento o una cita, no podemos ayudarte desde aquí.",
   },
   {
-    question: "¿Ya se pueden comprar los productos?",
+    question: "¿Cuándo abren?",
     answer:
-      "No. Estamos en prelanzamiento. El sitio sirve para conocer las categorías que preparamos y para dejar el correo del aviso de apertura. Anotarte no reserva productos. Todavía no están definidas la fecha de apertura, la cobertura de envíos, los precios, las sedes ni los canales de atención.",
+      "En marzo de 2027, en Nicaragua. No hay un día publicado. Todavía no están definidos el monto del precio de apertura, la cobertura de envíos, las sedes ni los canales de atención. Anotarte no reserva productos.",
+  },
+  {
+    question: "¿Qué incluye el cupo de 30 médicos fundadores?",
+    answer:
+      "Es un cupo de 30 médicos iniciales. Incluye acceso anticipado y precio de apertura. No publicamos el monto. Anotarte a la lista no te garantiza ese lugar: te avisamos primero, antes de marzo de 2027.",
   },
   {
     question: "¿Qué categorías están preparando?",

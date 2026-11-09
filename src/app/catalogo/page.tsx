@@ -16,31 +16,18 @@ export const metadata: Metadata = pageMetadata({
 
 type SearchParams = Promise<{
   categoria?: string;
-  q?: string;
 }>;
-
-function normalize(text: string) {
-  return text
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-}
 
 export default async function CatalogPage({
   searchParams,
 }: {
   searchParams: SearchParams;
 }) {
-  const { categoria, q } = await searchParams;
+  const { categoria } = await searchParams;
   const activeCategory = categoria ? getCategory(categoria) : undefined;
 
   const filtered = categories.filter((category) => {
     if (categoria && category.slug !== categoria) return false;
-    if (q) {
-      const needle = normalize(q);
-      const haystack = normalize(`${category.name} ${category.shortName} ${category.description}`);
-      if (!haystack.includes(needle)) return false;
-    }
     return true;
   });
 

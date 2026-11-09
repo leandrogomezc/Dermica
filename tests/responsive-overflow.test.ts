@@ -7,7 +7,7 @@ import puppeteer from "puppeteer-core";
 const chrome = "/usr/local/bin/google-chrome";
 const port = 3100 + Math.floor(Math.random() * 500);
 const base = `http://127.0.0.1:${port}`;
-const widths = [320, 360, 375, 390, 414, 768, 1280];
+const widths = [320, 360, 375, 390, 414, 768, 1024, 1280, 1440];
 const paths = [
   "/",
   "/catalogo",

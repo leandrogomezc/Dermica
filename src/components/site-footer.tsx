@@ -10,7 +10,7 @@ export function SiteFooter() {
         <div>
           <span className="font-display text-2xl font-semibold text-cream">Dérmica</span>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-cream/70">
-            Dérmica prepara insumos de medicina estética para profesionales médicos en Nicaragua. Estamos en prelanzamiento.
+            Dérmica prepara insumos de medicina estética para médicos en Nicaragua. Abrimos en marzo de 2027.
           </p>
           <p className="mt-4 text-sm leading-relaxed text-cream/70">
             Privacidad y datos:{" "}
@@ -68,7 +68,7 @@ export function SiteFooter() {
             Apertura
           </h2>
           <p className="mt-4 text-sm leading-relaxed text-cream/70">
-            La lista de espera es el canal para saber cuándo abramos en {site.country}.
+            Anotate y te avisamos primero, antes de marzo de 2027, en {site.country}.
           </p>
           <Link
             href={waitlistHref}

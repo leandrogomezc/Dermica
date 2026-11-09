@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Container, ButtonLink } from "@/components/ui";
 import { ProductPlaceholder } from "@/components/product-card";
 import { categories, getCategory } from "@/lib/data";
-import { categoryGuides } from "@/lib/category-guides";
+import { categoryGuides, categoryLimits } from "@/lib/category-guides";
 import { pageMetadata } from "@/lib/page-metadata";
 import { site, waitlistHref } from "@/lib/site";
 import { CheckIcon, ArrowRightIcon } from "@/components/icons";
@@ -117,6 +117,19 @@ export default async function CategoryPage({ params }: { params: Params }) {
             </div>
           </section>
         ))}
+        <section className="rounded-2xl border border-line bg-cream-200 p-6">
+          <h2 className="font-display text-2xl font-medium text-plum">Qué no promete esta ficha</h2>
+          <ul className="mt-4 space-y-2 text-sm leading-relaxed text-ink">
+            {categoryLimits.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <p className="mt-4 text-sm leading-relaxed text-muted">
+            <Link href="/apertura" className="font-semibold text-plum underline-offset-4 hover:underline">
+              Límites del prelanzamiento
+            </Link>
+          </p>
+        </section>
         </div>
       </Container>
 
