@@ -104,17 +104,17 @@ export function HeroScan() {
           animate="show"
           className="order-3 lg:col-span-4 lg:pl-6"
         >
-          <div className="grid grid-cols-3 gap-4 lg:grid-cols-1 lg:gap-6">
+          <div className="grid grid-cols-1 gap-3 min-[36rem]:grid-cols-3 min-[36rem]:gap-4 lg:grid-cols-1 lg:gap-6">
             {stats.map((stat) => (
               <motion.div
                 key={stat.label}
                 variants={fade}
-                className="rounded-2xl border border-line bg-white/70 p-4 backdrop-blur-sm lg:flex lg:items-center lg:gap-4 lg:border-0 lg:bg-transparent lg:p-0"
+                className="min-w-0 rounded-2xl border border-line bg-white/70 p-4 backdrop-blur-sm lg:flex lg:items-center lg:gap-4 lg:border-0 lg:bg-transparent lg:p-0"
               >
-                <p className="font-display text-3xl font-semibold text-plum lg:text-4xl">
+                <p className="min-w-0 break-words font-display text-3xl font-semibold leading-tight text-plum lg:text-4xl">
                   {stat.value}
                 </p>
-                <p className="mt-1 text-xs leading-snug text-muted lg:mt-0 lg:max-w-[12rem] lg:text-sm">
+                <p className="mt-1 min-w-0 break-words text-xs leading-snug text-muted lg:mt-0 lg:max-w-[12rem] lg:text-sm">
                   {stat.label}
                 </p>
               </motion.div>
