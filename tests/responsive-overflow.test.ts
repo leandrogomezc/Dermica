@@ -5,7 +5,7 @@ import test from "node:test";
 import puppeteer from "puppeteer-core";
 
 const chrome = "/usr/local/bin/google-chrome";
-const port = 3017;
+const port = 3100 + Math.floor(Math.random() * 500);
 const base = `http://127.0.0.1:${port}`;
 const widths = [320, 360, 375, 390, 414, 768, 1280];
 const paths = [
@@ -32,8 +32,13 @@ test("el texto visible cabe en su caja en móvil, tablet y escritorio", async (t
       env: { ...process.env, DATABASE_URL: "", WAITLIST_SQLITE_PATH: "" },
     },
   );
+  let serverExit = false;
+  server.once("exit", () => {
+    serverExit = true;
+  });
   t.after(() => stop(server));
   await waitForServer(base);
+  if (serverExit) throw new Error("el servidor de layout se cerró antes de la prueba");
 
   const browser = await puppeteer.launch({
     executablePath: chrome,

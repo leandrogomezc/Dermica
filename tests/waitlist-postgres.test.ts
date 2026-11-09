@@ -3,7 +3,7 @@ import test from "node:test";
 import { Client } from "pg";
 import { dermicaWaitlistMigrationSql, closeWaitlistPools, WAITLIST_STORE_ERROR } from "../src/lib/waitlist-postgres.ts";
 import { saveWaitlistEntry } from "../src/lib/waitlist-store.ts";
-import type { NormalizedWaitlist } from "../src/lib/waitlist-validation.ts";
+import { WAITLIST_NAME_WHEN_OMITTED, type NormalizedWaitlist } from "../src/lib/waitlist-validation.ts";
 
 const databaseUrl = process.env.DERMICA_TEST_DATABASE_URL?.trim();
 
@@ -37,11 +37,14 @@ test("Postgres local guarda, no duplica y absorbe altas simultáneas", { skip: d
   const backend = { kind: "postgres" as const, connectionString: databaseUrl };
   const solo = `sola-${Date.now()}@example.com`;
   const race = `carrera-${Date.now()}@example.com`;
+  const omitted = `omitido-${Date.now()}@example.com`;
   try {
     const created = await saveWaitlistEntry(entry(solo), backend);
     assert.deepEqual(created, { ok: true, status: "created" });
     const again = await saveWaitlistEntry(entry(solo), backend);
     assert.deepEqual(again, { ok: true, status: "duplicate" });
+    const withoutName = await saveWaitlistEntry({ ...entry(omitted), name: null }, backend);
+    assert.deepEqual(withoutName, { ok: true, status: "created" });
 
     const results = await Promise.all(
       Array.from({ length: 12 }, () => saveWaitlistEntry(entry(race), backend)),
@@ -76,6 +79,11 @@ test("Postgres local guarda, no duplica y absorbe altas simultáneas", { skip: d
       assert.equal(row.rows[0]?.phone, "+505 8888 0000");
       assert.equal(row.rows[0]?.consent, true);
       assert.equal(row.rows[0]?.consent_version, "apertura-nicaragua-v1");
+      const omittedRow = await client.query<{ name: string }>(
+        "SELECT name FROM dermica_waitlist WHERE email = $1",
+        [omitted],
+      );
+      assert.equal(omittedRow.rows[0]?.name, WAITLIST_NAME_WHEN_OMITTED);
       const repeated = await client.query(dermicaWaitlistMigrationSql());
       assert.ok(repeated);
     } finally {
@@ -85,7 +93,9 @@ test("Postgres local guarda, no duplica y absorbe altas simultáneas", { skip: d
     const client = new Client({ connectionString: databaseUrl, ssl: false });
     await client.connect();
     try {
-      await client.query("DELETE FROM dermica_waitlist WHERE email = ANY($1::text[])", [[solo, race]]);
+      await client.query("DELETE FROM dermica_waitlist WHERE email = ANY($1::text[])", [
+        [solo, race, omitted],
+      ]);
     } finally {
       await client.end();
     }

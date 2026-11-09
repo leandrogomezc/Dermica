@@ -21,7 +21,7 @@ export function SiteHeader() {
     setOpen(false);
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     section.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
-    document.getElementById("waitlist-nombre")?.focus({ preventScroll: true });
+    document.getElementById("waitlist-email")?.focus({ preventScroll: true });
     const next = `${pathname}#lista-espera`;
     window.history.replaceState(null, "", next);
   }

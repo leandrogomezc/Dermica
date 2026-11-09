@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const today = [
   "Conocer las tres categorías que estamos preparando.",
-  "Dejarnos tu nombre y correo para recibir el aviso de apertura.",
+  "Dejarnos tu correo para recibir el aviso de apertura.",
 ];
 
 const pending = [

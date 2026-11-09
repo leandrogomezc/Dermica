@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { Pool, type QueryResult } from "pg";
-import type { NormalizedWaitlist } from "./waitlist-validation";
+import { WAITLIST_NAME_WHEN_OMITTED, type NormalizedWaitlist } from "./waitlist-validation";
 
 export const WAITLIST_CONSENT_VERSION = "apertura-nicaragua-v1";
 
@@ -33,7 +33,14 @@ export async function saveWaitlistToPostgres(
          (email, name, specialty, city, phone, consent, consent_version)
        VALUES ($1, $2, $3, $4, $5, TRUE, $6)
        ON CONFLICT (email) DO NOTHING`,
-      [entry.email, entry.name, entry.specialty, entry.city, entry.phone, WAITLIST_CONSENT_VERSION],
+      [
+        entry.email,
+        entry.name ?? WAITLIST_NAME_WHEN_OMITTED,
+        entry.specialty,
+        entry.city,
+        entry.phone,
+        WAITLIST_CONSENT_VERSION,
+      ],
     );
     if (inserted.rowCount === 1) return { ok: true, status: "created" };
     if (inserted.rowCount === 0) return { ok: true, status: "duplicate" };

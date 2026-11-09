@@ -17,7 +17,7 @@ export function CtaBanner() {
               ¿Ejercés medicina estética? Te avisamos cuando abramos.
             </h2>
             <p className="mt-4 text-base leading-relaxed text-cream/80">
-              Dejanos tu nombre y correo: te escribimos una sola vez, cuando abramos en Nicaragua.
+              Dejanos tu correo: te escribimos una sola vez, cuando abramos en Nicaragua.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <ButtonLink href={waitlistHref}>Avisame cuando abran</ButtonLink>

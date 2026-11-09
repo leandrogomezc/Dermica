@@ -117,7 +117,7 @@ export async function submitWaitlist(
         ok: true,
         code: "duplicate",
         message:
-          "Este correo ya está en la lista de espera. No creamos un segundo registro ni enviamos un mensaje.",
+          "Este correo ya está en la lista. No creamos otro registro ni enviamos un mensaje.",
       },
     };
   }

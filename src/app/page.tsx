@@ -73,7 +73,7 @@ export default function HomePage() {
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted">
             Dermatología, medicina estética y cirugía son los perfiles que tenemos en mente.
-            Para anotarte solo pedimos tu nombre y tu correo; el resto es opcional.
+            Para anotarte pedimos tu correo y que marques el aviso. El nombre y lo demás son opcionales.
           </p>
         </Container>
       </section>

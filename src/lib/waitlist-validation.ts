@@ -10,13 +10,16 @@ export type WaitlistFields = {
 export type WaitlistField = keyof WaitlistFields;
 
 export type NormalizedWaitlist = {
-  name: string;
+  name: string | null;
   email: string;
   specialty: string | null;
   city: string | null;
   phone: string | null;
   consent: true;
 };
+
+/** La columna name ya desplegada exige de 2 a 80 caracteres. No se muestra al médico. */
+export const WAITLIST_NAME_WHEN_OMITTED = "Sin nombre";
 
 const NAME_PATTERN = /^[\p{L}][\p{L}\s.'’-]*$/u;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -27,8 +30,8 @@ export function validateWaitlist(input: WaitlistFields):
   const fieldErrors: Partial<Record<WaitlistField, string>> = {};
 
   const name = collapseSpaces(input.name);
-  if (name.length < 2 || name.length > 80 || !NAME_PATTERN.test(name)) {
-    fieldErrors.name = "Escribe tu nombre, entre 2 y 80 letras.";
+  if (name && (name.length < 2 || name.length > 80 || !NAME_PATTERN.test(name))) {
+    fieldErrors.name = "Si dejás un nombre, usá solo letras, entre 2 y 80.";
   }
 
   const email = input.email.trim().toLowerCase();
@@ -38,7 +41,7 @@ export function validateWaitlist(input: WaitlistFields):
     !EMAIL_PATTERN.test(email) ||
     email.includes("..")
   ) {
-    fieldErrors.email = "Escribe un correo válido.";
+    fieldErrors.email = "Escribí un correo válido.";
   }
 
   const specialty = optionalText(input.specialty);
@@ -53,7 +56,7 @@ export function validateWaitlist(input: WaitlistFields):
 
   const phone = normalizePhone(input.phone);
   if (phone === "invalid") {
-    fieldErrors.phone = "Si dejas un teléfono, usa entre 8 y 15 dígitos.";
+    fieldErrors.phone = "Si dejás un teléfono, usá entre 8 y 15 dígitos.";
   }
 
   if (input.consent !== true) {
@@ -68,7 +71,7 @@ export function validateWaitlist(input: WaitlistFields):
   return {
     ok: true,
     value: {
-      name,
+      name: name || null,
       email,
       specialty: specialty === "empty" ? null : specialty,
       city: city === "empty" ? null : city,

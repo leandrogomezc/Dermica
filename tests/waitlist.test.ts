@@ -6,6 +6,7 @@ import test from "node:test";
 import { DatabaseSync } from "node:sqlite";
 import { resolveWaitlistBackend } from "../src/lib/waitlist-backend.ts";
 import { saveWaitlistEntry } from "../src/lib/waitlist-store.ts";
+import { WAITLIST_NAME_WHEN_OMITTED } from "../src/lib/waitlist-validation.ts";
 import { resetWaitlistRateLimit, submitWaitlist } from "../src/lib/waitlist-request.ts";
 import { validateWaitlist } from "../src/lib/waitlist-validation.ts";
 import type { NormalizedWaitlist } from "../src/lib/waitlist-validation.ts";
@@ -30,7 +31,7 @@ function entry(email = "ana.solis@example.com"): NormalizedWaitlist {
   };
 }
 
-test("valida nombre y correo obligatorios, y deja vacíos los opcionales", () => {
+test("el correo y el consentimiento son obligatorios; el nombre puede faltar", () => {
   const missing = validateWaitlist({
     name: " ",
     email: "no-es-correo",
@@ -41,19 +42,23 @@ test("valida nombre y correo obligatorios, y deja vacíos los opcionales", () =>
   });
   assert.equal(missing.ok, false);
   if (!missing.ok) {
-    assert.ok(missing.fieldErrors.name);
+    assert.equal(missing.fieldErrors.name, undefined);
     assert.ok(missing.fieldErrors.email);
     assert.ok(missing.fieldErrors.consent);
     assert.equal(missing.fieldErrors.phone, undefined);
   }
 
-  const accepted = validateWaitlist({ ...validFields, specialty: "", city: "", phone: "" });
+  const accepted = validateWaitlist({ ...validFields, name: "", specialty: "", city: "", phone: "" });
   assert.equal(accepted.ok, true);
   if (accepted.ok) {
     assert.equal(accepted.value.email, "ana.solis@example.com");
+    assert.equal(accepted.value.name, null);
     assert.equal(accepted.value.specialty, null);
     assert.equal(accepted.value.phone, null);
   }
+
+  const badName = validateWaitlist({ ...validFields, name: "A1" });
+  assert.equal(badName.ok, false);
 });
 
 test("rechaza un teléfono incompleto y acepta uno con código de país", () => {
@@ -87,13 +92,23 @@ test("con SQLite local persiste y no duplica el correo", async () => {
     const row = database
       .prepare("SELECT email, name, specialty, city, phone, consent_version FROM waitlist WHERE email = ?")
       .get("primera@example.com") as Record<string, unknown>;
-    database.close();
     assert.equal(row.email, "primera@example.com");
     assert.equal(row.name, "Ana Solís");
     assert.equal(row.specialty, "Dermatología");
     assert.equal(row.city, "León");
     assert.equal(row.phone, "+505 8888 0000");
     assert.equal(row.consent_version, "apertura-nicaragua-v1");
+
+    const omitted = await saveWaitlistEntry(
+      { ...entry("sin-nombre@example.com"), name: null },
+      sqlite,
+    );
+    assert.deepEqual(omitted, { ok: true, status: "created" });
+    const stored = database.prepare("SELECT name FROM waitlist WHERE email = ?").get(
+      "sin-nombre@example.com",
+    ) as { name: string };
+    assert.equal(stored.name, WAITLIST_NAME_WHEN_OMITTED);
+    database.close();
   } finally {
     fs.rmSync(file, { force: true });
   }

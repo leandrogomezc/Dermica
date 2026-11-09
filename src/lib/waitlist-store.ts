@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { resolveWaitlistBackend, type WaitlistBackend } from "./waitlist-backend";
 import { saveWaitlistToPostgres, WAITLIST_CONSENT_VERSION, WAITLIST_STORE_ERROR } from "./waitlist-postgres";
-import type { NormalizedWaitlist } from "./waitlist-validation";
+import { WAITLIST_NAME_WHEN_OMITTED, type NormalizedWaitlist } from "./waitlist-validation";
 
 export const WAITLIST_PUBLIC_UNAVAILABLE =
   "No pudimos anotarte. Esta página todavía no tiene dónde guardar la lista, así que tu correo no quedó registrado. Cuando la lista esté activa, el mismo formulario lo va a decir antes de que envíes.";
@@ -14,7 +14,7 @@ const POSTGRES_NOTE =
   "El registro se guarda en la base de datos de este sitio. No se guarda en tu navegador y no genera un correo ni un WhatsApp automático.";
 
 const UNAVAILABLE_NOTE =
-  "Esta página todavía no puede guardar la lista. Si envías el formulario, tu correo no queda registrado.";
+  "Esta página todavía no puede guardar la lista. Si enviás el formulario, tu correo no queda registrado.";
 
 export type WaitlistStoreInfo = {
   configured: boolean;
@@ -73,7 +73,7 @@ async function saveSqlite(entry: NormalizedWaitlist, sqlitePath: string): Promis
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
     ).run(
       entry.email,
-      entry.name,
+      entry.name ?? WAITLIST_NAME_WHEN_OMITTED,
       entry.specialty,
       entry.city,
       entry.phone,

@@ -24,13 +24,15 @@ const emptyFields: WaitlistFields = {
 };
 
 const fieldOrder: WaitlistField[] = [
-  "name",
   "email",
+  "consent",
+  "name",
   "specialty",
   "city",
   "phone",
-  "consent",
 ];
+
+const optionalFields: WaitlistField[] = ["name", "specialty", "city", "phone"];
 
 export function WaitlistForm() {
   const formId = useId();
@@ -43,6 +45,7 @@ export function WaitlistForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [store, setStore] = useState<StoreStatus | null>(null);
+  const [detailsOpen, setDetailsOpen] = useState(false);
 
   useEffect(() => {
     startedAt.current = Date.now();
@@ -58,7 +61,7 @@ export function WaitlistForm() {
         setStore({
           configured: false,
           storageNote:
-            "No pudimos confirmar si la lista puede guardar registros. Si envías el formulario y no ves una confirmación, el correo no quedó anotado.",
+            "No pudimos confirmar si la lista puede guardar registros. Si enviás el formulario y no ves una confirmación, el correo no quedó anotado.",
         });
       });
     return () => controller.abort();
@@ -66,11 +69,17 @@ export function WaitlistForm() {
 
   useEffect(() => {
     if (window.location.hash !== "#lista-espera") return;
-    document.getElementById("waitlist-nombre")?.focus();
+    document.getElementById("waitlist-email")?.focus();
   }, []);
 
   function update<K extends WaitlistField>(key: K, value: WaitlistFields[K]) {
     setFields((current) => ({ ...current, [key]: value }));
+    setErrors((current) => {
+      if (!current[key]) return current;
+      const next = { ...current };
+      delete next[key];
+      return next;
+    });
   }
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -82,7 +91,10 @@ export function WaitlistForm() {
       setErrors(validated.fieldErrors);
       setStatus("error");
       setMessage("Revisá los campos marcados. Todavía no enviamos el formulario.");
-      focusField(validated.fieldErrors);
+      if (optionalFields.some((field) => validated.fieldErrors[field])) {
+        setDetailsOpen(true);
+      }
+      window.setTimeout(() => focusField(validated.fieldErrors), 0);
       return;
     }
 
@@ -179,27 +191,6 @@ export function WaitlistForm() {
       )}
 
       <Field
-        id="waitlist-nombre"
-        label="Nombre"
-        required
-        error={errors.name}
-        hint="Nombre y apellido, como querés que te identifiquemos."
-      >
-        <input
-          id="waitlist-nombre"
-          name="name"
-          type="text"
-          autoComplete="name"
-          required
-          aria-required="true"
-          aria-invalid={errors.name ? true : undefined}
-          value={fields.name}
-          onChange={(event) => update("name", event.target.value)}
-          className={inputClass}
-        />
-      </Field>
-
-      <Field
         id="waitlist-email"
         label="Correo"
         required
@@ -221,61 +212,88 @@ export function WaitlistForm() {
         />
       </Field>
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        <Field
-          id="waitlist-especialidad"
-          label="Especialidad"
-          error={errors.specialty}
-          hint="Opcional. Por ejemplo, dermatología. No escribás datos de pacientes."
-        >
-          <input
-            id="waitlist-especialidad"
-            name="specialty"
-            type="text"
-            autoComplete="off"
-            aria-invalid={errors.specialty ? true : undefined}
-            value={fields.specialty}
-            onChange={(event) => update("specialty", event.target.value)}
-            className={inputClass}
-          />
-        </Field>
-        <Field
-          id="waitlist-ciudad"
-          label="Ciudad"
-          error={errors.city}
-          hint="Opcional. La ciudad de Nicaragua donde ejercés."
-        >
-          <input
-            id="waitlist-ciudad"
-            name="city"
-            type="text"
-            autoComplete="address-level2"
-            aria-invalid={errors.city ? true : undefined}
-            value={fields.city}
-            onChange={(event) => update("city", event.target.value)}
-            className={inputClass}
-          />
-        </Field>
-      </div>
-
-      <Field
-        id="waitlist-telefono"
-        label="Teléfono"
-        error={errors.phone}
-        hint="Opcional. Solo para el aviso de apertura."
+      <details
+        className="rounded-xl border border-line px-4 py-3"
+        open={detailsOpen}
+        onToggle={(event) => setDetailsOpen(event.currentTarget.open)}
       >
-        <input
-          id="waitlist-telefono"
-          name="phone"
-          type="tel"
-          autoComplete="tel"
-          inputMode="tel"
-          aria-invalid={errors.phone ? true : undefined}
-          value={fields.phone}
-          onChange={(event) => update("phone", event.target.value)}
-          className={inputClass}
-        />
-      </Field>
+        <summary className="cursor-pointer text-sm font-medium text-plum">
+          Agregar nombre, ciudad o teléfono (opcional)
+        </summary>
+        <div className="mt-4 space-y-5">
+          <Field
+            id="waitlist-nombre"
+            label="Nombre"
+            error={errors.name}
+            hint="Opcional. Nombre y apellido, como querés que te identifiquemos."
+          >
+            <input
+              id="waitlist-nombre"
+              name="name"
+              type="text"
+              autoComplete="name"
+              aria-invalid={errors.name ? true : undefined}
+              value={fields.name}
+              onChange={(event) => update("name", event.target.value)}
+              className={inputClass}
+            />
+          </Field>
+          <div className="grid gap-5 sm:grid-cols-2">
+            <Field
+              id="waitlist-especialidad"
+              label="Especialidad"
+              error={errors.specialty}
+              hint="Opcional. Por ejemplo, dermatología. No escribás datos de pacientes."
+            >
+              <input
+                id="waitlist-especialidad"
+                name="specialty"
+                type="text"
+                autoComplete="off"
+                aria-invalid={errors.specialty ? true : undefined}
+                value={fields.specialty}
+                onChange={(event) => update("specialty", event.target.value)}
+                className={inputClass}
+              />
+            </Field>
+            <Field
+              id="waitlist-ciudad"
+              label="Ciudad"
+              error={errors.city}
+              hint="Opcional. La ciudad de Nicaragua donde ejercés."
+            >
+              <input
+                id="waitlist-ciudad"
+                name="city"
+                type="text"
+                autoComplete="address-level2"
+                aria-invalid={errors.city ? true : undefined}
+                value={fields.city}
+                onChange={(event) => update("city", event.target.value)}
+                className={inputClass}
+              />
+            </Field>
+          </div>
+          <Field
+            id="waitlist-telefono"
+            label="Teléfono"
+            error={errors.phone}
+            hint="Opcional. Solo para el aviso de apertura."
+          >
+            <input
+              id="waitlist-telefono"
+              name="phone"
+              type="tel"
+              autoComplete="tel"
+              inputMode="tel"
+              aria-invalid={errors.phone ? true : undefined}
+              value={fields.phone}
+              onChange={(event) => update("phone", event.target.value)}
+              className={inputClass}
+            />
+          </Field>
+        </div>
+      </details>
 
       <div>
         <label htmlFor="waitlist-consent" className="flex items-start gap-3 text-sm text-ink">
@@ -312,11 +330,10 @@ export function WaitlistForm() {
       </div>
 
       <p id="waitlist-privacy" className="text-xs leading-relaxed text-muted">
-        Guardamos el nombre, el correo y, si los escribís, la especialidad, la ciudad y el
-        teléfono, junto con la fecha y esta aceptación. No pedimos datos de pacientes ni
-        documentos profesionales. El dato permanece hasta el aviso de apertura. Hoy no
-        publicamos teléfono ni dirección: cuando exista un canal de contacto, el aviso dirá
-        cómo pedir que retiremos tu correo.
+        Guardamos el correo y esta aceptación, y, si los escribís, el nombre, la especialidad,
+        la ciudad y el teléfono, junto con la fecha. Sirven solo para el aviso de apertura.
+        No pedimos datos de pacientes ni documentos. No sale un correo ni un WhatsApp
+        automático.
       </p>
 
       <button
