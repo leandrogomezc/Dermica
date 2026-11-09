@@ -57,18 +57,18 @@ export function HeroScan() {
         <span className="absolute -left-20 bottom-0 h-80 w-80 rounded-full bg-gold/10 blur-3xl" />
       </div>
 
-      <Container className="relative grid items-center gap-10 py-12 lg:grid-cols-12 lg:gap-6 lg:py-20">
+      <Container className="relative grid items-center gap-8 py-8 sm:gap-10 sm:py-12 lg:grid-cols-12 lg:gap-6 lg:py-20">
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="order-2 min-w-0 lg:order-1 lg:col-span-4"
+          className="order-1 min-w-0 lg:col-span-4"
         >
           <motion.div variants={fade}>
             <TrustBadge />
           </motion.div>
 
-          <h1 className="font-display mt-5 max-w-full text-4xl font-medium leading-[1.05] text-plum sm:text-5xl">
+          <h1 className="font-display mt-4 max-w-full text-3xl font-medium leading-[1.05] text-plum sm:mt-5 sm:text-5xl">
             {headline.map((wordText, index) => (
               <motion.span key={`${wordText}-${index}`} variants={word} className="mr-[0.25em] inline-block!">
                 {wordText}
@@ -82,10 +82,10 @@ export function HeroScan() {
             Dejanos tu correo y te avisamos cuando abramos.
           </motion.p>
 
-          <motion.div variants={fade} className="mt-7 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
+          <motion.div variants={fade} className="mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row lg:flex-col xl:flex-row">
             <ButtonLink href={waitlistHref} metric="cta">Avisame cuando abran</ButtonLink>
             <ButtonLink href="/catalogo" variant="outline">
-              Ver las categorías
+              Ver categorías
               <ArrowRightIcon className="h-4 w-4" />
             </ButtonLink>
           </motion.div>
@@ -94,7 +94,7 @@ export function HeroScan() {
           </motion.p>
         </motion.div>
 
-        <div className="order-1 min-w-0 lg:order-2 lg:col-span-4">
+        <div className="order-2 min-w-0 lg:order-2 lg:col-span-4">
           <FaceScan reduce={!!reduce} />
         </div>
 
@@ -128,8 +128,8 @@ export function HeroScan() {
 
 function FaceScan({ reduce }: { reduce: boolean }) {
   return (
-    <div className="mx-auto w-full max-w-sm">
-      <div className="relative aspect-[3/4] w-full">
+    <div className="mx-auto w-full max-w-[220px] sm:max-w-sm">
+      <div className="relative aspect-[4/5] w-full sm:aspect-[3/4]">
         <div className="relative h-full w-full overflow-hidden rounded-[2rem]">
           <Image
             src="/hero-rostro.webp"
@@ -148,19 +148,6 @@ function FaceScan({ reduce }: { reduce: boolean }) {
           <ScanBox key={item.slug} item={item} index={index} reduce={reduce} />
         ))}
       </div>
-      <ul className="mt-4 space-y-2 sm:hidden">
-        {focusPoints.map((item) => (
-          <li key={item.slug}>
-            <Link
-              href={`/catalogo/${item.slug}`}
-              className="flex items-center justify-between rounded-xl border border-line bg-white px-4 py-3 text-sm"
-            >
-              <span className="font-medium text-plum">{item.label}</span>
-              <span className="text-muted">{item.note}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
       <p className="mt-3 text-center text-xs text-muted">Imagen ilustrativa.</p>
     </div>
   );

@@ -35,7 +35,7 @@ export default function FaqPage() {
         />
         <Eyebrow>Preguntas frecuentes</Eyebrow>
         <h1 className="font-display mt-4 text-4xl font-medium leading-tight text-plum sm:text-5xl">
-          Lo que ya se puede responder
+          Preguntas frecuentes sobre Dérmica
         </h1>
         <p className="mt-6 text-base leading-relaxed text-muted">
           Estas respuestas usan solo lo que el sitio ya dice. {site.name} está en

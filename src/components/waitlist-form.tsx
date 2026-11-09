@@ -349,7 +349,7 @@ export function WaitlistForm() {
           </span>
         </label>
         <p id="waitlist-consent-hint" className="mt-2 pl-8 text-xs leading-relaxed text-muted">
-          La casilla viene desmarcada. No es una suscripción de mercadeo ni autoriza correos o
+          La casilla viene desmarcada. No es una suscripción de marketing ni autoriza correos o
           WhatsApp automáticos.
         </p>
         {errors.consent ? (

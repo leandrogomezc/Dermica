@@ -12,7 +12,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 const today = [
-  "Conocer las tres categorías que estamos preparando.",
+  "Ver las tres categorías que estamos preparando.",
   "Dejarnos tu correo para recibir el aviso de apertura.",
 ];
 

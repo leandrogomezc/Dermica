@@ -25,6 +25,7 @@ export const nav = [
   { label: "Categorías", href: "/catalogo" },
   { label: "Quiénes somos", href: "/quienes-somos" },
   { label: "Apertura", href: "/apertura" },
+  { label: "Preguntas", href: "/preguntas-frecuentes" },
   { label: "Contacto", href: "/contacto" },
 ] as const;
 

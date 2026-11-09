@@ -2,7 +2,7 @@ export const faq = [
   {
     question: "¿A quién está dirigida Dérmica?",
     answer:
-      "Dérmica prepara insumos de medicina estética para profesionales médicos en Nicaragua. El sitio está pensado para médicos que ya trabajan estética en su consulta, en perfiles como dermatología, medicina estética y cirugía. No es una página para agendar pacientes.",
+      "Dérmica prepara insumos de medicina estética para profesionales médicos en Nicaragua. El sitio está pensado para tu consulta si ya trabajás estética, en perfiles como dermatología, medicina estética y cirugía. No es una página para agendar pacientes.",
   },
   {
     question: "¿Dérmica es una clínica?",

@@ -65,7 +65,7 @@ export function validateWaitlist(input: WaitlistFields):
 
   if (input.consent !== true) {
     fieldErrors.consent =
-      "Marca la casilla si querés recibir el aviso de apertura. Sin esa aceptación no guardamos el registro.";
+      "Marcá la casilla si querés recibir el aviso de apertura. Sin esa aceptación no guardamos el registro.";
   }
 
   if (Object.keys(fieldErrors).length > 0) {

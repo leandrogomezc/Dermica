@@ -17,11 +17,11 @@ export const categories: Category[] = [
     description:
       "Geles de ácido hialurónico de uso profesional para médicos que ya trabajan este procedimiento.",
     detail:
-      "Estamos preparando esta categoría para médicos que realizan rellenos con ácido hialurónico en su consulta. El criterio de indicación y aplicación es siempre del profesional.",
+      "Estamos preparando esta categoría para tu consulta si ya realizás rellenos con ácido hialurónico. La indicación y la aplicación las decidís vos.",
     points: [
       "Uso profesional en consulta médica.",
-      "Para quienes ya realizan este procedimiento.",
-      "Indicación y técnica a cargo del médico.",
+      "Si ya realizás este procedimiento.",
+      "La indicación y la técnica las decidís vos.",
     ],
     icon: "drop",
     tone: "plum",
@@ -31,13 +31,13 @@ export const categories: Category[] = [
     name: "Revitalización inyectable",
     shortName: "Polirrevitalización",
     description:
-      "Soluciones inyectables para protocolos de calidad de la piel definidos por el médico.",
+      "Soluciones inyectables para protocolos de calidad de la piel que definís vos.",
     detail:
-      "También llamada polirrevitalización, esta categoría se orienta a la calidad de la piel. La fórmula, la zona y el paciente los decide quien ejerce; nosotros preparamos la categoría para esa consulta.",
+      "También llamada polirrevitalización, esta categoría se orienta a la calidad de la piel. La fórmula, la zona y el paciente los decidís vos; nosotros preparamos la categoría para tu consulta.",
     points: [
       "Soluciones inyectables de polirrevitalización.",
       "Orientadas a la calidad de la piel.",
-      "Protocolo definido por el profesional.",
+      "El protocolo lo definís vos.",
     ],
     icon: "sparkle",
     tone: "blush",
@@ -49,11 +49,11 @@ export const categories: Category[] = [
     description:
       "Dermocosmética de uso profesional para acompañar la práctica médica.",
     detail:
-      "Estamos preparando dermocosmética de uso profesional para acompañar la consulta. Complementa los protocolos del médico, y la recomendación queda a su criterio.",
+      "Estamos preparando dermocosmética de uso profesional para acompañar tu consulta. Complementa tus protocolos, y la recomendación queda a tu criterio.",
     points: [
       "Línea de uso profesional.",
       "Para complementar los protocolos de consulta.",
-      "Recomendación a criterio del médico.",
+      "La recomendación queda a tu criterio.",
     ],
     icon: "leaf",
     tone: "gold",

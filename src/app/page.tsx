@@ -1,7 +1,6 @@
 import { Container, SectionHeading } from "@/components/ui";
 import { CategoryCard } from "@/components/category-card";
 import { HeroScan } from "@/components/hero-scan";
-import { ProductSpotlight } from "@/components/product-spotlight";
 import { CtaBanner } from "@/components/cta-banner";
 import { WaitlistSection } from "@/components/waitlist-section";
 import { categories } from "@/lib/data";
@@ -55,8 +54,6 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <ProductSpotlight />
-
       <section className="py-20 sm:py-24">
         <Container>
           <SectionHeading
@@ -78,7 +75,7 @@ export default function HomePage() {
             Para quién es Dérmica
           </p>
           <h2 className="font-display mt-3 text-3xl font-medium text-plum">
-            Para médicos que trabajan estética en su consulta
+            Si trabajás estética en tu consulta
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted">
             Dermatología, medicina estética y cirugía son los perfiles que tenemos en mente.
