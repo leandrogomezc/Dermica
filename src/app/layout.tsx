@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteMetrics } from "@/components/site-metrics";
 import { JsonLd } from "@/components/json-ld";
+import { searchEngineVerification } from "@/lib/search-verification";
 import { site } from "@/lib/site";
 
 const inter = Inter({
@@ -18,6 +19,8 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
   display: "swap",
 });
+
+const verification = searchEngineVerification();
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -44,6 +47,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     images: ["/og.png"],
   },
+  ...(verification ? { verification } : {}),
 };
 
 export default function RootLayout({
