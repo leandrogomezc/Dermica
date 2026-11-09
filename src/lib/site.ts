@@ -3,7 +3,8 @@ export const site = {
   tagline: "Insumos de medicina estética para médicos en Nicaragua",
   description:
     "Dérmica prepara rellenos de ácido hialurónico, polirrevitalización inyectable y dermocosmética profesional para médicos en Nicaragua. Dejanos tu correo y te avisamos cuando abramos.",
-  url: "https://dermica-tawny.vercel.app",
+  url: "https://dermica.lat",
+  email: "gerencia@dermica.lat",
   country: "Nicaragua",
   locale: "es_NI",
   keywords: [

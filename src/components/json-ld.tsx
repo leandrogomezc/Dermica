@@ -7,6 +7,7 @@ export function JsonLd() {
     name: site.name,
     description: site.description,
     url: site.url,
+    email: site.email,
     areaServed: { "@type": "Country", name: site.country },
     knowsLanguage: "es",
   };

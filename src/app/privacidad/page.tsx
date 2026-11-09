@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Container, Eyebrow } from "@/components/ui";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Privacidad",
@@ -19,8 +20,8 @@ export default function PrivacyPage() {
         <div className="mt-8 space-y-5 text-base leading-relaxed text-ink">
           <p>
             Dérmica está en prelanzamiento en Nicaragua. Esta página describe el formulario
-            del sitio. No publica un responsable legal ni un correo de privacidad: esos datos
-            todavía no están definidos, y no los inventamos.
+            del sitio. Dérmica es quien trata estos datos. Todavía no publicamos una razón
+            social, una dirección ni un RUC.
           </p>
           <p>
             Para el aviso de apertura pedimos el correo y una casilla que viene desmarcada.
@@ -35,7 +36,11 @@ export default function PrivacyPage() {
           </p>
           <p>
             Si la marcás y el registro se guarda, la página te muestra un enlace para retirar
-            ese consentimiento. Conservalo. Si lo perdés, hoy no hay otro canal para retirarlo.
+            ese consentimiento. Conservalo. Si lo perdés, escribinos a{" "}
+            <a href={`mailto:${site.email}`} className="font-semibold text-plum underline-offset-4 hover:underline">
+              {site.email}
+            </a>
+            . Ese mismo correo sirve para pedir acceso, corrección o eliminación de tus datos.
             Volver a enviar el formulario no cambia la preferencia de un correo que ya está
             en la lista: no podemos comprobar que seas vos.
           </p>
@@ -46,8 +51,12 @@ export default function PrivacyPage() {
             No hay un listado público de esos conteos.
           </p>
           <p>
-            Esto no es un dictamen de cumplimiento legal. Cuando exista un canal de contacto,
-            el aviso va a decir cómo pedir el retiro del correo de apertura.
+            Esto no es un dictamen de cumplimiento legal. Para el aviso de apertura, el acceso
+            o la eliminación, el canal es{" "}
+            <a href={`mailto:${site.email}`} className="font-semibold text-plum underline-offset-4 hover:underline">
+              {site.email}
+            </a>
+            .
           </p>
           <p>
             <Link href="/contacto" className="font-semibold text-plum underline-offset-4 hover:underline">

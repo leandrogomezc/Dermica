@@ -1,6 +1,7 @@
 "use client";
 
 import { cloneElement, useEffect, useId, useRef, useState, type FormEvent, type ReactElement } from "react";
+import { site } from "@/lib/site";
 import {
   validateWaitlist,
   type WaitlistField,
@@ -204,7 +205,7 @@ export function WaitlistForm() {
         {status === "success" && withdrawPath ? (
           <>
             <span className="mt-2 block">
-              Guardá este enlace. Si lo perdés, hoy no hay otro canal para retirar las novedades.
+              Guardá este enlace. Si lo perdés, pedí el retiro de las novedades a {site.email}.
             </span>
             <a href={withdrawPath} className="mt-2 block font-semibold text-plum underline-offset-4 hover:underline">
               Retirar el consentimiento de novedades
@@ -376,7 +377,7 @@ export function WaitlistForm() {
           />
           <span>
             Quiero recibir por correo novedades y comunicaciones de marketing de Dérmica.
-            Puedo retirar mi consentimiento con el enlace que se muestra al guardar, si lo conservo.
+            Puedo retirar mi consentimiento con el enlace que se muestra al guardar o escribiendo a {site.email}.
           </span>
         </label>
         <p id="waitlist-marketing-hint" className="mt-2 pl-8 text-xs leading-relaxed text-muted">

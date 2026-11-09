@@ -12,6 +12,12 @@ export function SiteFooter() {
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-cream/70">
             Dérmica prepara insumos de medicina estética para profesionales médicos en Nicaragua. Estamos en prelanzamiento.
           </p>
+          <p className="mt-4 text-sm leading-relaxed text-cream/70">
+            Privacidad y datos:{" "}
+            <a href={`mailto:${site.email}`} className="text-cream underline-offset-4 hover:underline">
+              {site.email}
+            </a>
+          </p>
         </div>
 
         <div>
